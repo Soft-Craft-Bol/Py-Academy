@@ -4,7 +4,7 @@ Este proyecto combina **React** para el frontend y **Spring Boot** para el backe
 
 ---
 
-## 🧰 Requisitos Previos
+## Requisitos Previos
 
 Asegúrate de tener instalado lo siguiente:
 
@@ -19,7 +19,7 @@ Asegúrate de tener instalado lo siguiente:
 
 ---
 
-## 📦 Instalación
+## Instalación
 
 ### 1. Clonar el repositorio
 
@@ -27,7 +27,7 @@ Asegúrate de tener instalado lo siguiente:
 git clone git@github.com:Soft-Craft-Bol/Py-Academy.git
 cd tu-repo
 ```
-## 🚀 Crear y Ejecutar Spring Boot (Backend)
+## Crear y Ejecutar Spring Boot (Backend)
 
 ### 1. Crear proyecto Spring Boot con Spring Initializr
 
@@ -51,7 +51,7 @@ cd backend
 ./mvnw spring-boot:run
 ```
 
-## 🚀 Crear y Ejecutar React con Vite (Frontend)
+## Crear y Ejecutar React con Vite (Frontend)
 1. Crear proyecto React con Vite
 ```bash
 npm create vite@latest frontend -- --template react
