@@ -49,3 +49,27 @@ Haz clic en **"Generate"** y descomprime el archivo.
 ```bash
 cd backend
 ./mvnw spring-boot:run
+```
+
+🚀 Crear y Ejecutar React con Vite (Frontend)
+1. Crear proyecto React con Vite
+```bash
+npm create vite@latest frontend -- --template react
+```
+
+
+2. Ingresar al directorio del proyecto
+```bash
+cd frontend
+```
+
+3. Instalar dependencias
+```bash
+npm install
+```
+
+4. Ejecutar aplicación React
+```bash
+npm run dev
+La aplicación estará disponible en: http://localhost:5173
+```
