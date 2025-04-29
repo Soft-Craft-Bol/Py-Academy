@@ -51,7 +51,7 @@ cd backend
 ./mvnw spring-boot:run
 ```
 
-🚀 Crear y Ejecutar React con Vite (Frontend)
+## 🚀 Crear y Ejecutar React con Vite (Frontend)
 1. Crear proyecto React con Vite
 ```bash
 npm create vite@latest frontend -- --template react
