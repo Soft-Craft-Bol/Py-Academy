@@ -25,7 +25,7 @@ Asegúrate de tener instalado lo siguiente:
 
 ```bash
 git clone git@github.com:Soft-Craft-Bol/Py-Academy.git
-cd tu-repo
+cd Py-Academy
 ```
 ## Crear y Ejecutar Spring Boot (Backend)
 
