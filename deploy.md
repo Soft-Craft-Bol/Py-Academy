@@ -37,8 +37,8 @@ Opción rápida desde la web:
 - Configuración recomendada:
   - Project: Maven
   - Language: Java
-  - Spring Boot: 3.x.x
-  - Group: `com.ejemplo`
+  - Spring Boot: 3.1
+  - Group: `com.PyAcademy`
   - Artifact: `backend`
   - Dependencies: `Spring Web`, `Spring Boot DevTools`, `Spring Data JPA`, `H2 Database`
 
