@@ -178,7 +178,7 @@ Esta arquitectura ofrece escalabilidad, mantenibilidad y claridad en el código,
 
 ---
 
-# 📘 Backend README — Plataforma Educativa Interactiva
+# 📘 Documentación de Arquitectura Frontend Backend
 
 ## 🔧 Tecnologías
 
