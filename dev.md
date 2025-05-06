@@ -173,3 +173,124 @@ export function AppProviders({ children }) {
 5. **Manejo de errores** unificado en toda la app
 
 Esta arquitectura ofrece escalabilidad, mantenibilidad y claridad en el código, aprovechando Context API para estado global y React Query para gestión eficiente de datos asíncronos.
+
+
+
+## 📐 Arquitectura Hexagonal (aplicada en ambos frameworks)
+
+---
+
+# 📘 Backend README — Plataforma Educativa Interactiva
+
+## 🔧 Tecnologías
+
+* ⚙️ Java 17 + Spring Boot 3 (Java modules)
+* 🐍 Python 3.11 + FastAPI
+* 🧱 PostgreSQL
+* 📦 Docker + Docker Compose
+* ✏️ Arquitectura: **Hexagonal (Ports & Adapters)**
+
+---
+
+---
+
+## 📁 Estructura de Carpetas por Módulos (multi-módulo limpio)
+
+```
+/backend/
+├── common/                    # Clases utilitarias compartidas
+├── inscripciones/             # Módulo de inscripciones
+│   ├── application/           # Casos de uso
+│   ├── domain/                # Entidades, interfaces (puertos)
+│   ├── infrastructure/        # Adaptadores: DB, APIs externas
+│   └── interfaces/            # Controladores REST (Spring / FastAPI)
+├── chatbot/
+│   ├── application/
+│   ├── domain/
+│   ├── infrastructure/
+│   └── interfaces/
+├── evaluaciones/
+│   ├── application/
+│   ├── domain/
+│   ├── infrastructure/
+│   └── interfaces/
+├── simuladores/
+│   ├── ...
+├── build.gradle / pom.xml
+└── docker-compose.yml
+```
+
+---
+
+## ✨ Estándares de Codificación
+
+### 🔡 Variables y Archivos
+
+| Tipo              | Convención                   | Ejemplo                 |
+| ----------------- | ---------------------------- | ----------------------- |
+| Clases Java       | `PascalCase`                 | `PracticaService`       |
+| Interfaces        | `IPrefijo` o uso sin prefijo | `PruebaRepository`      |
+| Métodos/funciones | `camelCase`                  | `calcularResultado()`   |
+| Variables         | `camelCase`                  | `codigoEstudiante`      |
+| Archivos Python   | `snake_case.py`              | `correccion_service.py` |
+
+---
+
+### 🌐 Endpoints REST
+
+| Recurso            | Método | Endpoint                       | Acción                         |
+| ------------------ | ------ | ------------------------------ | ------------------------------ |
+| Prácticas          | `GET`  | `/api/practicas`               | Listar prácticas               |
+|                    | `POST` | `/api/practicas/{id}/corregir` | Corregir código enviado        |
+| Chatbot            | `POST` | `/api/chatbot/preguntar`       | Enviar pregunta al chatbot     |
+|                    | `GET`  | `/api/chatbot/historial`       | Historial de conversación      |
+| Material educativo | `POST` | `/api/materiales/subir`        | Subir PDF, video, presentación |
+
+---
+
+### 🧱 Buenas prácticas
+
+#### Spring Boot
+
+* Cada módulo es un paquete con estructura hexagonal interna
+* Usa `@Service`, `@Repository`, `@RestController` solo en capas correctas
+* Implementaciones van en `infrastructure`, no directamente en `application`
+
+#### FastAPI
+
+* Define routers en `interfaces/`
+* Inyecta servicios usando `Depends()`
+* Mantén la lógica de negocio fuera de los endpoints
+
+---
+
+### 🔐 Seguridad
+
+* Autenticación: Spring Security / OAuth2 + JWT
+* Roles: `ROLE_ADMIN`, `ROLE_ESTUDIANTE`, etc.
+* Validación de entradas: `javax.validation` / Pydantic
+
+---
+
+## 🔄 Testing
+
+| Tipo              | Framework         | Ubicación                      |
+| ----------------- | ----------------- | ------------------------------ |
+| Unit Tests (Java) | JUnit 5 + Mockito | `domain`, `application`        |
+| Integration Test  | Spring Boot Test  | `interfaces`, `infrastructure` |
+| Python Tests      | Pytest            | `tests/`                       |
+
+---
+
+## 🐳 Docker (resumen)
+
+```bash
+# Build y correr todo
+docker-compose up --build
+
+# Backend Java en http://localhost:8080
+# Backend FastAPI en http://localhost:8000
+# DB en localhost:5432
+```
+
+
