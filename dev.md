@@ -176,8 +176,6 @@ Esta arquitectura ofrece escalabilidad, mantenibilidad y claridad en el código,
 
 
 
-## 📐 Arquitectura Hexagonal (aplicada en ambos frameworks)
-
 ---
 
 # 📘 Backend README — Plataforma Educativa Interactiva
@@ -191,7 +189,7 @@ Esta arquitectura ofrece escalabilidad, mantenibilidad y claridad en el código,
 * ✏️ Arquitectura: **Hexagonal (Ports & Adapters)**
 
 ---
-
+## 📐 Arquitectura Hexagonal (aplicada en ambos frameworks)
 ---
 
 ## 📁 Estructura de Carpetas por Módulos (multi-módulo limpio)
