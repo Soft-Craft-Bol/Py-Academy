@@ -280,7 +280,7 @@ Esta arquitectura ofrece escalabilidad, mantenibilidad y claridad en el código,
 
 ---
 
-## 🐳 Docker (resumen)
+## 🐳 Docker
 
 ```bash
 # Build y correr todo
