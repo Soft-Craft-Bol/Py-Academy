@@ -25,8 +25,8 @@ const Home = () => {
   ];
 
   return (
-    <div className="home-page">
-      <HeroSection />
+    <div className="home-page" data-testid="home-page">
+      <HeroSection data-testid="hero-section" />
       <FeatureGrid
         title="Características Principales"
         subtitle="Todo lo que necesitas para dominar la programación"
