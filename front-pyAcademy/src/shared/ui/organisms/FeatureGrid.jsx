@@ -13,7 +13,7 @@ const FeatureGrid = ({ features, title, subtitle }) => {
   return (
     <section className="feature-grid-section">
       <div className="feature-grid-header">
-        <h2 className="section-title">{title}</h2>
+        <h2 className="section-title">{title} </h2>
         <p className="section-subtitle">{subtitle}</p>
       </div>
       <div className="feature-grid">
