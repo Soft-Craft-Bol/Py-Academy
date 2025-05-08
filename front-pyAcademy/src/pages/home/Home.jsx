@@ -1,8 +1,24 @@
 import FeatureGrid from '../../shared/ui/organisms/FeatureGrid';
 import HeroSection from './components/HeroSection';
+import { saludo } from '../../shared/api/api';
 import './Home.css';
+import { useEffect } from 'react';
 
 const Home = () => {
+
+  useEffect(() => {
+    const fetchSaludo = async () => {
+      try {
+        const response = await saludo('Mundo');
+        console.log(response.data); 
+      } catch (error) {
+        console.error('Error fetching saludo:', error);
+      }
+    };
+
+    fetchSaludo();
+  }, []);
+
   const features = [
     {
       title: 'Editor de Código Interactivo',
