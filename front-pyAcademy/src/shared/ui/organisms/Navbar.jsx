@@ -3,6 +3,7 @@ import logo from "../../../assets/logo-python.webp";
 
 //React
 import { useState } from "react";
+import { Link } from "react-router-dom";  // Importar Link de react-router-dom
 
 // components
 import Button from "../atoms/Button";
@@ -30,7 +31,15 @@ export const Navbar = () => {
             </div>
           </div>
 
-          <NavigationLinks />
+          {/* Agregar "Gestionar Cursos" al lado de los enlaces existentes */}
+          <div className="flex items-center space-x-4">
+            <NavigationLinks />
+
+            {/* Enlace "Gestionar Cursos" al lado de IA Tutor */}
+            <Link to="/gestionar-cursos" className="text-gray-800 font-medium hover:text-blue-600">
+              Gestionar Cursos
+            </Link>
+          </div>
 
           <div className="hidden md:flex space-x-4">
             <Button variant="primary" size="md">
