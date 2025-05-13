@@ -5,7 +5,7 @@ import heroImage from "../../../assets/heroImage.png";
 const HeroSection = () => {
   return (
     <section
-      className="flex items-center w-full px-12 py-13 h-screen dark:bg-primary-pri2 justify-center"
+      className="relative flex items-center w-full px-12 py-13 h-screen justify-center overflow-hidden"
       data-testid="hero-section"
     >
       <div className="w-[50%]">
@@ -20,7 +20,7 @@ const HeroSection = () => {
           </Button>
         </div>
       </div>
-      <div className="w-[573px] h-[382px] rounded-[20px] overflow-hidden shadow-blue-500/50 shadow-lg scale-100 hover:scale-105 transition-transform duration-300 ease-in-out">
+      <div className="w-[573px] h-[382px] rounded-[20px] overflow-hidden shadow-blue-500/50 shadow-xl scale-100 hover:scale-105 transition-transform duration-300 ease-in-out">
         <img
           src={heroImage}
           alt="Estudiante programando"

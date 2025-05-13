@@ -1,6 +1,9 @@
 //Components
 import { MenuInformation } from "../molecules/MenuInformation";
 
+//assets
+import logo from "../../../assets/logo-python.webp";
+
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
 
@@ -36,11 +39,11 @@ export const Footer = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="col-span-1">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="bg-purple-700 rounded-lg w-10 h-10 flex items-center justify-center text-white font-bold text-xl">
-                P
-              </div>
-              <span className="font-bold text-lg">PyAcademy</span>
+            <div className="flex items-center space-x-2">
+              <img src={logo} alt="PyAcademy Logo" className="w-10 h-10" />
+              <h1 className="font-bold text-lg text-gray-800 hidden sm:block">
+                PyAcademy
+              </h1>
             </div>
             <p className="text-gray-600 text-sm mb-6">
               Transformando la educación en programación con IA y recursos
