@@ -1,0 +1,53 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  darkMode: "class", // habilita modo oscuro con clase 'dark'
+  theme: {
+    extend: {
+      colors: {
+        primary: {
+          pri1: "#000000", // Negro puro – ideal para texto principal o fondo sólido
+          pri2: "#0E1217", // Negro grisáceo – fondo base en modo oscuro
+          pri3: "#FFFFFF", // Blanco – texto en modo oscuro o fondo claro
+        },
+        secondary: {
+          sec1: "#0123FD", // Azul fuerte – botón primario, llamados a la acción
+          sec2: "#0297FF", // Azul cielo – hover de botones o acentos visuales
+          sec3: "#02BBF6", // Azul claro – íconos, badges, links secundarios
+          sec4: "#C5E6FD", // Azul cielo claro – fondos suaves o estados inactivos
+        },
+        error: {
+          err1: "#AC010C", // Rojo oscuro – fondo de alerta crítica
+          err2: "#BA1A1A", // Rojo medio – texto de error o bordes de input inválido
+          err3: "#DE3730", // Rojo claro – mensajes de error o íconos de advertencia
+        },
+        neutral: {
+          neu0: "#605D62", // Gris oscuro – texto secundario en modo oscuro
+          neu1: "#AEAAAE", // Gris medio – íconos, bordes o placeholders
+          neu2: "#E6E1E5", // Gris claro – fondos de inputs, tarjetas o hover light
+          neu3: "#F4EFF4", // Gris muy claro – fondo base en modo claro
+          neu4: "#D9D9D9", // Gris neutro – líneas divisorias, deshabilitados
+        },
+        brand: {
+          accent: "#6C38FF", // Morado vibrante – botón destacado o énfasis visual
+        },
+      },
+
+      fontSize: {
+        "display-sm": ["36px", { lineHeight: "44px" }],
+        "display-md": ["45px", { lineHeight: "52px" }],
+        "display-lg": ["57px", { lineHeight: "64px" }],
+        "title-sm": ["18px", { lineHeight: "22px" }],
+        "title-md": ["24px", { lineHeight: "28px" }],
+        "title-lg": ["28px", { lineHeight: "32px" }],
+        "label-sm": ["14px", { lineHeight: "16px" }],
+        "label-md": ["16px", { lineHeight: "18px" }],
+        "label-lg": ["22px", { lineHeight: "24px" }],
+        "body-sm": ["14px", { lineHeight: "16px" }],
+        "body-md": ["16px", { lineHeight: "18px" }],
+        "body-lg": ["20px", { lineHeight: "22px" }],
+      },
+    },
+  },
+  plugins: [],
+};

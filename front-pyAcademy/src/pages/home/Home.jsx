@@ -1,18 +1,25 @@
-import FeatureGrid from '../../shared/ui/organisms/FeatureGrid';
-import HeroSection from './components/HeroSection';
-import { saludo } from '../../shared/api/api';
-import './Home.css';
-import { useEffect } from 'react';
+import { useEffect } from "react";
+
+//Components
+import FeatureGrid from "../../shared/ui/organisms/FeatureGrid";
+import HeroSection from "./components/HeroSection";
+import { saludo } from "../../shared/api/api";
+
+//assets
+import chatbotImage from "../../assets/chatbot.png";
+import editorCodigo from "../../assets/editorCodigo.png";
+import lecciones from "../../assets/lecciones.jpg";
+
+import "./Home.css";
 
 const Home = () => {
-
   useEffect(() => {
     const fetchSaludo = async () => {
       try {
-        const response = await saludo('Mundo');
-        console.log(response.data); 
+        const response = await saludo("Mundo");
+        console.log(response.data);
       } catch (error) {
-        console.error('Error fetching saludo:', error);
+        console.error("Error fetching saludo:", error);
       }
     };
 
@@ -21,22 +28,28 @@ const Home = () => {
 
   const features = [
     {
-      title: 'Editor de Código Interactivo',
-      description: 'Practica Python con retroalimentación inmediata y corrección automática.',
-      buttonText: 'Probar ahora',
-      onButtonClick: () => console.log('Ir al editor'),
+      title: "Editor de Código Interactivo",
+      description:
+        "Practica Python con retroalimentación inmediata y corrección automática.",
+      buttonText: "Probar ahora",
+      onButtonClick: () => console.log("Ir al editor"),
+      imageUrl: editorCodigo,
     },
     {
-      title: 'Lecciones en Video',
-      description: 'Aprende con material multimedia cuidadosamente seleccionado.',
-      buttonText: 'Ver lecciones',
-      onButtonClick: () => console.log('Ir a lecciones'),
+      title: "Lecciones en Video",
+      description:
+        "Aprende con material multimedia cuidadosamente seleccionado.",
+      buttonText: "Ver lecciones",
+      onButtonClick: () => console.log("Ir a lecciones"),
+      imageUrl: lecciones,
     },
     {
-      title: 'Chat con IA',
-      description: 'Resuelve tus dudas al instante con nuestro asistente inteligente.',
-      buttonText: 'Chatear ahora',
-      onButtonClick: () => console.log('Abrir chat'),
+      title: "Chat con IA",
+      description:
+        "Resuelve tus dudas al instante con nuestro asistente inteligente.",
+      buttonText: "Chatear ahora",
+      onButtonClick: () => console.log("Abrir chat"),
+      imageUrl: chatbotImage,
     },
   ];
 

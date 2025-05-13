@@ -1,10 +1,10 @@
-import PropTypes from 'prop-types';
-import Card from '../molecules/Card';
-import './FeatureGrid.css';
+import PropTypes from "prop-types";
+import Card from "../molecules/Card";
+import "./FeatureGrid.css";
 
 /**
  * Componente FeatureGrid - Organismo para mostrar una grilla de características
- * 
+ *
  * @param {Array} features - Lista de características a mostrar
  * @param {string} title - Título de la sección
  * @param {string} subtitle - Subtítulo descriptivo
@@ -13,7 +13,7 @@ const FeatureGrid = ({ features, title, subtitle }) => {
   return (
     <section className="feature-grid-section">
       <div className="feature-grid-header">
-        <h2 className="section-title">{title} </h2>
+        <h1 className="text-display-md font-semibold mb-5">{title} </h1>
         <p className="section-subtitle">{subtitle}</p>
       </div>
       <div className="feature-grid">

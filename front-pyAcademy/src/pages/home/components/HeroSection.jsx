@@ -1,26 +1,31 @@
-import Button from '../../../shared/ui/atoms/Button';
-import './HeroSection.css';
+import Button from "../../../shared/ui/atoms/Button";
+import "./HeroSection.css";
+import heroImage from "../../../assets/heroImage.png";
 
 const HeroSection = () => {
   return (
-    <section className="hero-section" data-testid="hero-section">
-      <div className="hero-content">
-        <h1 className="hero-title">Aprende Programación de Manera Interactiva</h1>
-        <p className="hero-subtitle">
-          Domina los fundamentos de Python con nuestra plataforma educativa diseñada para estudiantes
-          universitarios.
+    <section
+      className="flex items-center w-full px-12 py-13 h-screen dark:bg-primary-pri2 justify-center"
+      data-testid="hero-section"
+    >
+      <div className="w-[50%]">
+        <h1 className="text-display-lg w-96 font-bold">Domina python con IA</h1>
+        <p className="w-[450px] my-6 text-title-sm">
+          Descubre una forma revolucionaria de aprender Python con nuestra
+          plataforma impulsada por IA y recursos educativos abiertos..
         </p>
-        <div className="hero-actions">
-          <Button size="lg" onClick={() => console.log('Registrarse')}>
+        <div>
+          <Button size="lg" onClick={() => console.log("Registrarse")}>
             Comenzar ahora
-          </Button>
-          <Button variant="secondary" size="lg" onClick={() => console.log('Ver más')}>
-            Conoce más
           </Button>
         </div>
       </div>
-      <div className="hero-image">
-        <img src="https://imagenes.20minutos.es/files/image_990_556/uploads/imagenes/2023/05/09/foto-de-archivo-de-una-estudiante-fabricando-un-robot.jpeg" alt="Estudiante programando" />
+      <div className="w-[573px] h-[382px] rounded-[20px] overflow-hidden shadow-blue-500/50 shadow-lg scale-100 hover:scale-105 transition-transform duration-300 ease-in-out">
+        <img
+          src={heroImage}
+          alt="Estudiante programando"
+          className="w-full h-full object-cover scale-100"
+        />
       </div>
     </section>
   );
