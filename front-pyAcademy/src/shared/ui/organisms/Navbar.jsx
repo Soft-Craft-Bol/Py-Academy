@@ -43,7 +43,9 @@ export const Navbar = () => {
 
           <div className="hidden md:flex space-x-4">
             <Button variant="primary" size="md">
-              Iniciar sesión
+              <Link to="/login">
+                Iniciar sesión
+              </Link>
             </Button>
             <Button variant="secondary" size="md">
               Registrarse
