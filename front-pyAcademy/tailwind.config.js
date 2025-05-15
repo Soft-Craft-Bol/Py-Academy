@@ -47,6 +47,12 @@ export default {
         "body-md": ["16px", { lineHeight: "18px" }],
         "body-lg": ["20px", { lineHeight: "22px" }],
       },
+
+      backgroundImage: {
+        "gradient-1":
+          "linear-gradient(to right, #0A0F1C 0%, #1A1F2E 50%, #0A0F1C 100%)",
+        "gradient-2": "linear-gradient(to bottom, #0A0F1C 0%, #1A1F2E 100%)",
+      },
     },
   },
   plugins: [],

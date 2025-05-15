@@ -11,7 +11,7 @@ import "./FeatureGrid.css";
  */
 const FeatureGrid = ({ features, title, subtitle }) => {
   return (
-    <section className="feature-grid-section">
+    <section className="feature-grid-section dark:bg-gradient-2">
       <div className="feature-grid-header">
         <h1 className="text-display-md font-semibold mb-5">{title} </h1>
         <p className="section-subtitle">{subtitle}</p>
