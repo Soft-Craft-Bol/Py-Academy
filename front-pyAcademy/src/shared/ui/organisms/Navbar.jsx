@@ -4,6 +4,7 @@ import logo from "../../../assets/logo-python.webp";
 //React
 import { useState, useEffect } from "react";
 import { BsMoonStarsFill } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 // components
 import Button from "../atoms/Button";
@@ -56,7 +57,7 @@ export const Navbar = () => {
               <BsMoonStarsFill className="text-yellow-300 rounded text-xl" />
             </Button>
             <Button variant="primary" size="md">
-              Iniciar sesión
+              <Link to="/login">Iniciar sesión</Link>
             </Button>
             <Button variant="secondary" size="md">
               Registrarse
