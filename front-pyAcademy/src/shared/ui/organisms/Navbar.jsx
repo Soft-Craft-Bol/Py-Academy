@@ -2,8 +2,8 @@
 import logo from "../../../assets/logo-python.webp";
 
 //React
-import { useState } from "react";
-import { Link } from "react-router-dom";  // Importar Link de react-router-dom
+import { useState, useEffect } from "react";
+import { BsMoonStarsFill } from "react-icons/bs";
 
 // components
 import Button from "../atoms/Button";
@@ -13,35 +13,48 @@ import { MobileMenu } from "../molecules/MobileMenu";
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [theme, setTheme] = useState(() => {
+    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      return "dark";
+    }
+    return "light";
+  });
+
+  useEffect(() => {
+    if (theme === "dark") {
+      document.querySelector("html").classList.add("dark");
+    } else {
+      document.querySelector("html").classList.remove("dark");
+    }
+  }, [theme]);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const onChangeTheme = () => {
+    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+  };
+
   return (
-    <header className="sticky top-0 z-50 bg-white shadow-sm w-full">
+    <header className="sticky top-0 z-50 bg-white shadow-sm w-full dark:bg-gradient-1">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           <div className="flex items-center">
             <div className="flex items-center space-x-2">
               <img src={logo} alt="PyAcademy Logo" className="w-10 h-10" />
-              <h1 className="font-bold text-lg text-gray-800 hidden sm:block">
+              <h1 className="font-bold text-lg text-gray-800 hidden sm:block dark:text-white">
                 PyAcademy
               </h1>
             </div>
           </div>
 
-          {/* Agregar "Gestionar Cursos" al lado de los enlaces existentes */}
-          <div className="flex items-center space-x-4">
-            <NavigationLinks />
+          <NavigationLinks />
 
-            {/* Enlace "Gestionar Cursos" al lado de IA Tutor */}
-            <Link to="/gestionar-cursos" className="text-gray-800 font-medium hover:text-blue-600">
-              Gestionar Cursos
-            </Link>
-          </div>
-
-          <div className="hidden md:flex space-x-4">
+          <div className="hidden align-center items-end md:flex space-x-4">
+            <Button size="sm" variant="secondary" onClick={onChangeTheme}>
+              <BsMoonStarsFill className="text-yellow-300 rounded text-xl" />
+            </Button>
             <Button variant="primary" size="md">
               Iniciar sesión
             </Button>

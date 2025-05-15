@@ -16,7 +16,9 @@ const Card = ({ title, description, imageUrl, buttonText, onButtonClick }) => {
     <div className="card">
       {imageUrl && <img src={imageUrl} alt={title} className="card-image" />}
       <div className="card-content">
-        <h3 className="text-title-md font-medium my-3">{title}</h3>
+        <h3 className="text-title-md font-medium my-3 dark:text-black">
+          {title}
+        </h3>
         <p className="card-description">{description}</p>
         {buttonText && (
           <Button variant="secondary" onClick={onButtonClick}>

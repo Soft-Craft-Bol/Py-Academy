@@ -14,10 +14,13 @@ const Button = ({
   disabled = false,
   onClick,
   children,
+  className,
 }) => {
   return (
     <button
-      className={`btn btn-${variant} btn-${size} ${disabled ? "disabled" : ""}`}
+      className={`btn btn-${variant} btn-${size} ${
+        disabled ? "disabled" : ""
+      } ${className}`}
       disabled={disabled}
       onClick={onClick}
     >
