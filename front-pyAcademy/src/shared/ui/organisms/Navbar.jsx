@@ -5,6 +5,7 @@ import logo from "../../../assets/logo-python.webp";
 import { useState, useEffect } from "react";
 import { BsMoonStarsFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import { MdWbSunny } from "react-icons/md";
 
 // components
 import Button from "../atoms/Button";
@@ -54,7 +55,11 @@ export const Navbar = () => {
 
           <div className="hidden align-center items-end md:flex space-x-4">
             <Button size="sm" variant="secondary" onClick={onChangeTheme}>
-              <BsMoonStarsFill className="text-yellow-300 rounded text-xl" />
+              {theme === "dark" ? (
+                <MdWbSunny className="text-yellow-300 rounded text-xl" />
+              ) : (
+                <BsMoonStarsFill className="text-blue-300 rounded text-xl" />
+              )}
             </Button>
             <Button variant="primary" size="md">
               <Link to="/login">Iniciar sesión</Link>

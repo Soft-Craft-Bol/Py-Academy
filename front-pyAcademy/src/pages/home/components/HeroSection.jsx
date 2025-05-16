@@ -12,7 +12,7 @@ const HeroSection = () => {
         <h1 className="text-3xl md:text-5xl font-bold max-w-md">
           Domina python con IA
         </h1>
-        <p className="max-w-lg mt-4 mb-8 text-base md:text-lg text-gray-700">
+        <p className="max-w-lg mt-4 mb-8 text-base md:text-lg text-gray-700 dark:text-gray-300">
           Descubre una forma revolucionaria de aprender Python con nuestra
           plataforma impulsada por IA y recursos educativos abiertos.
         </p>

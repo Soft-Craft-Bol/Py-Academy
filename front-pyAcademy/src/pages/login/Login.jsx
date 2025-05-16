@@ -1,13 +1,13 @@
-import "./Login.css"
+import "./Login.css";
 import heroImage from "../../assets/heroImage.png";
 
 const Login = () => {
   return (
-    <div className="min-h-screen flex flex-col bg-white text-gray-800">
+    <div className="min-h-screen flex flex-col text-gray-800">
       {/* Main Content */}
       <main className="flex flex-1 max-w-7xl mx-auto px-4 sm:px-8 items-center justify-center gap-12 flex-col lg:flex-row py-16">
         {/* Imagen Terminal */}
-        <div className="w-full max-w-md rounded-lg shadow-lg overflow-hidden lg:max-w-lg">
+        <div className="w-full max-w-md rounded-lg shadow-lg overflow-hidden lg:max-w-lg dark:shadow-blue-500/50 shadow-xl transition-transform duration-300 ease-in-out">
           <img
             src={heroImage}
             alt="Imagen login"
@@ -17,7 +17,7 @@ const Login = () => {
 
         {/* Login Form */}
         <section
-          className="bg-white rounded-2xl shadow-lg p-8 sm:p-10 w-full max-w-md"
+          className="bg-white border rounded-2xl shadow-lg p-8 sm:p-10 w-full max-w-md"
           aria-labelledby="login-title"
         >
           <h2
