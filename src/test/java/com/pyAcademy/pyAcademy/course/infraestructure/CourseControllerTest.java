@@ -1,9 +1,10 @@
 package com.pyAcademy.pyAcademy.course.infraestructure;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pyAcademy.pyAcademy.config.TestSecurityConfig;
-import com.pyAcademy.pyAcademy.course.application.CourseService;
-import com.pyAcademy.pyAcademy.course.model.CourseEntity;
+import com.pyAcademy.pyAcademy.core.config.TestSecurityConfig;
+import com.pyAcademy.pyAcademy.features.course.application.CourseService;
+import com.pyAcademy.pyAcademy.features.course.infraestructure.CourseController;
+import com.pyAcademy.pyAcademy.features.course.domain.models.CourseEntity;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
