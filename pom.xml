@@ -60,8 +60,8 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<version>1.18.38</version>
+			<scope>provided</scope>
 		</dependency>
-
 		<!-- JWT (Auth0) -->
 		<dependency>
 			<groupId>com.auth0</groupId>
@@ -93,11 +93,11 @@
 					<source>${maven.compiler.source}</source>
 					<target>${maven.compiler.target}</target>
 					<annotationProcessorPaths>
-						<path>
+						<annotationProcessorPath>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
 							<version>1.18.38</version>
-						</path>
+						</annotationProcessorPath>
 					</annotationProcessorPaths>
 				</configuration>
 			</plugin>
