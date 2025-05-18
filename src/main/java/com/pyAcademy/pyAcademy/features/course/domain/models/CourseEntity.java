@@ -7,6 +7,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "courses")
@@ -57,6 +59,10 @@ public class CourseEntity {
 
     @Column(nullable = false)
     private boolean isActive;
+
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<CourseEnrollmentsEntity> courseEnrollments = new HashSet<>();
+
 
     public Long getId() {
         return id;
