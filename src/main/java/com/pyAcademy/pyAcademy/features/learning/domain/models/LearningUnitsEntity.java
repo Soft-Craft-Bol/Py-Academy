@@ -2,6 +2,9 @@ package com.pyAcademy.pyAcademy.features.learning.domain.models;
 
 import com.pyAcademy.pyAcademy.features.course.domain.models.CourseEntity;
 import jakarta.persistence.*;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,11 +16,22 @@ public class LearningUnitsEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long unitId;
 
-    @Column(name = "sequence_number", nullable = false)
-    private int sequenceNumber;
+    private String title;
+
+    @Column(name = "description", columnDefinition = "TEXT")
+    private String description;
 
     @Column(name = "is_active", nullable = false)
-    private boolean isActive;
+    private BigDecimal isActive;
+
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private LocalDateTime updatedAt;
+
+    @Column(name = "sequence_number", nullable = false)
+    private int sequenceNumber;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id", nullable = false)
@@ -37,66 +51,4 @@ public class LearningUnitsEntity {
     @ManyToMany(mappedBy = "prerequisites")
     private Set<LearningUnitsEntity> dependentUnits = new HashSet<>();
 
-    // Constructores, getters y setters
-
-    public Long getUnitId() {
-        return unitId;
-    }
-
-    public void setUnitId(Long unitId) {
-        this.unitId = unitId;
-    }
-
-    public int getSequenceNumber() {
-        return sequenceNumber;
-    }
-
-    public void setSequenceNumber(int sequenceNumber) {
-        this.sequenceNumber = sequenceNumber;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
-    }
-
-    public CourseEntity getCourse() {
-        return course;
-    }
-
-    public void setCourse(CourseEntity course) {
-        this.course = course;
-    }
-
-
-    public Set<LearningUnitsEntity> getPrerequisites() {
-        return prerequisites;
-    }
-
-    public void setPrerequisites(Set<LearningUnitsEntity> prerequisites) {
-        this.prerequisites = prerequisites;
-    }
-
-    public Set<LearningUnitsEntity> getDependentUnits() {
-        return dependentUnits;
-    }
-
-    public void setDependentUnits(Set<LearningUnitsEntity> dependentUnits) {
-        this.dependentUnits = dependentUnits;
-    }
-
-    // Métodos utilitarios para manejar los prerrequisitos
-
-    public void addPrerequisite(LearningUnitsEntity prerequisite) {
-        this.prerequisites.add(prerequisite);
-        prerequisite.getDependentUnits().add(this);
-    }
-
-    public void removePrerequisite(LearningUnitsEntity prerequisite) {
-        this.prerequisites.remove(prerequisite);
-        prerequisite.getDependentUnits().remove(this);
-    }
 }
