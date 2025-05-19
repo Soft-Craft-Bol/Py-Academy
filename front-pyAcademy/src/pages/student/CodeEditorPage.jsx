@@ -6,13 +6,18 @@ import Editor from "@monaco-editor/react";
 import { useState } from "react";
 import { IoIosColorPalette } from "react-icons/io";
 
+//assets
+import { executeCode } from "../../shared/api/api";
+
 const CodeEditorPage = () => {
   const [code, setCode] = useState("print('Hola mundo')");
   const [output, setOutput] = useState("");
   const [themeEditor, setThemeEditor] = useState("vs");
 
-  const handleExecuteCode = (value) => {
-    console.log("Ejecutar código", value);
+  const handleExecuteCode = async () => {
+    const res = await executeCode(JSON.stringify({ code }));
+    console.log(res);
+    setOutput(res.data);
   };
 
   const handleThemeEditor = () => {
@@ -59,7 +64,7 @@ const CodeEditorPage = () => {
           <h2 className="font-semibold my-4 text-label-md text-white">
             Salida
           </h2>
-          <pre style={{ background: "#eee", padding: "1em" }}>{output}</pre>
+          <pre className="text-black bg-white p-2">{output}</pre>
         </div>
       </div>
 
