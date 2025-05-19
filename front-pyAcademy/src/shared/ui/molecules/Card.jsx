@@ -1,41 +1,25 @@
-import PropTypes from "prop-types";
+import React from "react";
 import Button from "../atoms/Button";
-import "./Card.css";
 
-/**
- * Componente Card - Molécula reutilizable para tarjetas de contenido
- *
- * @param {string} title - Título de la tarjeta
- * @param {string} description - Descripción del contenido
- * @param {string} imageUrl - URL de la imagen (opcional)
- * @param {string} buttonText - Texto del botón de acción
- * @param {function} onButtonClick - Manejador del botón
- */
 const Card = ({ title, description, imageUrl, buttonText, onButtonClick }) => {
   return (
-    <div className="card">
-      {imageUrl && <img src={imageUrl} alt={title} className="card-image" />}
-      <div className="card-content">
-        <h3 className="text-title-md font-medium my-3 dark:text-black">
+    <div className="bg-white rounded-[12px] overflow-hidden shadow-md hover:shadow-xl transition-transform duration-200 ease-in-out transform hover:-translate-y-1 h-full flex flex-col">
+      <img
+        src={imageUrl}
+        alt={title}
+        className="w-full h-[180px] object-cover sm:h-[140px]"
+      />
+      <div className="p-5 flex flex-col flex-grow sm:p-4">
+        <h3 className="text-[18px] font-semibold text-gray-900 mb-3 text-center">
           {title}
         </h3>
-        <p className="card-description">{description}</p>
-        {buttonText && (
-          <Button variant="secondary" onClick={onButtonClick}>
-            {buttonText}
-          </Button>
-        )}
+        <p className="text-[14px] text-gray-600 mb-4 leading-relaxed flex-grow">
+          {description}
+        </p>
+        <Button onClick={onButtonClick}>{buttonText}</Button>
       </div>
     </div>
   );
-};
-
-Card.propTypes = {
-  title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  imageUrl: PropTypes.string,
-  buttonText: PropTypes.string,
-  onButtonClick: PropTypes.func,
 };
 
 export default Card;
