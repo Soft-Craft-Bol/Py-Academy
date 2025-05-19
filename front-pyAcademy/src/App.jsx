@@ -1,8 +1,6 @@
 import Home from "./pages/home/Home";
 import "./App.css";
-import { Route, Routes, useLocation } from "react-router-dom";
-import { Navbar } from "./shared/ui/organisms/Navbar";
-import { Footer } from "./shared/ui/organisms/Footer";
+import { Route, Routes } from "react-router-dom";
 import ManageCourses from "./pages/ManageCourses/ManageCourses";
 import Login from "./pages/login/Login";
 import { StudentLayout } from "./shared/layouts/StudentLayout";
@@ -17,6 +15,9 @@ function App() {
       <Routes>
         <Route element={<PublicLayout />}>
           <Route path="/" element={<Home />} />
+          <Route path="/explorar-cursos" element={<Home />} />
+          <Route path="/Recursos-OER" element={<Home />} />
+          <Route path="/ia-tutor" element={<Home />} />
           <Route path="/login" element={<Login />} />
         </Route>
 
