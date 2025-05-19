@@ -1,11 +1,11 @@
 import { Outlet } from "react-router-dom";
-import { Navbar } from "../ui/organisms/Navbar";
+import { NavbarPublic } from "../ui/organisms/NavbarPublic";
 import { Footer } from "../ui/organisms/Footer";
 
 export const PublicLayout = () => {
   return (
     <>
-      <Navbar />
+      <NavbarPublic />
       <main className="min-h-screen">
         <Outlet />
       </main>

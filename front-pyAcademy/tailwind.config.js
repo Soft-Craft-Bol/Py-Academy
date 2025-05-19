@@ -6,15 +6,10 @@ export default {
     extend: {
       colors: {
         primary: {
-          pri1: "#000000", // Negro puro – ideal para texto principal o fondo sólido
-          pri2: "#0E1217", // Negro grisáceo – fondo base en modo oscuro
-          pri3: "#FFFFFF", // Blanco – texto en modo oscuro o fondo claro
-        },
-        secondary: {
-          sec1: "#0123FD", // Azul fuerte – botón primario, llamados a la acción
-          sec2: "#0297FF", // Azul cielo – hover de botones o acentos visuales
-          sec3: "#02BBF6", // Azul claro – íconos, badges, links secundarios
-          sec4: "#C5E6FD", // Azul cielo claro – fondos suaves o estados inactivos
+          pri1: "#0A0F1C", // Azul fuerte – botón primario, llamados a la acción
+          pri2: "#1A1F2E", // Azul cielo – hover de botones o acentos visuales
+          pri3: "#4318D1", // Azul claro – íconos, badges, links secundarios
+          pri4: "#C5E6FD", // Azul cielo claro – fondos suaves o estados inactivos
         },
         error: {
           err1: "#AC010C", // Rojo oscuro – fondo de alerta crítica
