@@ -13,7 +13,7 @@ import NavigationLinks from "../molecules/NavigationLinks";
 import { ButtonBurguer } from "../atoms/ButtonBurguer";
 import { MobileMenu } from "../molecules/MobileMenu";
 
-export const Navbar = () => {
+export const NavbarPublic = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [theme, setTheme] = useState(() => {
     if (window.matchMedia("(prefers-color-scheme: dark)").matches) {

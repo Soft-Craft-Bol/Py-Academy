@@ -7,7 +7,7 @@ const NavigationLinks = () => {
         <NavigationLink text="Inicio" to={"/"} />
         <NavigationLink text="Explorar Cursos" to={"/explorar-cursos"} />
         <NavigationLink text="Recursos OER" to={"/recursos-OER"} />
-        <NavigationLink text="IA Tutor" to={"/ia-tutor"} />
+        <NavigationLink text="IA-Tutor" to={"/ia-tutor"} />
         <NavigationLink text="Gestionar Cursos" to={"/gestionar-cursos"} />
       </ul>
     </nav>
