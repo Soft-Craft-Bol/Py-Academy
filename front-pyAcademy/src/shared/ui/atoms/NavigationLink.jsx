@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-export const NavigationLink = ({ text, to }) => {
+export const NavigationLink = ({ text, to, disable }) => {
   return (
     <NavLink to={to}>
       {({ isActive }) => (

@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import Card from "../molecules/Card";
-import "./FeatureGrid.css";
 
 /**
  * Componente FeatureGrid - Organismo para mostrar una grilla de características
@@ -11,12 +10,17 @@ import "./FeatureGrid.css";
  */
 const FeatureGrid = ({ features, title, subtitle }) => {
   return (
-    <section className="feature-grid-section dark:bg-gradient-2">
-      <div className="feature-grid-header">
-        <h1 className="text-display-md font-semibold mb-5">{title} </h1>
-        <p className="section-subtitle">{subtitle}</p>
+    <section className="py-16 md:py-20 bg-white dark:bg-gradient-2">
+      <div className="text-center max-w-3xl mx-auto mb-10">
+        <h1 className="text-2xl md:text-4xl font-semibold text-gray-900 dark:text-white mb-3">
+          {title}
+        </h1>
+        <p className="text-base md:text-lg text-gray-400 leading-relaxed">
+          {subtitle}
+        </p>
       </div>
-      <div className="feature-grid">
+
+      <div className="grid gap-4 md:gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 max-w-screen-xl mx-auto px-5">
         {features.map((feature, index) => (
           <Card
             key={index}

@@ -6,15 +6,10 @@ export default {
     extend: {
       colors: {
         primary: {
-          pri1: "#000000", // Negro puro – ideal para texto principal o fondo sólido
-          pri2: "#0E1217", // Negro grisáceo – fondo base en modo oscuro
-          pri3: "#FFFFFF", // Blanco – texto en modo oscuro o fondo claro
-        },
-        secondary: {
-          sec1: "#0123FD", // Azul fuerte – botón primario, llamados a la acción
-          sec2: "#0297FF", // Azul cielo – hover de botones o acentos visuales
-          sec3: "#02BBF6", // Azul claro – íconos, badges, links secundarios
-          sec4: "#C5E6FD", // Azul cielo claro – fondos suaves o estados inactivos
+          pri1: "#0A0F1C",
+          pri2: "#1A1F2E",
+          pri3: "#4318D1",
+          pri4: "#C5E6FD",
         },
         error: {
           err1: "#AC010C", // Rojo oscuro – fondo de alerta crítica
@@ -22,11 +17,8 @@ export default {
           err3: "#DE3730", // Rojo claro – mensajes de error o íconos de advertencia
         },
         neutral: {
-          neu0: "#605D62", // Gris oscuro – texto secundario en modo oscuro
-          neu1: "#AEAAAE", // Gris medio – íconos, bordes o placeholders
-          neu2: "#E6E1E5", // Gris claro – fondos de inputs, tarjetas o hover light
-          neu3: "#F4EFF4", // Gris muy claro – fondo base en modo claro
-          neu4: "#D9D9D9", // Gris neutro – líneas divisorias, deshabilitados
+          neu0: "#EFF4F9",
+          neu1: "#F3F4F6",
         },
         brand: {
           accent: "#6C38FF", // Morado vibrante – botón destacado o énfasis visual

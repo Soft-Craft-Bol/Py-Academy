@@ -1,7 +1,16 @@
+//css
 import "./Login.css";
+
+//Compoentes
 import heroImage from "../../assets/heroImage.png";
+import Button from "../../shared/ui/atoms/Button";
+
+//React
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="min-h-screen flex flex-col text-gray-800">
       {/* Main Content */}
@@ -15,7 +24,6 @@ const Login = () => {
           />
         </div>
 
-        {/* Login Form */}
         <section
           className="bg-white border rounded-2xl shadow-lg p-8 sm:p-10 w-full max-w-md"
           aria-labelledby="login-title"
@@ -60,12 +68,13 @@ const Login = () => {
               />
             </div>
 
-            <button
+            <Button
               type="submit"
-              className="w-full bg-blue-600 hover:bg-blue-700 transition py-3 rounded-md font-semibold text-white"
+              className="w-full"
+              onClick={() => navigate("/student")}
             >
               Iniciar sesión
-            </button>
+            </Button>
           </form>
 
           <p className="mt-6 text-center text-gray-600">
