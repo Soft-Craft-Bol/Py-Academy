@@ -61,15 +61,11 @@ export const Sidebar = ({
               key={title}
               to={to}
               onClick={() => setSelected(title)}
-              className={`group flex items-center p-3 rounded-md transition-colors ${
-                selected === title
-                  ? "bg-gradient-to-r from-[#023047] to-[#082938] text-white"
-                  : "hover:bg-gradient-to-r from-[#023047] to-[#082938] hover:text-white"
-              }`}
+              className={`group flex items-center p-3 rounded-md transition-colors hover:bg-neutral-neu0 dark:hover:bg-primary-pri1 hover:text-white`}
             >
-              <Icon className="text-xl" />
+              <Icon className="text-xl text-black dark:text-white" />
               <span
-                className={`ml-4 text-sm font-medium ${
+                className={`ml-4 text-sm font-medium text-black dark:text-white ${
                   isSidebarOpen ? "inline" : "hidden"
                 }`}
               >
@@ -82,16 +78,16 @@ export const Sidebar = ({
         <div className="absolute left-0 bottom-4 w-full p-4 border-t border-gray-400">
           <button
             onClick={toggleSidebar}
-            className=" flex items-center w-full space-x-2 rounded-md p-2 hover:text-white"
+            className=" flex items-center w-full space-x-2 rounded-md p-2 hover:bg-neutral-neu0 dark:hover:bg-primary-pri1 hover:text-white"
           >
             {isSidebarOpen ? (
-              <FiChevronsLeft className="text-white text-xl" />
+              <FiChevronsLeft className="text-black dark:text-white text-xl" />
             ) : (
-              <FiChevronsRight className="text-white text-xl" />
+              <FiChevronsRight className="text-black dark:text-white text-xl" />
             )}
 
             <span
-              className={`text-sm font-medium ${
+              className={`text-sm font-medium text-black dark:text-white  ${
                 isSidebarOpen ? "inline" : "hidden"
               }`}
             >
@@ -101,11 +97,11 @@ export const Sidebar = ({
 
           <button
             onClick={handleLogout}
-            className="flex items-center w-full space-x-2 rounded-md p-2 hover:text-white"
+            className="flex items-center w-full space-x-2 rounded-md p-2 hover:bg-neutral-neu0 dark:hover:bg-primary-pri1 hover:text-white"
           >
-            <FiLogOut className="text-xl" />
+            <FiLogOut className="text-xl text-black dark:text-white" />
             <span
-              className={`text-sm font-medium ${
+              className={`text-sm font-medium text-black dark:text-white ${
                 isSidebarOpen ? "inline" : "hidden"
               }`}
             >

@@ -10,7 +10,7 @@ import Card from "../molecules/Card";
  */
 const FeatureGrid = ({ features, title, subtitle }) => {
   return (
-    <section className="py-16 md:py-20 bg-gray-50 dark:bg-gradient-2">
+    <section className="py-16 md:py-20 bg-white dark:bg-gradient-2">
       <div className="text-center max-w-3xl mx-auto mb-10">
         <h1 className="text-2xl md:text-4xl font-semibold text-gray-900 dark:text-white mb-3">
           {title}

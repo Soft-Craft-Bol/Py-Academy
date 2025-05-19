@@ -35,7 +35,7 @@ export const Footer = () => {
   };
 
   return (
-    <footer className="bg-white py-12 border-t border-gray-200 dark:bg-gradient-1">
+    <footer className="py-12 border-t border-gray-200 dark:bg-gradient-1">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="col-span-1">
