@@ -8,6 +8,7 @@ import { TeacherLayout } from "./shared/layouts/TeacherLayout";
 import { PublicLayout } from "./shared/layouts/PublicLayout";
 import CoursesPage from "./pages/student/CoursesPage";
 import CodeEditorPage from "./pages/student/CodeEditorPage";
+import { ChatIA } from "./pages/student/ChatIA";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path="/student" element={<StudentLayout />}>
           <Route index element={<CoursesPage />} />
           <Route path="editor" element={<CodeEditorPage />} />
+          <Route path="chatIA" element={<ChatIA />} />
         </Route>
       </Routes>
     </>
