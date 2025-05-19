@@ -4,12 +4,11 @@ import logo from "../../../assets/logo-python.webp";
 //React
 import { useState, useEffect } from "react";
 import { BsMoonStarsFill } from "react-icons/bs";
-import { Link } from "react-router-dom";
 import { MdWbSunny } from "react-icons/md";
+import { FaUserCircle } from "react-icons/fa";
 
 // components
 import Button from "../atoms/Button";
-import NavigationLinks from "../molecules/NavigationLinks";
 import { MobileMenu } from "../molecules/MobileMenu";
 
 export const NavbarUser = () => {
@@ -54,6 +53,8 @@ export const NavbarUser = () => {
                 <BsMoonStarsFill className="text-blue-300 rounded text-xl" />
               )}
             </Button>
+
+            <FaUserCircle className="rounded text-4xl" />
           </div>
         </div>
       </div>

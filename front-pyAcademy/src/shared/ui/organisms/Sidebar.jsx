@@ -22,9 +22,9 @@ export const Sidebar = ({
   const navigate = useNavigate();
 
   const options = [
-    { title: "Mis cursos", to: "/inicio", Icon: LuBookCopy },
-    { title: "Editor de codigo", to: "/", Icon: IoCodeSlash },
-    { title: "IA Tutor", to: "/", Icon: GiArtificialIntelligence },
+    { title: "Mis cursos", to: "/student", Icon: LuBookCopy },
+    { title: "Editor de codigo", to: "editor", Icon: IoCodeSlash },
+    { title: "IA Tutor", to: "chatIA", Icon: GiArtificialIntelligence },
   ];
 
   const handleLogout = async () => {
@@ -82,7 +82,7 @@ export const Sidebar = ({
         <div className="absolute left-0 bottom-4 w-full p-4 border-t border-gray-400">
           <button
             onClick={toggleSidebar}
-            className=" flex items-center w-full space-x-2 rounded-md p-2 hover:bg-gradient-to-r from-[#023047] to-[#082938] hover:text-white"
+            className=" flex items-center w-full space-x-2 rounded-md p-2 hover:text-white"
           >
             {isSidebarOpen ? (
               <FiChevronsLeft className="text-white text-xl" />
@@ -101,7 +101,7 @@ export const Sidebar = ({
 
           <button
             onClick={handleLogout}
-            className="flex items-center w-full space-x-2 rounded-md p-2 hover:bg-gradient-to-r from-[#023047] to-[#082938] hover:text-white"
+            className="flex items-center w-full space-x-2 rounded-md p-2 hover:text-white"
           >
             <FiLogOut className="text-xl" />
             <span
