@@ -7,7 +7,7 @@ on:
     branches: [ "backend" ]
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
     
     services:
