@@ -63,6 +63,14 @@ public class CourseEntity {
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<CourseEnrollmentsEntity> courseEnrollments = new HashSet<>();
 
+    public CourseEntity(Long courseId) {
+        this.id = courseId;
+    }
+
+    public CourseEntity() {
+
+    }
+
 
     public Long getId() {
         return id;

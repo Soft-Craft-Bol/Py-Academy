@@ -1,11 +1,20 @@
 package com.pyAcademy.pyAcademy.features.learning.domain.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
+
 
 @Entity
 @Table(name = "learning_materials")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class LearningMaterialsEntity {
 
     @Id
