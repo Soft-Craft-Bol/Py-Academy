@@ -280,15 +280,33 @@ Esta arquitectura ofrece escalabilidad, mantenibilidad y claridad en el código,
 
 ---
 
-## 🐳 Docker
+## 🐳 Docker Configuración del Entorno de Desarrollo
 
-```bash
-# Build y correr todo
-docker-compose up --build
+---
 
-# Backend Java en http://localhost:8080
-# Backend FastAPI en http://localhost:8000
-# DB en localhost:5432
-```
+1. **Requisitos previos**:
+   - Docker Desktop instalado
+   - JDK 17
 
+2. **Primera configuración**:
+   ```bash
+   cp .env
+   # Editar el .env con tus credenciales únicas
+   ```
+
+3. **Iniciar el entorno**:
+   ```bash
+   docker-compose up -d --build
+   ```
+
+4. **Accesos**:
+   - Aplicación: http://localhost:8888/api/v1
+   - DB: localhost:5432
+     - Usuario: [el que configuraste en .env]
+     - DB: [el nombre que configuraste en .env]
+
+5. **Comandos útiles**:
+   - Ver logs: `docker logs -f pyacademy-app-1`
+   - Detener: `docker-compose down`
+   - Limpiar todo: `docker-compose down -v`
 
