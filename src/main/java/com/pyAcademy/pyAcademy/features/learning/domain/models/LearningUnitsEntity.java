@@ -2,6 +2,10 @@ package com.pyAcademy.pyAcademy.features.learning.domain.models;
 
 import com.pyAcademy.pyAcademy.features.course.domain.models.CourseEntity;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -10,6 +14,10 @@ import java.util.Set;
 
 @Entity
 @Table(name = "learning_units")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class LearningUnitsEntity {
 
     @Id
@@ -51,4 +59,8 @@ public class LearningUnitsEntity {
     @ManyToMany(mappedBy = "prerequisites")
     private Set<LearningUnitsEntity> dependentUnits = new HashSet<>();
 
+    public void addPrerequisite(LearningUnitsEntity prerequisite) {
+        this.prerequisites.add(prerequisite);
+        prerequisite.getDependentUnits().add(this);
+    }
 }
