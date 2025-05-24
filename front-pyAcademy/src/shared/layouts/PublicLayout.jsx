@@ -1,3 +1,4 @@
+import React from "react";
 import { Outlet } from "react-router-dom";
 import { NavbarPublic } from "../ui/organisms/NavbarPublic";
 import { Footer } from "../ui/organisms/Footer";

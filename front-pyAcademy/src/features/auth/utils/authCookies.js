@@ -25,6 +25,11 @@ export const saveUser = (userData) => {
 };
 
 export const getUser = () => {
-  const userDataString = Cookies.get('userData');
-  return userDataString ? JSON.parse(userDataString) : null;
+  try {
+    const userDataString = Cookies.get('userData');
+    return userDataString ? JSON.parse(userDataString) : null;
+  } catch (error) {
+    console.error("Error getting user data:", error);
+    return null;
+  }
 };

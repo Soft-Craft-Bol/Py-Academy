@@ -12,33 +12,43 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
+   useEffect(() => {
     const initializeAuth = () => {
       const token = getToken();
       const userData = getUser();
-
+      
+      console.log("Initial auth check - Token:", token, "UserData:", userData);
+      
       if (token && isTokenValid(token)) {
         setIsAuthenticated(true);
-        setUser(userData);
+        setUser(userData); // Ahora userData es el objeto completo
+      } else {
+        signOut(); // Limpia cookies inválidas
       }
       setLoading(false);
     };
-
+    
     initializeAuth();
   }, []);
 
   const login = async (credentials) => {
     setIsLoading(true);
     try {
-      const { token, user } = await loginUser(credentials);
-      console.log("Login successful:", token, user);
+      const res = await loginUser(credentials);
+      console.log("Login response:", res.data);
+      
+      const { jwt: token, username, photo } = res.data;
+      const userData = { username, photo }; // Guarda todos los datos relevantes
+      
       saveToken(token);
-      saveUser(user);
-      setUser(user);
+      saveUser(userData); // Guarda el objeto completo
+      
+      setUser(userData);
       setIsAuthenticated(true);
       return true;
     } catch (error) {
       console.error("Login error:", error);
+      signOut(); // Limpia estado en caso de error
       return false;
     } finally {
       setIsLoading(false);
