@@ -11,6 +11,8 @@ import java.util.Optional;
 
 public interface IUserRepository extends JpaRepository<UserEntity, Long> {
     Optional<UserEntity> findUserEntityByUsername(String username);
+
+    Optional<UserEntity> findUserEntityByEmail(String email);
     //get id of auth by username
     @Query("SELECT u.id FROM UserEntity u WHERE u.username = :username")
     Long findIdByUsername(String username);
