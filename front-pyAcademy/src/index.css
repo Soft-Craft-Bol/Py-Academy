@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"); */
+
+.btn {
+  @apply font-medium font-sans rounded-lg cursor-pointer transition-all duration-200 ease-in-out inline-flex items-center justify-center gap-2 border-0;
+}
+
+/* Variantes de botón */
+.btn-primary {
+  @apply bg-indigo-600 text-white;
+}
+
+.btn-primary:hover {
+  @apply bg-indigo-700;
+}
+
+.btn-secondary {
+  @apply bg-white text-indigo-600 border border-indigo-100;
+}
+
+.btn-secondary:hover {
+  @apply bg-indigo-50;
+}
+
+.btn-danger {
+  @apply bg-red-500 text-white;
+}
+
+.btn-danger:hover {
+  @apply bg-red-600;
+}
+
+/* Tamaños de botón */
+.btn-sm {
+  @apply px-3 py-2 text-sm;
+}
+
+.btn-md {
+  @apply px-4 py-2.5 text-base;
+}
+
+.btn-lg {
+  @apply px-6 py-3 text-lg;
+}
+
+/* Estado deshabilitado */
+.btn.disabled,
+.btn:disabled {
+  @apply opacity-60 cursor-not-allowed bg-gray-200 text-gray-500;
+}
