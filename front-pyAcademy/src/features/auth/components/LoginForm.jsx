@@ -17,7 +17,7 @@ const LoginForm = ({ onSubmit, isLoading, error }) => {
     e.preventDefault();
     onSubmit(credentials);
   };
-/* coment */
+
   return (
     <form className="space-y-6" onSubmit={handleSubmit}>
       {error && (
