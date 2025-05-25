@@ -16,7 +16,13 @@ const HeroSection = () => {
           Descubre una forma revolucionaria de aprender Python con nuestra
           plataforma impulsada por IA y recursos educativos abiertos.
         </p>
-        <Button size="lg" onClick={() => console.log("Registrarse")}>
+        <Button
+          size="lg"
+          onClick={() => console.log("Registrarse")}
+          className={
+            "dark:shadow-yellow-500/50 shadow-xl transition-transform duration-300 ease-in-out dark:text-yellow-300"
+          }
+        >
           Comenzar ahora
         </Button>
       </div>

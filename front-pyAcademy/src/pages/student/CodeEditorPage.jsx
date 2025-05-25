@@ -3,7 +3,7 @@ import Button from "../../shared/ui/atoms/Button";
 
 //React
 import Editor from "@monaco-editor/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { IoIosColorPalette } from "react-icons/io";
 
 //assets
@@ -64,7 +64,18 @@ const CodeEditorPage = () => {
           <h2 className="font-semibold my-4 text-label-md text-white">
             Salida
           </h2>
-          <pre className="text-black bg-white p-2">{output}</pre>
+          <pre
+            className={`p-3 rounded-md overflow-auto
+            ${
+              themeEditor === "vs"
+                ? "bg-white text-black"
+                : themeEditor === "vs-dark"
+                ? "bg-[#1E1E1E] text-blue-400"
+                : "bg-black text-yellow-300"
+            }`}
+          >
+            {output}
+          </pre>
         </div>
       </div>
 

@@ -1,5 +1,5 @@
-import { NavigationLink } from "../atoms/NavigationLink";
-import Button from "../atoms/Button";
+import { NavigationLink } from "../../atoms/NavigationLink";
+import Button from "../../atoms/Button";
 
 export const MobileMenu = () => {
   return (
