@@ -1,5 +1,5 @@
 // assets
-import logo from "../../../assets/logo-python.webp";
+import logo from "../../../assets/img/logo-python.webp";
 
 //React
 import { useState, useEffect } from "react";
