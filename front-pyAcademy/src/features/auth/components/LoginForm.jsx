@@ -29,7 +29,7 @@ const LoginForm = ({ onSubmit, isLoading, error }) => {
       <div>
         <label
           htmlFor="email"
-          className="block text-sm font-medium mb-2 text-gray-700"
+          className="block text-label-md mb-2 dark:text-neutral-neu0"
         >
           Correo electrónico
         </label>
@@ -40,7 +40,7 @@ const LoginForm = ({ onSubmit, isLoading, error }) => {
           onChange={handleChange}
           placeholder="Ingresa tu correo electrónico"
           required
-          className="w-full rounded-md border border-gray-300 px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          className="w-full rounded-md border px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-[#414862]"
           disabled={isLoading}
         />
       </div>
@@ -48,7 +48,7 @@ const LoginForm = ({ onSubmit, isLoading, error }) => {
       <div>
         <label
           htmlFor="password"
-          className="block text-sm font-medium mb-2 text-gray-700"
+          className="block text-label-md mb-2 dark:text-neutral-neu0"
         >
           Contraseña
         </label>
@@ -59,7 +59,7 @@ const LoginForm = ({ onSubmit, isLoading, error }) => {
           onChange={handleChange}
           placeholder="Ingresa una contraseña"
           required
-          className="w-full rounded-md border border-gray-300 px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          className="w-full rounded-md border px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-[#414862]"
           disabled={isLoading}
         />
       </div>

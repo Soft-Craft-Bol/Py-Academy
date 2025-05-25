@@ -2,7 +2,7 @@
 import { MenuInformation } from "../molecules/MenuInformation";
 
 //assets
-import logo from "../../../assets/logo-python.webp";
+import logo from "../../../assets/img/logo-python.webp";
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();

@@ -6,9 +6,9 @@ import HeroSection from "./components/HeroSection";
 import { saludo } from "../../shared/api/api";
 
 //assets
-import chatbotImage from "../../assets/chatbot.png";
-import editorCodigo from "../../assets/editorCodigo.png";
-import lecciones from "../../assets/lecciones.jpg";
+import chatbotImage from "../../assets/img/chatbot.png";
+import editorCodigo from "../../assets/img/editorCodigo.png";
+import lecciones from "../../assets/img/lecciones.jpg";
 
 import "./Home.css";
 
