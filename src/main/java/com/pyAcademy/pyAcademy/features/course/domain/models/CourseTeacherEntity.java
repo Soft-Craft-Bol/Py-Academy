@@ -2,9 +2,14 @@ package com.pyAcademy.pyAcademy.features.course.domain.models;
 
 import com.pyAcademy.pyAcademy.features.education.domain.models.TeacherEntity;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.sql.Timestamp;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "course_teachers")
 public class CourseTeacherEntity {
 
@@ -25,6 +30,5 @@ public class CourseTeacherEntity {
 
     @Column(name = "role", nullable = false)
     private String role;
-
 
 }

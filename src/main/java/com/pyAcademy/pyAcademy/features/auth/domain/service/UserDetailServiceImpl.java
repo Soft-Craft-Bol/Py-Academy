@@ -45,9 +45,9 @@ public class UserDetailServiceImpl implements UserDetailsService {
     private IRoleRepository roleRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) {
-        UserEntity userEntity = userRepository.findUserEntityByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("El usuario " + username + " no existe."));
+    public UserDetails loadUserByUsername(String email) {
+        UserEntity userEntity = userRepository.findUserEntityByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("El usuario " + email + " no existe."));
 
         List<SimpleGrantedAuthority> authorityList = new ArrayList<>();
 
@@ -134,32 +134,34 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
 
     public AuthResponse loginUser(AuthLoginRequest authLoginRequest) {
-        String username = authLoginRequest.username();
+        String email = authLoginRequest.email(); // Cambia de username a email
         String password = authLoginRequest.password();
 
-        Authentication authentication = this.authenticate(username, password);
+        Authentication authentication = this.authenticate(email, password);
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String accessToken = jwtUtils.createToken(authentication);
 
-        UserEntity userEntity = userRepository.findUserEntityByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("El usuario " + username + " no existe."));
+        UserEntity userEntity = userRepository.findUserEntityByEmail(email) // Cambia a búsqueda por email
+                .orElseThrow(() -> new UsernameNotFoundException("El usuario con email " + email + " no existe."));
         String photo = userEntity.getPhoto();
 
-        return new AuthResponse(username, "User logged in successfully", accessToken, true, photo);
+        return new AuthResponse(userEntity.getUsername(), "User logged in successfully", accessToken, true, photo);
     }
 
-    public Authentication authenticate(String username, String password) {
-        UserDetails userDetails = this.loadUserByUsername(username);
+    public Authentication authenticate(String email, String password) { // Cambia parámetro a email
+        UserDetails userDetails = this.loadUserByUsername(email);
 
         if (userDetails == null) {
-            throw new BadCredentialsException(String.format("Invalid username or password"));
+            throw new BadCredentialsException(String.format("Invalid email or password"));
         }
 
         if (!passwordEncoder.matches(password, userDetails.getPassword())) {
             throw new BadCredentialsException("Incorrect Password");
         }
 
-        return new UsernamePasswordAuthenticationToken(username, password, userDetails.getAuthorities());
+        return new UsernamePasswordAuthenticationToken(email, password, userDetails.getAuthorities());
     }
+
+
 }
