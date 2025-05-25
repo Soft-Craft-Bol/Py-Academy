@@ -1,6 +1,6 @@
 import Button from "../../../shared/ui/atoms/Button";
 import "./HeroSection.css";
-import heroImage from "../../../assets/heroImage.png";
+import heroImage from "../../../assets/img/heroImage.png";
 
 const HeroSection = () => {
   return (

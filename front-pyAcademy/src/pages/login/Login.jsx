@@ -16,7 +16,7 @@ const Login = () => {
       {/* Main Content */}
       <main className="flex flex-1 max-w-7xl mx-auto px-4 sm:px-8 items-center justify-center gap-12 flex-col lg:flex-row py-16">
         {/* Imagen Terminal */}
-        <div className="w-full max-w-md rounded-lg shadow-lg overflow-hidden lg:max-w-lg dark:shadow-blue-500/50 shadow-xl transition-transform duration-300 ease-in-out">
+        <div className="w-full max-w-md rounded-lg overflow-hidden lg:max-w-lg dark:shadow-blue-500/50 shadow-xl transition-transform duration-300 ease-in-out">
           <img
             src={heroImage}
             alt="Imagen login"
@@ -25,7 +25,7 @@ const Login = () => {
         </div>
 
         <section
-          className="bg-white border rounded-2xl shadow-lg p-8 sm:p-10 w-full max-w-md"
+          className="bg-white border rounded-2xl shadow-lg p-8 sm:p-10 w-full max-w-m"
           aria-labelledby="login-title"
         >
           <h2
