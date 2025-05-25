@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 export const signOut = () => {
   Cookies.remove('authToken');
   Cookies.remove('userData');
-  window.location.href = '/login';
+  // window.location.href = '/login';
 };
 
 export const saveToken = (token) => {

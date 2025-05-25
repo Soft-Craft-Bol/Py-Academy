@@ -11,32 +11,29 @@ import CoursesPage from "./pages/student/CoursesPage";
 import CodeEditorPage from "./pages/student/CodeEditorPage";
 import { ChatIA } from "./pages/student/ChatIA";
 import LoginPage from "./pages/auth/LoginPage";
-import { AuthProvider } from "./app/context/AuthContext";
 
 function App() {
   return (
     <>
-    <AuthProvider>
-      <Routes>
-        <Route element={<PublicLayout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/explorar-cursos" element={<Home />} />
-          <Route path="/Recursos-OER" element={<Home />} />
-          <Route path="/ia-tutor" element={<Home />} />
-          <Route path="/login" element={<LoginPage />} />
-        </Route>
+        <Routes>
+          <Route element={<PublicLayout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/explorar-cursos" element={<Home />} />
+            <Route path="/Recursos-OER" element={<Home />} />
+            <Route path="/ia-tutor" element={<Home />} />
+            <Route path="/login" element={<LoginPage />} />
+          </Route>
 
-        <Route element={<PublicLayout />}>
-          <Route path="/gestionar-cursos" element={<ManageCourses />} />
-        </Route>
+          <Route element={<TeacherLayout />}>
+            <Route path="/gestionar-cursos" element={<ManageCourses />} />
+          </Route>
 
-        <Route path="/student" element={<StudentLayout />}>
-          <Route index element={<CoursesPage />} />
-          <Route path="editor" element={<CodeEditorPage />} />
-          <Route path="chatIA" element={<ChatIA />} />
-        </Route>
-      </Routes>
-      </AuthProvider>
+          <Route path="/student" element={<StudentLayout />}>
+            <Route index element={<CoursesPage />} />
+            <Route path="editor" element={<CodeEditorPage />} />
+            <Route path="chatIA" element={<ChatIA />} />
+          </Route>
+        </Routes>
     </>
   );
 }
