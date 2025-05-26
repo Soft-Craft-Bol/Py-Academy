@@ -1,86 +1,121 @@
-import React from "react";
-import crearImg from "../../assets/ManageCourses/crear.png";
-import editarImg from "../../assets/ManageCourses/editar.png";
-import eliminarImg from "../../assets/ManageCourses/eliminar.png";
-import CourseCard from "../../pages/ManageCourses/components/CourseCard";
+import React, { useState } from "react";
+import CourseCard from "./components/CourseCard";
 import pyWeb from "../../assets/ManageCourses/pyWeb.jpeg";
 import estDatPy from "../../assets/ManageCourses/estDatPy.jpg";
 import python_basico from "../../assets/ManageCourses/python_basico.jpg";
 
+const initialCourses = [
+  { id: 1, title: "Curso de Python Básico", description: "Aprende los fundamentos de Python desde cero.", imageUrl: python_basico },
+  { id: 2, title: "Curso de Estructuras de Datos", description: "Conoce listas, pilas, colas y árboles con ejemplos prácticos.", imageUrl: estDatPy },
+  { id: 3, title: "Curso de Desarrollo Web", description: "Crea aplicaciones web usando HTML, CSS y JavaScript.", imageUrl: pyWeb },
+  { id: 4, title: "Curso Avanzado de Estructuras de Datos", description: "Profundiza en estructuras con ejemplos prácticos.", imageUrl: estDatPy },
+  { id: 5, title: "Curso Avanzado de Estructuras de Datos", description: "Profundiza en estructuras con ejemplos prácticos.", imageUrl: estDatPy }
+];
+
 const ManageCourses = () => {
-  const handleViewMore = () => {
-    alert("Detalles del curso...");
+  const [courses, setCourses] = useState(initialCourses);
+  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [newCourseData, setNewCourseData] = useState({
+    title: "",
+    description: "",
+    imageUrl: "",
+  });
+
+  const handleViewMore = (id) => alert("Detalles del curso " + id);
+
+  const handleEditCourse = (id, updatedData) => {
+    setCourses((prev) =>
+      prev.map((course) => (course.id === id ? { ...course, ...updatedData } : course))
+    );
+  };
+
+  const handleDeleteCourse = (id) => {
+    setCourses((prev) => prev.filter((course) => course.id !== id));
   };
 
   return (
     <section className="py-16 px-4 md:px-10 bg-gray-50 min-h-screen dark:bg-gradient-1">
-      {/* Mis cursos creados */}
-      <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center dark:text-white">
-        Mis cursos creados
-      </h2>
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-2xl font-bold text-gray-800 dark:text-white">Mis cursos creados</h2>
+        <button
+          onClick={() => setShowCreateModal(true)}
+          className="text-sm bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg transition"
+        >
+          Crear curso
+        </button>
+      </div>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 w-full px-4">
-
-        <CourseCard
-          title="Curso de Python Básico"
-          description="Aprende los fundamentos de Python desde cero."
-          imageUrl={python_basico}
-          onViewMore={handleViewMore}
-        />
-        <CourseCard
-          title="Curso de Estructuras de Datos"
-          description="Conoce listas, pilas, colas y árboles con ejemplos prácticos."
-          imageUrl={estDatPy}
-          onViewMore={handleViewMore}
-        />
-        <CourseCard
-          title="Curso de Desarrollo Web"
-          description="Crea aplicaciones web usando HTML, CSS y JavaScript."
-          imageUrl={pyWeb}
-          onViewMore={handleViewMore}
-        />
+        {courses.map((course) => (
+          <CourseCard
+            key={course.id}
+            title={course.title}
+            description={course.description}
+            imageUrl={course.imageUrl}
+            onViewMore={() => handleViewMore(course.id)}
+            onEdit={(updatedData) => handleEditCourse(course.id, updatedData)}
+            onDelete={() => handleDeleteCourse(course.id)}
+          />
+        ))}
       </div>
 
-      {/* Gestión de cursos */}
-      <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-4 dark:text-white">
-        Gestión de Cursos
-      </h2>
-      <p className="text-center text-gray-400 mb-12">
-        Crea, edita o elimina tus cursos fácilmente desde aquí.
-      </p>
-      <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto px-4">
-        <div className="bg-white shadow-lg rounded-2xl p-6 flex flex-col items-center text-center">
-          <img src={crearImg} alt="Crear curso" className="h-40 mb-4 object-contain" />
-          <h3 className="text-xl font-semibold text-gray-800 mb-2">Crear Curso</h3>
-          <p className="text-gray-600 text-sm mb-4">
-            Diseña nuevos cursos para tus estudiantes de forma rápida y sencilla.
-          </p>
-          <button className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-xl transition">
-            Crear ahora
-          </button>
-        </div>
+      {showCreateModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg w-full max-w-md">
+            <h3 className="text-lg font-bold mb-4 dark:text-white">Crear Nuevo Curso</h3>
 
-        <div className="bg-white shadow-lg rounded-2xl p-6 flex flex-col items-center text-center">
-          <img src={editarImg} alt="Editar curso" className="h-40 mb-4 object-contain" />
-          <h3 className="text-xl font-semibold text-gray-800 mb-2">Editar Curso</h3>
-          <p className="text-gray-600 text-sm mb-4">
-            Actualiza el contenido de tus cursos según lo necesites.
-          </p>
-          <button className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-xl transition">
-            Editar ahora
-          </button>
-        </div>
+            <label className="block mb-1 font-semibold text-gray-700 dark:text-gray-300">Título</label>
+            <input
+              type="text"
+              placeholder="Título"
+              className="w-full p-2 mb-3 border rounded placeholder-gray-500 dark:placeholder-gray-400 bg-white dark:bg-gray-700 text-black dark:text-white"
+              value={newCourseData.title}
+              onChange={(e) => setNewCourseData({ ...newCourseData, title: e.target.value })}
+            />
 
-        <div className="bg-white shadow-lg rounded-2xl p-6 flex flex-col items-center text-center">
-          <img src={eliminarImg} alt="Eliminar curso" className="h-40 mb-4 object-contain" />
-          <h3 className="text-xl font-semibold text-gray-800 mb-2">Eliminar Curso</h3>
-          <p className="text-gray-600 text-sm mb-4">
-            Elimina cursos que ya no están activos en la plataforma.
-          </p>
-          <button className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-xl transition">
-            Eliminar ahora
-          </button>
+            <textarea
+              placeholder="Descripción"
+              className="w-full p-2 mb-3 border rounded placeholder-gray-500 dark:placeholder-gray-400 bg-white dark:bg-gray-700 text-black dark:text-white"
+              value={newCourseData.description}
+              onChange={(e) => setNewCourseData({ ...newCourseData, description: e.target.value })}
+            />
+
+            <input
+              type="text"
+              placeholder="URL de la imagen"
+              className="w-full p-2 mb-4 border rounded placeholder-gray-500 dark:placeholder-gray-400 bg-white dark:bg-gray-700 text-black dark:text-white"
+              value={newCourseData.imageUrl}
+              onChange={(e) => setNewCourseData({ ...newCourseData, imageUrl: e.target.value })}
+            />
+            <div className="flex justify-end gap-2">
+              <button
+                onClick={() => setShowCreateModal(false)}
+                className="px-4 py-2 rounded bg-gray-300 hover:bg-gray-400"
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={() => {
+                  if (!newCourseData.title || !newCourseData.description) {
+                    alert("Completa título y descripción");
+                    return;
+                  }
+                  const newCourse = {
+                    id: courses.length + 1,
+                    ...newCourseData,
+                  };
+                  setCourses([...courses, newCourse]);
+                  setNewCourseData({ title: "", description: "", imageUrl: "" });
+                  setShowCreateModal(false);
+                }}
+                className="px-4 py-2 rounded bg-indigo-600 text-white hover:bg-indigo-700"
+              >
+                Guardar
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
+      )}
     </section>
   );
 };
