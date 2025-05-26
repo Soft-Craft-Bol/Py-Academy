@@ -17,8 +17,10 @@ public class CourseController {
     private CourseService courseService;
 
     @PostMapping
-    public ResponseEntity<CourseEntity> createCourse(@Valid @RequestBody CourseEntity course) {
-        CourseEntity createdCourse = courseService.createCourse(course);
+    public ResponseEntity<CourseEntity> createCourse(
+            @Valid @RequestBody CourseEntity course,
+            @RequestParam Long teacherId) {
+        CourseEntity createdCourse = courseService.createCourse(course, teacherId);
         return ResponseEntity.ok(createdCourse);
     }
 
