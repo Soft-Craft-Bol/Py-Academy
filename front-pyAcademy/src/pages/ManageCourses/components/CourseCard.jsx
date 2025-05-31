@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const CourseCard = ({ title, description, imageUrl, onViewMore, onEdit, onDelete }) => {
+const CourseCard = ({ id, title, description, imageUrl, onEdit, onDelete }) => {
+  const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
@@ -23,10 +25,22 @@ const CourseCard = ({ title, description, imageUrl, onViewMore, onEdit, onDelete
           </button>
           {menuOpen && (
             <div className="absolute right-0 mt-2 bg-white shadow-md rounded-lg text-sm z-20">
-              <button onClick={() => { setEditModalOpen(true); setMenuOpen(false); }} className="block px-4 py-2 hover:bg-gray-100 w-full text-left text-black">
+              <button
+                onClick={() => {
+                  setEditModalOpen(true);
+                  setMenuOpen(false);
+                }}
+                className="block px-4 py-2 hover:bg-gray-100 w-full text-left text-black"
+              >
                 Editar
               </button>
-              <button onClick={() => { setDeleteConfirmOpen(true); setMenuOpen(false); }} className="block px-4 py-2 hover:bg-gray-100 w-full text-left text-red-600">
+              <button
+                onClick={() => {
+                  setDeleteConfirmOpen(true);
+                  setMenuOpen(false);
+                }}
+                className="block px-4 py-2 hover:bg-gray-100 w-full text-left text-red-600"
+              >
                 Eliminar curso
               </button>
             </div>
@@ -40,7 +54,7 @@ const CourseCard = ({ title, description, imageUrl, onViewMore, onEdit, onDelete
       <div className="p-4 flex flex-col justify-between h-48 bg-white text-black dark:bg-gray-800 dark:text-white">
         <p className="text-gray-700 dark:text-gray-300 text-sm mb-4">{description}</p>
         <button
-          onClick={onViewMore}
+          onClick={() => navigate(`/curso/${id}`)}
           className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-xl transition"
         >
           Ver más
@@ -61,13 +75,19 @@ const CourseCard = ({ title, description, imageUrl, onViewMore, onEdit, onDelete
               placeholder="Título"
             />
 
-            <label className="block mb-1 font-medium">URL de imagen</label>
+            <label className="block mb-1 font-medium">Imagen (PNG, JPG, JPEG)</label>
             <input
-              type="text"
+              type="file"
+              accept="image/png, image/jpeg, image/jpg"
               className="w-full mb-3 p-2 border rounded bg-white text-black dark:bg-gray-700 dark:text-white"
-              value={editImage}
-              onChange={(e) => setEditImage(e.target.value)}
-              placeholder="URL de imagen"
+              onChange={(e) => {
+                const file = e.target.files[0];
+                if (file) {
+                  const reader = new FileReader();
+                  reader.onloadend = () => setEditImage(reader.result);
+                  reader.readAsDataURL(file);
+                }
+              }}
             />
 
             <label className="block mb-1 font-medium">Descripción</label>
@@ -79,7 +99,10 @@ const CourseCard = ({ title, description, imageUrl, onViewMore, onEdit, onDelete
             />
 
             <div className="flex justify-end gap-2">
-              <button className="px-4 py-2 bg-gray-200 text-black rounded dark:bg-gray-600 dark:text-white" onClick={() => setEditModalOpen(false)}>
+              <button
+                className="px-4 py-2 bg-gray-200 text-black rounded dark:bg-gray-600 dark:text-white"
+                onClick={() => setEditModalOpen(false)}
+              >
                 Cancelar
               </button>
               <button className="px-4 py-2 bg-indigo-600 text-white rounded" onClick={handleSave}>
@@ -89,33 +112,34 @@ const CourseCard = ({ title, description, imageUrl, onViewMore, onEdit, onDelete
           </div>
         </div>
       )}
+
       {deleteConfirmOpen && (
-      <div className="fixed inset-0 bg-black bg-opacity-50 z-30 flex items-center justify-center">
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 w-full max-w-sm text-center text-black dark:text-white">
-          <h3 className="text-lg font-semibold mb-4">¿Eliminar este curso?</h3>
-          <p className="mb-6 text-sm text-gray-600 dark:text-gray-300">
-            Esta acción no se puede deshacer.
-          </p>
-          <div className="flex justify-center gap-4">
-            <button
-              className="px-4 py-2 bg-gray-200 text-black rounded dark:bg-gray-600 dark:text-white"
-              onClick={() => setDeleteConfirmOpen(false)}
-            >
-              Cancelar
-            </button>
-            <button
-              className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
-              onClick={() => {
-                onDelete();
-                setDeleteConfirmOpen(false);
-              }}
-            >
-              Eliminar
-            </button>
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-30 flex items-center justify-center">
+          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 w-full max-w-sm text-center text-black dark:text-white">
+            <h3 className="text-lg font-semibold mb-4">¿Eliminar este curso?</h3>
+            <p className="mb-6 text-sm text-gray-600 dark:text-gray-300">
+              Esta acción no se puede deshacer.
+            </p>
+            <div className="flex justify-center gap-4">
+              <button
+                className="px-4 py-2 bg-gray-200 text-black rounded dark:bg-gray-600 dark:text-white"
+                onClick={() => setDeleteConfirmOpen(false)}
+              >
+                Cancelar
+              </button>
+              <button
+                className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+                onClick={() => {
+                  onDelete();
+                  setDeleteConfirmOpen(false);
+                }}
+              >
+                Eliminar
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-    )}
+      )}
     </div>
   );
 };

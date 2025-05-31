@@ -48,11 +48,10 @@ const ManageCourses = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 w-full px-4">
         {courses.map((course) => (
           <CourseCard
-            key={course.id}
+            id={course.id}
             title={course.title}
             description={course.description}
             imageUrl={course.imageUrl}
-            onViewMore={() => handleViewMore(course.id)}
             onEdit={(updatedData) => handleEditCourse(course.id, updatedData)}
             onDelete={() => handleDeleteCourse(course.id)}
           />
@@ -72,7 +71,7 @@ const ManageCourses = () => {
               value={newCourseData.title}
               onChange={(e) => setNewCourseData({ ...newCourseData, title: e.target.value })}
             />
-
+            <label className="block mb-1 font-semibold text-gray-700 dark:text-gray-300">Descripción</label>
             <textarea
               placeholder="Descripción"
               className="w-full p-2 mb-3 border rounded placeholder-gray-500 dark:placeholder-gray-400 bg-white dark:bg-gray-700 text-black dark:text-white"
@@ -80,13 +79,22 @@ const ManageCourses = () => {
               onChange={(e) => setNewCourseData({ ...newCourseData, description: e.target.value })}
             />
 
+            <label className="block mb-1 font-semibold text-gray-700 dark:text-gray-300">Imagen (PNG, JPG, JPEG)</label>
             <input
-              type="text"
-              placeholder="URL de la imagen"
-              className="w-full p-2 mb-4 border rounded placeholder-gray-500 dark:placeholder-gray-400 bg-white dark:bg-gray-700 text-black dark:text-white"
-              value={newCourseData.imageUrl}
-              onChange={(e) => setNewCourseData({ ...newCourseData, imageUrl: e.target.value })}
-            />
+              type="file"
+              accept="image/png, image/jpeg, image/jpg"
+              className="w-full p-2 mb-4 border rounded bg-white dark:bg-gray-700 text-black dark:text-white"
+              onChange={(e) => {
+                const file = e.target.files[0];
+                if (file) {
+                  const reader = new FileReader();
+                  reader.onloadend = () =>
+                    setNewCourseData((prev) => ({ ...prev, imageUrl: reader.result }));
+                  reader.readAsDataURL(file);
+                }
+              }}
+/>
+
             <div className="flex justify-end gap-2">
               <button
                 onClick={() => setShowCreateModal(false)}
