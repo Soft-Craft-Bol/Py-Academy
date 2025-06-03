@@ -36,6 +36,7 @@ const CodeEditorPage = () => {
 
           <div className="flex gap-5 items-center">
             <IoIosColorPalette
+              data-testid="palette-icon"
               className="text-3xl text-primary-pri4"
               onClick={handleThemeEditor}
             />
