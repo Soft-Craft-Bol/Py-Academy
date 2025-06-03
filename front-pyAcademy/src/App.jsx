@@ -11,6 +11,7 @@ import CoursesPage from "./pages/student/CoursesPage";
 import CodeEditorPage from "./pages/student/CodeEditorPage";
 import { ChatIA } from "./pages/student/ChatIA";
 import LoginPage from "./pages/auth/LoginPage";
+import PyEditor from "./pages/student/PyEditorPage";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path="/student" element={<StudentLayout />}>
           <Route index element={<CoursesPage />} />
           <Route path="editor" element={<CodeEditorPage />} />
+          <Route path="PyEditor" element={<PyEditor />} />
           <Route path="chatIA" element={<ChatIA />} />
         </Route>
       </Routes>
