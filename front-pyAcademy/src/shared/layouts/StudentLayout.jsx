@@ -13,21 +13,19 @@ export const StudentLayout = () => {
   const toggleMenu = () => setMenuOpen(!isMenuOpen);
   const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
 
-  const styleMain = isSidebarOpen
-    ? "min-h-screen grid grid-cols-[250px_auto]"
-    : "min-h-screen grid grid-cols-[90px_auto]";
+  const styleMain = "min-h-screen flex flex-col md:grid md:grid-cols-[90px_auto] md:[&.open]:grid-cols-[250px_auto]";
 
   return (
     <>
       <NavbarUser />
-      <main className={styleMain}>
+      <main className={`${styleMain} ${isSidebarOpen ? "open" : ""}`}>
         <Sidebar
           isSidebarOpen={isSidebarOpen}
           isMenuOpen={isMenuOpen}
           toggleSidebar={toggleSidebar}
           toggleMenu={toggleMenu}
         />
-        <div className="grid col-start-2">
+        <div className="w-full md:col-start-2">
           <Outlet />
         </div>
       </main>

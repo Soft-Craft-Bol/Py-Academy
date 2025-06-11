@@ -55,12 +55,12 @@ const PythonEditor = () => {
   };
 
   return (
-    <div className="mt-10 mx-auto w-[90%]">
+    <div className="mt-6 mx-auto px-4 w-full max-w-7xl">
       <h1 className="p-1 rounded-lg text-center font-bold text-title-lg dark:text-white mb-5">
         Editor de codigo Python
       </h1>
 
-      <div className="bg-primary-pri2 dark:bg-primary-pri1 p-7 rounded-lg shadow-blue-500/50 shadow-lg">
+      <div className="bg-primary-pri2 dark:bg-primary-pri1 p-4 sm:p-6 md:p-7 rounded-lg shadow-blue-500/50 shadow-lg">
         <h2 className="font-semibold my-4 text-label-md text-white">Entrada</h2>
         <CodeMirror
           value={code}
@@ -75,11 +75,11 @@ const PythonEditor = () => {
         </h2>
         <textarea
           rows={3}
-          cols={60}
+          //cols={60}
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Una línea por input()"
-          className="text-black border rounded p-1"
+          className="w-full text-black border rounded p-2"
         />
 
         <br />
@@ -95,7 +95,7 @@ const PythonEditor = () => {
 
       <div className="bg-primary-pri2 dark:bg-primary-pri1 p-7 rounded-lg shadow-blue-500/50 shadow-lg mt-10 mb-10">
         <h2 className="font-semibold my-4 text-label-md text-white">Salida</h2>
-        <pre className="p-3 rounded-md overflow-auto bg-white text-black">
+        <pre className="p-3 rounded-md overflow-auto bg-white text-black text-sm sm:text-base w-full break-words">
           {output}
         </pre>
       </div>
