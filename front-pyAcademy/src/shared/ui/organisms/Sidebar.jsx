@@ -50,7 +50,10 @@ export const Sidebar = ({
         />
       </motion.div>
 
-      <MobileMenuButton onToggleMenu={toggleMenu} />
+      <div className="flex md:hidden justify-end px-4 py-2">
+        <MobileMenuButton onToggleMenu={toggleMenu} />
+      </div>
+
 
       <MobileSidebar
         onLogout={handleLogout}
