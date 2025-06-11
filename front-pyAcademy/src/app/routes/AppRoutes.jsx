@@ -13,6 +13,7 @@ const LoginPage = lazy(() => import("../../pages/auth/LoginPage"));
 const CoursesPage = lazy(() => import("../../pages/student/CoursesPage"));
 const PyEditor = lazy(() => import("../../pages/student/PyEditorPage"));
 const ChatIA = lazy(() => import("../../pages/student/ChatIA"));
+const ResourceManager = lazy(() => import("../../pages/ManageResources/ManageResources"));
 
 export const AppRoutes = () => {
   return (
@@ -21,7 +22,7 @@ export const AppRoutes = () => {
         <Route element={<PublicLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/explorar-cursos" element={<ExplorateCourses />} />
-          <Route path="/Recursos-OER" element={<Home />} />
+          <Route path="/Recursos-OER" element={<ResourceManager/>} />
           <Route path="/ia-tutor" element={<Home />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/gestionar-cursos" element={<ManageCourses />} />
