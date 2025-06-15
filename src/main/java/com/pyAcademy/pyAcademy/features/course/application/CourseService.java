@@ -6,9 +6,11 @@ import com.pyAcademy.pyAcademy.features.course.application.dto.TeacherDetailsDTO
 import com.pyAcademy.pyAcademy.features.course.domain.CourseRepository;
 import com.pyAcademy.pyAcademy.features.course.domain.models.CourseEntity;
 import com.pyAcademy.pyAcademy.features.course.domain.models.CourseTeacherEntity;
+import com.pyAcademy.pyAcademy.features.education.domain.models.TeacherEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,8 +31,19 @@ public class CourseService {
         this.courseTeacherService = courseTeacherService;
     }
 
-    public CourseEntity createCourse(CourseEntity course) {
-        return courseRepository.save(course);
+    public CourseEntity createCourse(CourseEntity course, Long teacherId) {
+        Optional<TeacherEntity> teacherOptional = courseTeacherService.getTeacherById(teacherId);
+        if (teacherOptional.isEmpty()) {
+            throw new RuntimeException("El maestro con ID " + teacherId + " no existe");
+        }
+        CourseEntity savedCourse = courseRepository.save(course);
+        CourseTeacherEntity courseTeacher = new CourseTeacherEntity();
+        courseTeacher.setCourse(savedCourse);
+        courseTeacher.setTeacher(teacherOptional.get());
+        courseTeacher.setAssignedDate(new Timestamp(System.currentTimeMillis()));
+        courseTeacher.setRole("Instructor");
+        courseTeacherService.saveCourseTeacher(courseTeacher);
+        return savedCourse;
     }
 
     public CourseEntity updateCourse(Long id, CourseEntity course) {
