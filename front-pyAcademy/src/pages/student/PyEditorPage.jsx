@@ -22,7 +22,7 @@ const PythonEditor = () => {
       }
       const pyodideInstance = await window.loadPyodide();
       setPyodide(pyodideInstance);
-      console.log("✅ Pyodide cargado");
+      console.log("Pyodide cargado");
     };
     load();
   }, []);
