@@ -4,7 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import { StudentLayout } from "../../shared/layouts/StudentLayout";
 import { TeacherLayout } from "../../shared/layouts/TeacherLayout";
 import { PublicLayout } from "../../shared/layouts/PublicLayout";
-import PyEditor from "../../pages/student/PyEditorPage";
+// import { ExercisesPage } from "../../pages/student/ExercisesPage";
 
 const Home = lazy(() => import("../../pages/home/Home"));
 const ManageCourses = lazy(() =>
@@ -18,34 +18,41 @@ const PrivateCourseView = lazy(() =>
 );
 const LoginPage = lazy(() => import("../../pages/auth/LoginPage"));
 const CoursesPage = lazy(() => import("../../pages/student/CoursesPage"));
-// const PyEditor = lazy(() => import("../../pages/student/PyEditorPage"));
+const PyEditor = lazy(() => import("../../pages/student/PyEditorPage"));
 const ChatIA = lazy(() => import("../../pages/student/ChatIA"));
 const ResourceManager = lazy(() =>
   import("../../pages/ManageResources/ManageResources")
 );
+const ExercisesPage = lazy(() => import("../../pages/student/ExercisesPage"));
+
+const ExercisePage = lazy(() => import("../../pages/student/ExercisePage"));
 
 export const AppRoutes = () => {
   return (
-    <Routes>
-      <Route element={<PublicLayout />}>
-        <Route path="/" element={<Home />} />
-        <Route path="/explorar-cursos" element={<ExplorateCourses />} />
-        <Route path="/Recursos-OER" element={<ResourceManager />} />
-        <Route path="/ia-tutor" element={<Home />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/gestionar-cursos" element={<ManageCourses />} />
-        <Route path="/curso/:id" element={<PrivateCourseView />} />
-      </Route>
+    <Suspense fallback={<div>Cargando...</div>}>
+      <Routes>
+        <Route element={<PublicLayout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/explorar-cursos" element={<ExplorateCourses />} />
+          <Route path="/Recursos-OER" element={<ResourceManager />} />
+          <Route path="/ia-tutor" element={<Home />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/gestionar-cursos" element={<ManageCourses />} />
+          <Route path="/curso/:id" element={<PrivateCourseView />} />
+        </Route>
 
-      <Route element={<TeacherLayout />}>
-        {/* Rutas futuras para docentes */}
-      </Route>
+        <Route element={<TeacherLayout />}>
+          {/* Rutas futuras para docentes */}
+        </Route>
 
-      <Route path="/student" element={<StudentLayout />}>
-        <Route index element={<CoursesPage />} />
-        <Route path="editor" element={<PyEditor />} />
-        <Route path="chatIA" element={<ChatIA />} />
-      </Route>
-    </Routes>
+        <Route path="/student" element={<StudentLayout />}>
+          <Route index element={<CoursesPage />} />
+          <Route path="editor" element={<PyEditor />} />
+          <Route path="chatIA" element={<ChatIA />} />
+          <Route path="exercises" element={<ExercisesPage />} />
+          <Route path="exercise" element={<ExercisePage />} />
+        </Route>
+      </Routes>
+    </Suspense>
   );
 };
