@@ -13,7 +13,8 @@ export const StudentLayout = () => {
   const toggleMenu = () => setMenuOpen(!isMenuOpen);
   const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
 
-  const styleMain = "min-h-screen flex flex-col md:grid md:grid-cols-[90px_auto] md:[&.open]:grid-cols-[250px_auto]";
+  const styleMain =
+    "min-h-screen flex flex-col md:grid md:grid-cols-[65px_auto] md:[&.open]:grid-cols-[226px_auto]";
 
   return (
     <>
@@ -25,7 +26,7 @@ export const StudentLayout = () => {
           toggleSidebar={toggleSidebar}
           toggleMenu={toggleMenu}
         />
-        <div className="w-full md:col-start-2">
+        <div className="w-full md:col-start-2 p-8">
           <Outlet />
         </div>
       </main>

@@ -6,10 +6,10 @@ export default {
     extend: {
       colors: {
         primary: {
-          pri1: "#0A0F1C",
+          pri1: "#4318D1",
           pri2: "#1A1F2E",
-          pri3: "#4318D1",
-          pri4: "#C5E6FD",
+          pri3: "#0A0F1C",
+          pri4: "#1F2937",
         },
         error: {
           err1: "#AC010C", // Rojo oscuro – fondo de alerta crítica
