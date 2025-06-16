@@ -32,7 +32,10 @@ export const NavbarUser = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-white shadow-sm w-full dark:bg-primary-pri2 dark:text-white">
+    <header
+      className="sticky top-0 z-50 bg-white shadow-sm w-full dark:bg-primary-pri4 dark:text-white
+    "
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           <LogoNavbar logo={logo} title={"PyAcademy"} />
