@@ -6,12 +6,10 @@ import { python } from "@codemirror/lang-python";
 //Components
 import Button from "../../shared/ui/atoms/Button";
 
-const PythonEditor = () => {
+const PythonEditor = ({ title = true }) => {
   const [pyodide, setPyodide] = useState(null);
-  const [code, setCode] = useState(
-    `nombre = input()\nprint(f"Hola, {nombre}!")`
-  );
-  const [input, setInput] = useState("John");
+  const [code, setCode] = useState("");
+  const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
 
   useEffect(() => {
@@ -56,11 +54,13 @@ const PythonEditor = () => {
 
   return (
     <div className="mt-6 mx-auto px-4 w-full max-w-7xl">
-      <h1 className="p-1 rounded-lg text-center font-bold text-title-lg dark:text-white mb-5">
-        Editor de codigo Python
-      </h1>
+      {title && (
+        <h1 className="p-1 rounded-lg text-center font-bold text-title-lg dark:text-white mb-5">
+          Editor de codigo Python
+        </h1>
+      )}
 
-      <div className="bg-primary-pri2 dark:bg-primary-pri1 p-4 sm:p-6 md:p-7 rounded-lg shadow-blue-500/50 shadow-lg">
+      <div className="bg-primary-pri2 dark:bg-primary-pri4 p-4 sm:p-6 md:p-7 rounded-lg shadow-blue-500/50 shadow-lg">
         <h2 className="font-semibold my-4 text-label-md text-white">Entrada</h2>
         <CodeMirror
           value={code}
@@ -87,13 +87,13 @@ const PythonEditor = () => {
           variant="primary"
           size="large"
           onClick={handleExecuteCode}
-          className="bg-primary-pri3 px-4 py-2 mt-3"
+          className="bg-primary-pri1 px-4 py-2 mt-3"
         >
           Ejecutar
         </Button>
       </div>
 
-      <div className="bg-primary-pri2 dark:bg-primary-pri1 p-7 rounded-lg shadow-blue-500/50 shadow-lg mt-10 mb-10">
+      <div className="bg-primary-pri2 dark:bg-primary-pri4 p-7 rounded-lg shadow-blue-500/50 shadow-lg mt-10 mb-10">
         <h2 className="font-semibold my-4 text-label-md text-white">Salida</h2>
         <pre className="p-3 rounded-md overflow-auto bg-white text-black text-sm sm:text-base w-full break-words">
           {output}
