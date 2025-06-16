@@ -23,6 +23,7 @@ export const Sidebar = ({
     { title: "Mis cursos", to: "/student", Icon: LuBookCopy },
     { title: "Editor de codigo", to: "editor", Icon: IoCodeSlash },
     { title: "IA Tutor", to: "chatIA", Icon: GiArtificialIntelligence },
+    { title: "Ejercicios", to: "exercises", Icon: GiArtificialIntelligence },
   ];
 
   const handleLogout = async () => {
@@ -37,7 +38,7 @@ export const Sidebar = ({
     <>
       <motion.div
         layout
-        className={`shadow-blue-500/30 shadow-xl hidden md:block fixed top-0 left-0 h-screen bg-white dark:bg-primary-pri2 text-white transition-all duration-300 ${
+        className={`shadow-blue-500/30 shadow-xl hidden md:block fixed top-0 left-0 h-screen bg-white dark:bg-primary-pri4 text-white transition-all duration-300 ${
           isSidebarOpen ? "w-56" : "w-16"
         }`}
       >
@@ -53,7 +54,6 @@ export const Sidebar = ({
       <div className="flex md:hidden justify-end px-4 py-2">
         <MobileMenuButton onToggleMenu={toggleMenu} />
       </div>
-
 
       <MobileSidebar
         onLogout={handleLogout}

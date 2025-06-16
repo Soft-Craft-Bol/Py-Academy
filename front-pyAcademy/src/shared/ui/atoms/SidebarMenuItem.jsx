@@ -5,13 +5,11 @@ export const SidebarMenuItem = ({
   to,
   Icon,
   isSidebarOpen,
-  onSelect,
   className = "",
 }) => {
   return (
     <Link
       to={to}
-      onClick={() => onSelect(title)}
       className={`group flex items-center p-3 rounded-md transition-colors hover:bg-neutral-neu0 dark:hover:bg-primary-pri1 hover:text-white ${className}`}
     >
       <Icon className="text-xl text-black dark:text-white" />
