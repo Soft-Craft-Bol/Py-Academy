@@ -12,6 +12,14 @@ import PythonEditor from "./PyEditorPage";
 const ExercisePage = () => {
   const location = useLocation();
   const { data } = location.state || {};
+  const onEvaluation = (output) => {
+    console.log(output);
+    if (output === data.testCase.output) {
+      window.alert("Correcto");
+    } else {
+      window.alert("Incorrecto");
+    }
+  };
   const DescriptorElement = ({ title, descripcion, input, output, icon }) => {
     return (
       <div>
@@ -49,9 +57,9 @@ const ExercisePage = () => {
             Ejercicios
           </NavLink>
           <p>|</p>
-          <h1 className="text-title-sm font-semibold">El gato recursivo</h1>
+          <h1 className="text-title-sm font-semibold">{data.title}</h1>
         </div>
-        <p className="bg-green-500 p-1 rounded-md h-[90%]">Principiante</p>
+        <p className="bg-green-500 p-1 rounded-md h-[90%]">{data.category}</p>
       </header>
       <div className="flex">
         <section className="dark:bg-gradient-2 w-[40%] h-screen p-5 sticky top-0">
@@ -75,7 +83,7 @@ const ExercisePage = () => {
           />
         </section>
         <section className="w-[60%]">
-          <PythonEditor title={false} />
+          <PythonEditor title={false} onEvaluation={onEvaluation} />
         </section>
       </div>
     </div>

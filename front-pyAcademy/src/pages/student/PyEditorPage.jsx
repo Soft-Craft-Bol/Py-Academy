@@ -6,7 +6,7 @@ import { python } from "@codemirror/lang-python";
 //Components
 import Button from "../../shared/ui/atoms/Button";
 
-const PythonEditor = ({ title = true }) => {
+const PythonEditor = ({ title = true, onEvaluation }) => {
   const [pyodide, setPyodide] = useState(null);
   const [code, setCode] = useState("");
   const [input, setInput] = useState("");
@@ -47,6 +47,7 @@ const PythonEditor = ({ title = true }) => {
 
       await pyodide.runPythonAsync(code);
       setOutput(salida);
+      if (onEvaluation) onEvaluation(salida);
     } catch (error) {
       setOutput(`Error: ${error.message}`);
     }
