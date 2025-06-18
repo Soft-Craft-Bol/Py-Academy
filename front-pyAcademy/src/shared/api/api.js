@@ -26,7 +26,12 @@ api.interceptors.request.use(
 export default api;
 
 export const loginUser = (data) => api.post("/auth/log-in", data);
-export const addUser = (data) => api.post("/auth/sign-up", data);
+export const addUser = (formData) => {return api.post("/auth/sign-up", formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  });
+};
 export const saludo = (nombre = "Usuario") =>
   api.get("/saludo", {
     params: { nombre },
