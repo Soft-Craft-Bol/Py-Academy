@@ -1,10 +1,10 @@
-// LearningUnitController.java
 package com.pyAcademy.pyAcademy.features.learning.infrastructure.rest;
 
+import com.pyAcademy.pyAcademy.features.course.domain.models.CourseEntity;
+import com.pyAcademy.pyAcademy.features.learning.domain.models.LearningUnitsEntity;
 import com.pyAcademy.pyAcademy.features.learning.infrastructure.dto.request.CreateUnitRequest;
 import com.pyAcademy.pyAcademy.features.learning.infrastructure.dto.response.LearningUnitResponse;
 import com.pyAcademy.pyAcademy.features.learning.application.ports.input.LearningUnitInputPort;
-import com.pyAcademy.pyAcademy.features.learning.domain.models.LearningUnit;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,27 +22,27 @@ public class LearningUnitController {
 
     @PostMapping
     public ResponseEntity<LearningUnitResponse> createUnit(@RequestBody CreateUnitRequest request) {
-        LearningUnit unit = LearningUnit.builder()
+        LearningUnitsEntity unit = LearningUnitsEntity.builder()
                 .title(request.getTitle())
                 .description(request.getDescription())
                 .isActive(request.getIsActive())
                 .sequenceNumber(request.getSequenceNumber())
-                .courseId(request.getCourseId())
+                .course(request.getCourseId() != null ? new CourseEntity(request.getCourseId()) : null)
                 .build();
 
-        LearningUnit savedUnit = learningUnitInputPort.createUnit(unit);
+        LearningUnitsEntity savedUnit = learningUnitInputPort.createUnit(unit);
         return ResponseEntity.status(HttpStatus.CREATED).body(mapToResponse(savedUnit));
     }
 
     @GetMapping("/{unitId}")
     public ResponseEntity<LearningUnitResponse> getUnit(@PathVariable Long unitId) {
-        LearningUnit unit = learningUnitInputPort.getUnitById(unitId);
+        LearningUnitsEntity unit = learningUnitInputPort.getUnitById(unitId);
         return ResponseEntity.ok(mapToResponse(unit));
     }
 
     @GetMapping("/course/{courseId}")
     public ResponseEntity<List<LearningUnitResponse>> getUnitsByCourse(@PathVariable Long courseId) {
-        List<LearningUnit> units = learningUnitInputPort.getUnitsByCourseId(courseId);
+        List<LearningUnitsEntity> units = learningUnitInputPort.getUnitsByCourseId(courseId);
         List<LearningUnitResponse> responses = units.stream()
                 .map(this::mapToResponse)
                 .collect(Collectors.toList());
@@ -63,7 +63,7 @@ public class LearningUnitController {
         return ResponseEntity.noContent().build();
     }
 
-    private LearningUnitResponse mapToResponse(LearningUnit unit) {
+    private LearningUnitResponse mapToResponse(LearningUnitsEntity unit) {
         return LearningUnitResponse.builder()
                 .unitId(unit.getUnitId())
                 .title(unit.getTitle())
@@ -72,8 +72,13 @@ public class LearningUnitController {
                 .createdAt(unit.getCreatedAt())
                 .updatedAt(unit.getUpdatedAt())
                 .sequenceNumber(unit.getSequenceNumber())
-                .courseId(unit.getCourseId())
-                .prerequisiteIds((List<Long>) unit.getPrerequisiteIds())
+                .courseId(unit.getCourse().getId())
+                .prerequisiteIds(
+                        unit.getPrerequisites()
+                                .stream()
+                                .map(LearningUnitsEntity::getUnitId)
+                                .collect(Collectors.toList())
+                )
                 .build();
     }
 }

@@ -1,5 +1,6 @@
 package com.pyAcademy.pyAcademy.features.auth.domain.service;
 
+import com.pyAcademy.pyAcademy.features.auth.application.service.CloudinaryService;
 import com.pyAcademy.pyAcademy.features.auth.domain.enums.RoleEnum;
 import com.pyAcademy.pyAcademy.features.auth.domain.models.RoleEntity;
 import com.pyAcademy.pyAcademy.features.auth.domain.models.UserEntity;
@@ -23,6 +24,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -43,6 +45,9 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
     @Autowired
     private IRoleRepository roleRepository;
+
+    @Autowired
+    private CloudinaryService cloudinaryService;
 
     @Override
     public UserDetails loadUserByUsername(String email) {
@@ -79,8 +84,19 @@ public class UserDetailServiceImpl implements UserDetailsService {
         String email = createRoleRequest.email();
         Long telefono = Long.valueOf(createRoleRequest.telefono());
         List<String> rolesRequest = createRoleRequest.roleRequest().roleListName();
+        String photoUrl = null;
 
-        // Convertir los nombres de roles a valores de RoleEnum
+
+        // Subir la foto a Cloudinary si existe
+        if (createRoleRequest.photo() != null && !createRoleRequest.photo().isEmpty()) {
+            try {
+                photoUrl = cloudinaryService.uploadFile(createRoleRequest.photo());
+            } catch (IOException e) {
+                // Manejar el error adecuadamente
+                throw new RuntimeException("Error al subir la foto: " + e.getMessage());
+            }
+        }
+
         List<RoleEnum> roleEnums = rolesRequest.stream()
                 .map(role -> {
                     try {
@@ -106,7 +122,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
                 .telefono(telefono)
                 .firstName(createRoleRequest.nombre())
                 .lastName(createRoleRequest.apellido())
-                .photo(createRoleRequest.photo())
+                .photo(photoUrl)
                 .roles(roleEntityList)
                 .enabled(true)
                 .accountNonLocked(true)

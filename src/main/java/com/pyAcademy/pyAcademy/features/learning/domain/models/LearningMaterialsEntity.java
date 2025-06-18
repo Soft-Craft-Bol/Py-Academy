@@ -1,10 +1,8 @@
 package com.pyAcademy.pyAcademy.features.learning.domain.models;
 
+import com.pyAcademy.pyAcademy.features.learning.domain.enums.MaterialType;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.sql.Timestamp;
 
@@ -13,6 +11,7 @@ import java.sql.Timestamp;
 @Table(name = "learning_materials")
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class LearningMaterialsEntity {
@@ -26,7 +25,7 @@ public class LearningMaterialsEntity {
     private String url; //Materiales como pdf, video,  presentacion, link
     
     @Column(name = "material_type")
-    private String materialType; // 'video', 'pdf', 'presentation', 'link'
+    private MaterialType materialType; // 'video', 'pdf', 'presentation', 'link'
 
     @Column(name = "duration_minutes")
     private Integer durationMinutes;
@@ -46,6 +45,7 @@ public class LearningMaterialsEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "unit_id", nullable = false)
     private LearningUnitsEntity unit;
+
 
 
 }
