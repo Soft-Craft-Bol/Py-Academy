@@ -2,6 +2,13 @@ import React from "react";
 import Button from "../../../shared/ui/atoms/Button";
 
 export const ExcerciseCard = ({ exercise, btnText }) => {
+  const styleCategory =
+    exercise.category === "Principiante"
+      ? "bg-green-500 shadow-green-500/70 shadow-md"
+      : exercise.category === "Intermedio"
+      ? "bg-yellow-500 shadow-yellow-500/70 shadow-md"
+      : "bg-blue-500 shadow-blue-500/70 shadow-xl";
+
   return (
     <div className="p-6 bg-white dark:bg-primary-pri4 rounded-lg mt-10 hover:scale-[1.02] transition-scale duration-300">
       <div className="flex justify-between">
@@ -13,7 +20,7 @@ export const ExcerciseCard = ({ exercise, btnText }) => {
       </p>
       <div className="flex justify-between items-center">
         <div className="flex gap-5 items-center">
-          <p className="bg-green-500 p-1 rounded-md h-[90%]">
+          <p className={`${styleCategory} p-1 rounded-md h-[90%]`}>
             {exercise.category}
           </p>
           <div>
