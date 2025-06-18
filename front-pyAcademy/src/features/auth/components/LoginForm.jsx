@@ -1,6 +1,6 @@
 // features/auth/components/LoginForm.js
 import React from "react";
-import Button from "../../../shared/ui/atoms/Button";
+import Button from "@/shared/ui/atoms/Button";
 
 const LoginForm = ({ onSubmit, isLoading, error }) => {
   const [credentials, setCredentials] = React.useState({

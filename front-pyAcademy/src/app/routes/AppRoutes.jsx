@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import { StudentLayout } from "../../shared/layouts/StudentLayout";
 import { TeacherLayout } from "../../shared/layouts/TeacherLayout";
 import { PublicLayout } from "../../shared/layouts/PublicLayout";
+import PrivateRoute from "@/features/auth/components/PrivateRoute";
 // import { ExercisesPage } from "../../pages/student/ExercisesPage";
 
 const Home = lazy(() => import("../../pages/home/Home"));
@@ -16,7 +17,9 @@ const ExplorateCourses = lazy(() =>
 const PrivateCourseView = lazy(() =>
   import("../../pages/ExplorateCourses/PrivateCourseView")
 );
-const LoginPage = lazy(() => import("../../pages/auth/LoginPage"));
+const LoginPage = lazy(() => import("../../pages/auth/login/LoginPage"));
+const RegisterPage = lazy(() => import("@/pages/auth/register/RegisterPage"));
+
 const CoursesPage = lazy(() => import("../../pages/student/CoursesPage"));
 const PyEditor = lazy(() => import("../../pages/student/PyEditorPage"));
 const ChatIA = lazy(() => import("../../pages/student/ChatIA"));
@@ -36,7 +39,10 @@ export const AppRoutes = () => {
           <Route path="/explorar-cursos" element={<ExplorateCourses />} />
           <Route path="/Recursos-OER" element={<ResourceManager />} />
           <Route path="/ia-tutor" element={<Home />} />
+
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          
           <Route path="/gestionar-cursos" element={<ManageCourses />} />
           <Route path="/curso/:id" element={<PrivateCourseView />} />
         </Route>
@@ -45,7 +51,7 @@ export const AppRoutes = () => {
           {/* Rutas futuras para docentes */}
         </Route>
 
-        <Route path="/student" element={<StudentLayout />}>
+        <Route path="/student" element={<PrivateRoute><StudentLayout /></PrivateRoute>}>
           <Route index element={<CoursesPage />} />
           <Route path="editor" element={<PyEditor />} />
           <Route path="chatIA" element={<ChatIA />} />

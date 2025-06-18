@@ -1,17 +1,9 @@
+import { Link, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
+import { cn } from "@/shared/utils/classnames";
 
-/**
- * Componente Button - Átomo básico para botones reutilizables
- *
- * @param {string} variant - Estilo del botón (primary, secondary, danger)
- * @param {string} size - Tamaño del botón (sm, md, lg)
- * @param {boolean} disabled - Estado deshabilitado
- * @param {function} onClick - Manejador de clic
- * @param {ReactNode} children - Contenido del botón
- * @param {string} className - Clases adicionales
- */
 const Button = ({
+  type = "button",
   variant = "primary",
   size = "md",
   disabled = false,
@@ -20,55 +12,76 @@ const Button = ({
   className = "",
   to,
   data = {},
+  iconLeft,
+  iconRight,
 }) => {
   const navigate = useNavigate();
-  const baseClasses =
-    "font-medium font-sans rounded-lg cursor-pointer transition-all duration-200 ease-in-out inline-flex items-center justify-center gap-2 border-0";
 
+  const baseClasses =
+    "font-medium rounded-lg transition-all duration-200 ease-in-out inline-flex items-center justify-center gap-2";
   const variantClasses = {
-    primary: "bg-primary-pri1 text-white hover:bg-indigo-700",
-    secondary:
-      "bg-white text-indigo-600 border border-indigo-100 hover:bg-indigo-50",
+    primary: "bg-blue-600 text-white hover:bg-blue-700",
+    secondary: "bg-white text-blue-600 border border-blue-300 hover:bg-blue-50",
     danger: "bg-red-500 text-white hover:bg-red-600",
   };
-
   const sizeClasses = {
     sm: "px-3 py-2 text-sm",
     md: "px-4 py-2.5 text-base",
     lg: "px-6 py-3 text-lg",
   };
+  const disabledClasses = "opacity-60 cursor-not-allowed bg-gray-200 text-gray-500";
 
-  const disabledClasses =
-    "opacity-60 cursor-not-allowed bg-gray-200 text-gray-500";
+  const buttonClasses = cn(
+    baseClasses,
+    disabled ? disabledClasses : variantClasses[variant],
+    sizeClasses[size],
+    className
+  );
 
-  const buttonClasses = `
-    ${baseClasses}
-    ${disabled ? disabledClasses : variantClasses[variant]}
-    ${sizeClasses[size]}
-    ${className}
-  `
-    .trim()
-    .replace(/\s+/g, " ");
+  const content = (
+    <>
+      {iconLeft && <span>{iconLeft}</span>}
+      {children}
+      {iconRight && <span>{iconRight}</span>}
+    </>
+  );
 
-  const handleClick = (e) => {
-    if (onClick) onClick(e);
-    if (to) navigate(to, { state: { data } });
-  };
+  if (to && !disabled) {
+    return (
+      <Link
+        to={to}
+        state={data}
+        className={buttonClasses}
+      >
+        {content}
+      </Link>
+    );
+  }
 
   return (
-    <button className={buttonClasses} disabled={disabled} onClick={handleClick}>
-      {children}
+    <button
+      type={type}
+      disabled={disabled}
+      onClick={onClick}
+      className={buttonClasses}
+    >
+      {content}
     </button>
   );
 };
 
 Button.propTypes = {
+  type: PropTypes.oneOf(["button", "submit", "reset"]),
   variant: PropTypes.oneOf(["primary", "secondary", "danger"]),
   size: PropTypes.oneOf(["sm", "md", "lg"]),
   disabled: PropTypes.bool,
   onClick: PropTypes.func,
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
+  to: PropTypes.string,
+  data: PropTypes.object,
+  iconLeft: PropTypes.node,
+  iconRight: PropTypes.node,
 };
 
 export default Button;

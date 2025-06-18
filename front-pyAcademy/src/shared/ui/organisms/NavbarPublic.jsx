@@ -60,10 +60,10 @@ export const NavbarPublic = () => {
 
           <div className="hidden align-center items-end md:flex space-x-4">
             <ButtonTheme theme={theme} onChangeTheme={onChangeTheme} />
-            <Button variant="primary" size="md">
-              <Link to="/login">Iniciar sesión</Link>
+            <Button variant="primary" size="md" to="/login">
+              Iniciar sesión
             </Button>
-            <Button variant="secondary" size="md">
+            <Button variant="secondary" size="md" to="/register">
               Registrarse
             </Button>
           </div>
