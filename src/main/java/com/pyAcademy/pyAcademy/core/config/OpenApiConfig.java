@@ -12,9 +12,9 @@ public class OpenApiConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("Ohh-Sansi Backend API")
+                        .title("Py Academic")
                         .version("1.0")
-                        .description("Documentación de la API para Ohh-Sansi Backend"));
+                        .description("Documentación de la API para Py academic"));
     }
 
 }

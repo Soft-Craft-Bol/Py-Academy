@@ -18,4 +18,5 @@ public interface LearningUnitJpaRepository extends JpaRepository<LearningUnitsEn
     @Modifying
     @Query(value = "INSERT INTO unit_prerequisites (unit_id, prerequisite_id) VALUES (:unitId, :prerequisiteId)", nativeQuery = true)
     void addPrerequisite(@Param("unitId") Long unitId, @Param("prerequisiteId") Long prerequisiteId);
+
 }

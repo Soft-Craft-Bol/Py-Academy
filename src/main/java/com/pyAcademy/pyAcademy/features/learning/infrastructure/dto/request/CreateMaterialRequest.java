@@ -1,6 +1,6 @@
 package com.pyAcademy.pyAcademy.features.learning.infrastructure.dto.request;
 
-import com.pyAcademy.pyAcademy.features.learning.domain.models.LearningMaterial.MaterialType;
+import com.pyAcademy.pyAcademy.features.learning.domain.enums.MaterialType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

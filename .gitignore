@@ -32,7 +32,7 @@ build/
 ### VS Code ###
 .vscode/
 
-.applicaction.properties
+applicaction.properties
 
 .env
 /uploads/

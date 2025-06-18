@@ -1,14 +1,14 @@
 package com.pyAcademy.pyAcademy.features.learning.application.ports.input;
 
-import com.pyAcademy.pyAcademy.features.learning.domain.models.LearningUnit;
+import com.pyAcademy.pyAcademy.features.learning.domain.models.LearningUnitsEntity;
 
 import java.util.List;
 
 public interface LearningUnitInputPort {
-    LearningUnit createUnit(LearningUnit unit);
-    LearningUnit updateUnit(LearningUnit unit);
+    LearningUnitsEntity createUnit(LearningUnitsEntity unit);
+    LearningUnitsEntity updateUnit(LearningUnitsEntity unit);
     void deleteUnit(Long unitId);
-    LearningUnit getUnitById(Long unitId);
-    List<LearningUnit> getUnitsByCourseId(Long courseId);
+    LearningUnitsEntity getUnitById(Long unitId);
+    List<LearningUnitsEntity> getUnitsByCourseId(Long courseId);
     void addPrerequisite(Long unitId, Long prerequisiteId);
 }
