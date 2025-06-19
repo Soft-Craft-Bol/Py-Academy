@@ -1,4 +1,4 @@
-name: Frontend Tests (Vitest)
+name: Frontend Tests
 
 on:
   push:
@@ -20,6 +20,8 @@ jobs:
 
     - name: Install dependencies
       run: npm install
+      working-directory: front-pyAcademy
 
     - name: Run tests with Vitest
-      run: npm test 
+      run: npm test
+      working-directory: front-pyAcademy
