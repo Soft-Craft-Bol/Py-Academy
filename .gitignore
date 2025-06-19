@@ -1,38 +1,40 @@
-HELP.md
-target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+### === BACKEND (Spring Boot) === ###
+/backend/target/
+/backend/.mvn/
+/backend/.idea/
+/backend/.vscode/
+backend/application.properties
+/backend/.env
+/backend/uploads/
+.idea
+docker
 
-### STS ###
-.apt_generated
+
+### Maven wrapper jar (necesario mantener)
+/backend/.mvn/wrapper/maven-wrapper.jar
+
+### IntelliJ/STS/NetBeans/VSCode
+*.iml
+*.ipr
+*.iws
 .classpath
-.factorypath
 .project
+.factorypath
 .settings
-.springBeans
+.apt_generated
 .sts4-cache
 
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr>
+### NetBeans specific
+/backend/nbproject/private/
+/backend/nbbuild/
+/backend/dist/
+/backend/nbdist/
+/backend/.nb-gradle/
+/backend/build/
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
-
-### VS Code ###
+### VSCode
 .vscode/
 
-applicaction.properties
-
-.env
-/uploads/
+### === FRONTEND (React/Vite) === ###
+/frontend/node_modules/
+/frontend/dist/
