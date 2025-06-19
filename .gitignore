@@ -1,0 +1,27 @@
+# Logs
+front-pyAcademy/logs
+front-pyAcademy/*.log
+front-pyAcademy/npm-debug.log*
+front-pyAcademy/yarn-debug.log*
+front-pyAcademy/yarn-error.log*
+front-pyAcademy/pnpm-debug.log*
+front-pyAcademy/lerna-debug.log*
+
+front-pyAcademy/node_modules
+front-pyAcademy/dist
+front-pyAcademy/dist-ssr
+front-pyAcademy/*.local
+
+# Editor directories and files
+front-pyAcademy/.vscode/*
+front-pyAcademy/!.vscode/extensions.json
+front-pyAcademy/.idea
+front-pyAcademy/.DS_Store
+front-pyAcademy/*.suo
+front-pyAcademy/*.ntvs*
+front-pyAcademy/*.njsproj
+front-pyAcademy/*.sln
+front-pyAcademy/*.sw?
+
+
+front-pyAcademy/.gitignore
