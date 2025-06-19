@@ -4,6 +4,7 @@ export const TeacherLayout = () => {
   return (
     <main className="min-h-screen">
       <Outlet />
+      {/* coment */}
     </main>
   );
 };
