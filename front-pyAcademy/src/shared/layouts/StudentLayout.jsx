@@ -7,7 +7,7 @@ import { NavbarUser } from "../ui/organisms/NavbarUser";
 import { Sidebar } from "../ui/organisms/Sidebar";
 
 export const StudentLayout = () => {
-  const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const [isSidebarOpen, setSidebarOpen] = useState(true);
   const [isMenuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => setMenuOpen(!isMenuOpen);
