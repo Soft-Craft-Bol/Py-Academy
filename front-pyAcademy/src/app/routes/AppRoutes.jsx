@@ -30,6 +30,8 @@ const ExercisesPage = lazy(() => import("../../pages/student/ExercisesPage"));
 
 const ExercisePage = lazy(() => import("../../pages/student/ExercisePage"));
 
+const Certificates = lazy(() => import("@/pages/student/Certificates"));
+
 export const AppRoutes = () => {
   return (
     <Suspense fallback={<div>Cargando...</div>}>
@@ -51,12 +53,14 @@ export const AppRoutes = () => {
           {/* Rutas futuras para docentes */}
         </Route>
 
-        <Route path="/student" element={<PrivateRoute><StudentLayout /></PrivateRoute>}>
+        {/* <Route path="/student" element={<PrivateRoute><StudentLayout /></PrivateRoute>}> */}
+        <Route path="/student" element={<StudentLayout />}>
           <Route index element={<CoursesPage />} />
           <Route path="editor" element={<PyEditor />} />
           <Route path="chatIA" element={<ChatIA />} />
           <Route path="exercises" element={<ExercisesPage />} />
           <Route path="exercise" element={<ExercisePage />} />
+          <Route path="certificates" element={<Certificates/>} />
         </Route>
       </Routes>
     </Suspense>
