@@ -64,7 +64,7 @@ const Certificates = () => {
   };
 
   const handleShare = () => {
-    const shareURL = `${window.location.origin}/student/certificates?cert=${selected.id}`;
+    const shareURL = `${window.location.origin}/certificado/${selected.id}`;
     navigator.clipboard.writeText(shareURL).then(() => alert("Enlace copiado al portapapeles"));
   };
 

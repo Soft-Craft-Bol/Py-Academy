@@ -4,7 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import { StudentLayout } from "../../shared/layouts/StudentLayout";
 import { TeacherLayout } from "../../shared/layouts/TeacherLayout";
 import { PublicLayout } from "../../shared/layouts/PublicLayout";
-import PrivateRoute from "@/features/auth/components/PrivateRoute";
+// import PrivateRoute from "@/features/auth/components/PrivateRoute";
 // import { ExercisesPage } from "../../pages/student/ExercisesPage";
 
 const Home = lazy(() => import("../../pages/home/Home"));
@@ -32,6 +32,8 @@ const ExercisePage = lazy(() => import("../../pages/student/ExercisePage"));
 
 const Certificates = lazy(() => import("@/pages/student/Certificates"));
 
+const PublicCertificateViewer = lazy(() => import("@/pages/student/PublicCertificateViewer"));
+
 export const AppRoutes = () => {
   return (
     <Suspense fallback={<div>Cargando...</div>}>
@@ -47,6 +49,7 @@ export const AppRoutes = () => {
           
           <Route path="/gestionar-cursos" element={<ManageCourses />} />
           <Route path="/curso/:id" element={<PrivateCourseView />} />
+          <Route path="/certificado/:id" element={<PublicCertificateViewer />} />
         </Route>
 
         <Route element={<TeacherLayout />}>
