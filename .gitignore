@@ -25,3 +25,42 @@ front-pyAcademy/*.sw?
 
 
 front-pyAcademy/.gitignore
+
+
+
+### === BACKEND (Spring Boot) === ###
+/backend/target/
+/backend/.mvn/
+/backend/.idea/
+/backend/.vscode/
+backend/application.properties
+/backend/.env
+/backend/uploads/
+.idea
+docker
+
+
+### Maven wrapper jar (necesario mantener)
+/backend/.mvn/wrapper/maven-wrapper.jar
+
+### IntelliJ/STS/NetBeans/VSCode
+*.iml
+*.ipr
+*.iws
+.classpath
+.project
+.factorypath
+.settings
+.apt_generated
+.sts4-cache
+
+### NetBeans specific
+/backend/nbproject/private/
+/backend/nbbuild/
+/backend/dist/
+/backend/nbdist/
+/backend/.nb-gradle/
+/backend/build/
+
+### VSCode
+.vscode/
