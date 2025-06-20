@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import { FaClipboardList, FaBullhorn, FaBell, FaBook } from "react-icons/fa";
+import pythonVarPractica from "@/assets/course/Variables de python.png";
+import estructuraPractica from "@/assets/course/Estructuras de control.png";
+import NuevoModulo from "@/assets/course/Nuevo modulo.png";
+import Webinars from "@/assets/course/Webinars.png";
 
 const tabs = [
   { key: "practicas", label: "Prácticas" },
@@ -15,14 +19,14 @@ const staticData = {
       title: "Práctica 1: Variables en Python",
       due: "05/06/2025",
       description: "Aprenderás a declarar y usar variables en Python, con ejercicios guiados paso a paso.",
-      image: "https://source.unsplash.com/600x400/?python"
+      image: pythonVarPractica
     },
     {
       id: 2,
       title: "Práctica 2: Estructuras de Control",
       due: "12/06/2025",
       description: "Uso de condicionales y bucles para controlar el flujo del programa.",
-      image: "https://source.unsplash.com/600x400/?coding"
+      image: estructuraPractica
     },
   ],
   noticias: [
@@ -31,14 +35,14 @@ const staticData = {
       title: "Nuevo módulo de IA disponible",
       date: "01/06/2025",
       content: "Ya puedes acceder al nuevo módulo de Introducción a la Inteligencia Artificial en la sección de materiales.",
-      image: "https://source.unsplash.com/600x400/?ai"
+      image: NuevoModulo
     },
     {
       id: 2,
       title: "Webinar de desarrollo web este viernes",
       date: "03/06/2025",
       content: "No te pierdas nuestro próximo webinar con expertos en frontend este viernes a las 6:00 PM.",
-      image: "https://source.unsplash.com/600x400/?webinar"
+      image: Webinars
     },
   ],
   avisos: [

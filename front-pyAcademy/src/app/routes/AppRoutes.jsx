@@ -34,7 +34,7 @@ const Certificates = lazy(() => import("@/pages/student/Certificates"));
 
 const PublicCertificateViewer = lazy(() => import("@/pages/student/PublicCertificateViewer"));
 
-//const ChatWindow = lazy(() => import("@/shared/ui/organisms/chatbot/ChatWindow"));
+const CourseStudent  = lazy(() => import("@/pages/student/CourseStudent"));
 
 export const AppRoutes = () => {
   return (
@@ -66,6 +66,7 @@ export const AppRoutes = () => {
           <Route path="exercises" element={<ExercisesPage />} />
           <Route path="exercise" element={<ExercisePage />} />
           <Route path="certificates" element={<Certificates/>} />
+          <Route path="/student/curso/:id" element={<CourseStudent />} />
         </Route>
       </Routes>
     </Suspense>
