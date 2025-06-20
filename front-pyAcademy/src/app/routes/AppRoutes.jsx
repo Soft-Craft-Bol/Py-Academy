@@ -34,6 +34,8 @@ const Certificates = lazy(() => import("@/pages/student/Certificates"));
 
 const PublicCertificateViewer = lazy(() => import("@/pages/student/PublicCertificateViewer"));
 
+//const ChatWindow = lazy(() => import("@/shared/ui/organisms/chatbot/ChatWindow"));
+
 export const AppRoutes = () => {
   return (
     <Suspense fallback={<div>Cargando...</div>}>
