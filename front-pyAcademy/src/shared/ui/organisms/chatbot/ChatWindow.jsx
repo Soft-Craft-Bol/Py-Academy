@@ -15,8 +15,8 @@ export const ChatWindow = ({ messages, onSend, isLoading }) => {
         setInput("");
     };
 
-  return (
-        <div className="fixed bottom-24 right-6 w-80 max-h-[70vh] bg-white dark:bg-zinc-800 shadow-2xl rounded-xl border border-gray-300 dark:border-zinc-700 flex flex-col overflow-hidden z-50">
+    return (
+        <div className="fixed bottom-24 right-4 sm:right-6 w-[90vw] sm:w-80 max-w-sm max-h-[70vh] bg-white dark:bg-zinc-800 shadow-2xl rounded-xl border border-gray-300 dark:border-zinc-700 flex flex-col overflow-hidden z-50">
         <div className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-4 py-2 font-semibold">
             Tutor IA
         </div>
