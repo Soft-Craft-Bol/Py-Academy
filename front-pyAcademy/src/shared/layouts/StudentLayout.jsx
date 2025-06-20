@@ -5,6 +5,7 @@ import { useState } from "react";
 // components
 import { NavbarUser } from "../ui/organisms/NavbarUser";
 import { Sidebar } from "../ui/organisms/Sidebar";
+import { ChatbotWidget } from "../ui/organisms/chatbot/ChatbotWidget";
 
 export const StudentLayout = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
@@ -30,6 +31,7 @@ export const StudentLayout = () => {
           <Outlet />
         </div>
       </main>
+      <ChatbotWidget />
     </>
   );
 };
