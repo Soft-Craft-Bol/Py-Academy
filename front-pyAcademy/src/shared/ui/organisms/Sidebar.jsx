@@ -23,7 +23,6 @@ export const Sidebar = ({
   const options = [
     { title: "Mis cursos", to: "/student", Icon: LuBookCopy },
     { title: "Editor de codigo", to: "editor", Icon: IoCodeSlash },
-    { title: "IA Tutor", to: "chatIA", Icon: GiArtificialIntelligence },
     { title: "Ejercicios", to: "exercises", Icon: GiArtificialIntelligence },
     { title: "Certificados", to: "certificates", Icon: PiCertificateBold },
   ];
