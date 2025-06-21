@@ -3,7 +3,7 @@ package com.pyAcademy.pyAcademy.features.learning.application.usecase;
 
 import com.pyAcademy.pyAcademy.features.learning.application.ports.input.LearningUnitInputPort;
 import com.pyAcademy.pyAcademy.features.learning.application.ports.output.LearningUnitOutputPort;
-import com.pyAcademy.pyAcademy.features.learning.domain.models.LearningUnit;
+import com.pyAcademy.pyAcademy.features.learning.domain.models.LearningUnitsEntity;
 import com.pyAcademy.pyAcademy.features.learning.infrastructure.exception.UnitNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,7 @@ public class ManageLearningUnitUseCase implements LearningUnitInputPort {
     private final LearningUnitOutputPort learningUnitOutputPort;
 
     @Override
-    public LearningUnit createUnit(LearningUnit unit) {
+    public LearningUnitsEntity createUnit(LearningUnitsEntity unit) {
         validateUnit(unit);
         unit.setCreatedAt(LocalDateTime.now());
         unit.setUpdatedAt(LocalDateTime.now());
@@ -26,8 +26,8 @@ public class ManageLearningUnitUseCase implements LearningUnitInputPort {
     }
 
     @Override
-    public LearningUnit updateUnit(LearningUnit unit) {
-        LearningUnit existing = getUnitById(unit.getUnitId());
+    public LearningUnitsEntity updateUnit(LearningUnitsEntity unit) {
+        LearningUnitsEntity existing = getUnitById(unit.getUnitId());
         validateUnit(unit);
 
         existing.setTitle(unit.getTitle());
@@ -36,7 +36,7 @@ public class ManageLearningUnitUseCase implements LearningUnitInputPort {
         existing.setSequenceNumber(unit.getSequenceNumber());
         existing.setUpdatedAt(LocalDateTime.now());
 
-        return learningUnitOutputPort.update(existing);
+        return learningUnitOutputPort.save(existing);
     }
 
     @Override
@@ -45,13 +45,13 @@ public class ManageLearningUnitUseCase implements LearningUnitInputPort {
     }
 
     @Override
-    public LearningUnit getUnitById(Long unitId) {
+    public LearningUnitsEntity getUnitById(Long unitId) {
         return learningUnitOutputPort.findById(unitId)
                 .orElseThrow(() -> new UnitNotFoundException(unitId));
     }
 
     @Override
-    public List<LearningUnit> getUnitsByCourseId(Long courseId) {
+    public List<LearningUnitsEntity> getUnitsByCourseId(Long courseId) {
         return learningUnitOutputPort.findByCourseId(courseId);
     }
 
@@ -60,11 +60,11 @@ public class ManageLearningUnitUseCase implements LearningUnitInputPort {
         learningUnitOutputPort.addPrerequisite(unitId, prerequisiteId);
     }
 
-    private void validateUnit(LearningUnit unit) {
+    private void validateUnit(LearningUnitsEntity unit) {
         if (unit.getTitle() == null || unit.getTitle().isBlank()) {
             throw new IllegalArgumentException("Unit title cannot be empty");
         }
-        if (unit.getCourseId() == null) {
+        if (unit.getCourse().getId() == null) {
             throw new IllegalArgumentException("Unit must belong to a course");
         }
     }

@@ -3,13 +3,16 @@ package com.pyAcademy.pyAcademy.features.learning.application.usecase;
 
 import com.pyAcademy.pyAcademy.features.learning.application.ports.input.LearningMaterialInputPort;
 import com.pyAcademy.pyAcademy.features.learning.application.ports.output.LearningMaterialOutputPort;
-import com.pyAcademy.pyAcademy.features.learning.domain.models.LearningMaterial;
-import com.pyAcademy.pyAcademy.features.learning.infrastructure.exception.MaterialNotFoundException;
+import com.pyAcademy.pyAcademy.features.learning.domain.enums.MaterialType;
+import com.pyAcademy.pyAcademy.features.learning.domain.models.LearningMaterialsEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
+
+import static com.pyAcademy.pyAcademy.features.learning.domain.enums.MaterialType.*;
 
 @Service
 @RequiredArgsConstructor
@@ -18,16 +21,16 @@ public class ManageLearningMaterialUseCase implements LearningMaterialInputPort 
     private final LearningMaterialOutputPort learningMaterialOutputPort;
 
     @Override
-    public LearningMaterial createMaterial(LearningMaterial material) {
+    public LearningMaterialsEntity createMaterial(LearningMaterialsEntity material) {
         validateMaterial(material);
-        material.setCreatedAt(LocalDateTime.now());
-        material.setUpdatedAt(LocalDateTime.now());
+        material.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
+        material.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
         return learningMaterialOutputPort.save(material);
     }
 
     @Override
-    public LearningMaterial updateMaterial(LearningMaterial material) {
-        LearningMaterial existing = getMaterialById(material.getMaterialId());
+    public LearningMaterialsEntity updateMaterial(LearningMaterialsEntity material) {
+        LearningMaterialsEntity existing = getMaterialById(material.getMaterialId());
         validateMaterial(material);
 
         existing.setTitle(material.getTitle());
@@ -36,9 +39,9 @@ public class ManageLearningMaterialUseCase implements LearningMaterialInputPort 
         existing.setDurationMinutes(material.getDurationMinutes());
         existing.setIsMandatory(material.getIsMandatory());
         existing.setSequenceNumber(material.getSequenceNumber());
-        existing.setUpdatedAt(LocalDateTime.now());
+        existing.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
 
-        return learningMaterialOutputPort.update(existing);
+        return learningMaterialOutputPort.save(existing);
     }
 
     @Override
@@ -47,18 +50,18 @@ public class ManageLearningMaterialUseCase implements LearningMaterialInputPort 
     }
 
     @Override
-    public LearningMaterial getMaterialById(Long materialId) {
+    public LearningMaterialsEntity getMaterialById(Long materialId) {
         return learningMaterialOutputPort.findById(materialId)
                 .orElseThrow();
     }
 
     @Override
-    public List<LearningMaterial> getMaterialsByUnitId(Long unitId) {
+    public List<LearningMaterialsEntity> getMaterialsByUnitId(Long unitId) {
         return learningMaterialOutputPort.findByUnitId(unitId);
     }
 
     @Override
-    public LearningMaterial uploadMaterialWithFile(LearningMaterial material, byte[] fileContent) {
+    public LearningMaterialsEntity uploadMaterialWithFile(LearningMaterialsEntity material, byte[] fileContent) {
         String fileUrl = learningMaterialOutputPort.saveFileContent(
                 fileContent,
                 generateFileName(material)
@@ -67,27 +70,23 @@ public class ManageLearningMaterialUseCase implements LearningMaterialInputPort 
         return createMaterial(material);
     }
 
-    private void validateMaterial(LearningMaterial material) {
+    private void validateMaterial(LearningMaterialsEntity material) {
         if (material.getTitle() == null || material.getTitle().isBlank()) {
             throw new IllegalArgumentException("Material title cannot be empty");
         }
-        if (material.getUnitId() == null) {
+        if (material.getUnit().getUnitId() == null) {
             throw new IllegalArgumentException("Material must belong to a unit");
         }
         // Más validaciones según necesidades
     }
 
-    private String generateFileName(LearningMaterial material) {
-        return "material_" + material.getUnitId() + "_" +
+    private String generateFileName(LearningMaterialsEntity material) {
+        return "material_" + material.getUnit().getUnitId() + "_" +
                 System.currentTimeMillis() + getFileExtension(material.getMaterialType());
     }
 
-    private String getFileExtension(LearningMaterial.MaterialType type) {
-        return switch (type) {
-            case PDF -> ".pdf";
-            case VIDEO -> ".mp4";
-            case PRESENTATION -> ".pptx";
-            case LINK -> ".url";
-        };
+
+    private String getFileExtension(MaterialType type) {
+        return type.getExtension();
     }
 }

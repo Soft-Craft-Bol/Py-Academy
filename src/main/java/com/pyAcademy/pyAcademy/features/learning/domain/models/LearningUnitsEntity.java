@@ -2,12 +2,8 @@ package com.pyAcademy.pyAcademy.features.learning.domain.models;
 
 import com.pyAcademy.pyAcademy.features.course.domain.models.CourseEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,6 +12,7 @@ import java.util.Set;
 @Table(name = "learning_units")
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class LearningUnitsEntity {
@@ -30,7 +27,7 @@ public class LearningUnitsEntity {
     private String description;
 
     @Column(name = "is_active", nullable = false)
-    private BigDecimal isActive;
+    private Boolean isActive;
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime createdAt;
@@ -59,8 +56,8 @@ public class LearningUnitsEntity {
     @ManyToMany(mappedBy = "prerequisites")
     private Set<LearningUnitsEntity> dependentUnits = new HashSet<>();
 
-    public void addPrerequisite(LearningUnitsEntity prerequisite) {
-        this.prerequisites.add(prerequisite);
-        prerequisite.getDependentUnits().add(this);
+    public Long getCourseId() {
+        return course != null ? course.getId() : null;
     }
+
 }
