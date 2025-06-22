@@ -1,4 +1,3 @@
-import React from 'react';
 import { BsClockHistory } from 'react-icons/bs';
 import { FaUserGraduate } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
@@ -10,8 +9,8 @@ import pyWeb from '@/assets/ManageCourses/pyWeb.jpeg';
 const courses = [
   {
     id: 1,
-    title: "Curso de Python Básico casdc",
-    teacher: "Ana López asd",
+    title: 'Curso de Python Básico casdc',
+    teacher: 'Ana López asd',
     imageUrl: python_basico,
     startDate: '01/06/2025',
     endDate: '01/08/2025',

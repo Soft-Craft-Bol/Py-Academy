@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { FaFilePdf, FaFilePowerpoint, FaTimesCircle, FaTrash, FaVideo } from 'react-icons/fa';
 import { FiUploadCloud } from 'react-icons/fi';
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { FaBell, FaBook, FaBullhorn, FaClipboardList } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
 
@@ -168,7 +168,7 @@ function CourseStudent() {
               <li key={tab.key}>
                 <button
                   onClick={() => setActiveTab(tab.key)}
-                  className={`flex items-center space-x-3 w-full px-4 py-3 rounded-xl text-lg font-medium transition-all focus:outline-none shadow-sm hover:shadow-md 
+                  className={`flex items-center space-x-3 w-full px-4 py-3 rounded-xl text-lg font-medium transition-all focus:outline-none shadow-sm hover:shadow-md
                         ${
                           activeTab === tab.key
                             ? 'bg-blue-700 text-white'

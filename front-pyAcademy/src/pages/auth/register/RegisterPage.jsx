@@ -1,5 +1,5 @@
-import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { useState } from 'react';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
 
 import { useRegister } from '@/shared/hooks/useAuth';
 import Button from '@/shared/ui/atoms/Button';
@@ -95,7 +95,7 @@ function RegisterPage() {
                     console.error(error);
                     alert('Error al registrar usuario: ' + error.message);
                   },
-                },
+                }
               );
             }}
           >

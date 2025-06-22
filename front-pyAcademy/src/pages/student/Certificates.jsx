@@ -1,5 +1,4 @@
-// src/pages/student/Certificates.jsx
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import CertificateLogo from '@/assets/CertificateLogo.png';
 import estDatPy from '@/assets/ManageCourses/estDatPy.jpg';
 import python_basico from '@/assets/ManageCourses/python_basico.jpg';

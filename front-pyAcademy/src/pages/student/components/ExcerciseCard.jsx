@@ -1,5 +1,3 @@
-import React from 'react';
-
 import Button from '../../../shared/ui/atoms/Button';
 
 export function ExcerciseCard({ exercise, btnText }) {
