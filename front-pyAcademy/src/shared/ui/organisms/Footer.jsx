@@ -1,36 +1,35 @@
 //Components
-import { MenuInformation } from "../molecules/MenuInformation";
-
 //assets
-import logo from "../../../assets/img/logo-python.webp";
+import logo from '../../../assets/img/logo-python.webp';
+import { MenuInformation } from '../molecules/MenuInformation';
 
-export const Footer = () => {
+export function Footer() {
   const currentYear = new Date().getFullYear();
 
   const informationPlataforma = {
-    title: "Plataforma",
+    title: 'Plataforma',
     items: [
-      { content: "Explorar Cursos", url: "#" },
-      { content: "Recursos OER", url: "#" },
-      { content: "Comunidad", url: "#" },
+      { content: 'Explorar Cursos', url: '#' },
+      { content: 'Recursos OER', url: '#' },
+      { content: 'Comunidad', url: '#' },
     ],
   };
 
   const informationSoporte = {
-    title: "Soporte",
+    title: 'Soporte',
     items: [
-      { content: "Centro de Ayuda", url: "#" },
-      { content: "Documentación", url: "#" },
-      { content: "Contacto", url: "#" },
+      { content: 'Centro de Ayuda', url: '#' },
+      { content: 'Documentación', url: '#' },
+      { content: 'Contacto', url: '#' },
     ],
   };
 
   const informationLegal = {
-    title: "Legal",
+    title: 'Legal',
     items: [
-      { content: "Términos", url: "#" },
-      { content: "Privacidad", url: "#" },
-      { content: "Cookies", url: "#" },
+      { content: 'Términos', url: '#' },
+      { content: 'Privacidad', url: '#' },
+      { content: 'Cookies', url: '#' },
     ],
   };
 
@@ -46,8 +45,7 @@ export const Footer = () => {
               </h1>
             </div>
             <p className="text-gray-600 text-sm mb-6 dark:text-white">
-              Transformando la educación en programación con IA y recursos
-              abiertos.
+              Transformando la educación en programación con IA y recursos abiertos.
             </p>
           </div>
 
@@ -63,4 +61,4 @@ export const Footer = () => {
       </div>
     </footer>
   );
-};
+}
