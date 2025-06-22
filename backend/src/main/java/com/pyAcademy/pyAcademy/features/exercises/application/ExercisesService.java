@@ -38,8 +38,10 @@ public class ExercisesService {
     // === CODING EXERCISES METHODS ===
     
     public List<ExercisesDTO.CodingExerciseDTO> getAllActiveExercises() {
-        List<CodingExercisesEntity> exercises = codingExercisesRepository.findByIsActiveTrueOrderBySequenceNumber();
-        return exercises.stream().map(this::convertToExerciseDTO).collect(Collectors.toList());
+    
+    List<CodingExercisesEntity> exercises = codingExercisesRepository.findAllActiveWithTestCases();
+    
+    return exercises.stream().map(this::convertToExerciseDTOWithTestCases).collect(Collectors.toList());
 }
     
     public List<ExercisesDTO.CodingExerciseDTO> getExercisesByLanguage(String language) {
