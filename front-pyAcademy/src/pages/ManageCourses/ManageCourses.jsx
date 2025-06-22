@@ -93,7 +93,7 @@ const ManageCourses = () => {
                   reader.readAsDataURL(file);
                 }
               }}
-/>
+            />
 
             <div className="flex justify-end gap-2">
               <button
