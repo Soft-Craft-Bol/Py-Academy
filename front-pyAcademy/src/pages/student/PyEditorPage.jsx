@@ -1,48 +1,48 @@
 //React
-import React, { useEffect, useState } from "react";
-import CodeMirror from "@uiw/react-codemirror";
-import { python } from "@codemirror/lang-python";
+import { python } from '@codemirror/lang-python';
+import CodeMirror from '@uiw/react-codemirror';
+import React, { useEffect, useState } from 'react';
 
 //Components
-import Button from "../../shared/ui/atoms/Button";
+import Button from '../../shared/ui/atoms/Button';
 
-const PythonEditor = ({ title = true, onEvaluation }) => {
+function PythonEditor({ title = true, onEvaluation }) {
   const [pyodide, setPyodide] = useState(null);
-  const [code, setCode] = useState("");
-  const [input, setInput] = useState("");
-  const [output, setOutput] = useState("");
+  const [code, setCode] = useState('');
+  const [input, setInput] = useState('');
+  const [output, setOutput] = useState('');
 
   useEffect(() => {
     const load = async () => {
       if (!window.loadPyodide) {
-        setOutput("No se pudo cargar Pyodide. Verifica que esté en index.html");
+        setOutput('No se pudo cargar Pyodide. Verifica que esté en index.html');
         return;
       }
       const pyodideInstance = await window.loadPyodide();
       setPyodide(pyodideInstance);
-      console.log("Pyodide cargado");
+      console.log('Pyodide cargado');
     };
     load();
   }, []);
 
   const handleExecuteCode = async () => {
     if (!pyodide) {
-      setOutput("Pyodide aún no está listo");
+      setOutput('Pyodide aún no está listo');
       return;
     }
 
     try {
-      const inputLines = input.split("\n");
+      const inputLines = input.split('\n');
       let index = 0;
 
-      pyodide.globals.set("input", () => {
+      pyodide.globals.set('input', () => {
         if (index >= inputLines.length) {
-          throw new Error("No hay más entradas disponibles para input()");
+          throw new Error('No hay más entradas disponibles para input()');
         }
         return inputLines[index++];
       });
 
-      let salida = "";
+      let salida = '';
       pyodide.setStdout({ batched: (text) => (salida += text) });
 
       await pyodide.runPythonAsync(code);
@@ -71,9 +71,7 @@ const PythonEditor = ({ title = true, onEvaluation }) => {
           className="text-blue-700 border rounded"
         />
 
-        <h2 className="font-semibold my-4 text-label-md text-white">
-          Entradas para `input()`:
-        </h2>
+        <h2 className="font-semibold my-4 text-label-md text-white">Entradas para `input()`:</h2>
         <textarea
           rows={3}
           //cols={60}
@@ -102,6 +100,6 @@ const PythonEditor = ({ title = true, onEvaluation }) => {
       </div>
     </div>
   );
-};
+}
 
 export default PythonEditor;

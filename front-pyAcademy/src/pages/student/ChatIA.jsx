@@ -1,5 +1,5 @@
-export const ChatIA = () => {
-  return (
-    <div>ChatIA</div>
-  )
+function ChatIA() {
+  return <div>ChatIA</div>;
 }
+
+export default ChatIA;

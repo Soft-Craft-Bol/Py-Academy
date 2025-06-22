@@ -1,10 +1,10 @@
-import { Outlet } from "react-router-dom";
+import { Outlet } from 'react-router-dom';
 
-export const TeacherLayout = () => {
+export function TeacherLayout() {
   return (
     <main className="min-h-screen">
       <Outlet />
       {/* coment */}
     </main>
   );
-};
+}
