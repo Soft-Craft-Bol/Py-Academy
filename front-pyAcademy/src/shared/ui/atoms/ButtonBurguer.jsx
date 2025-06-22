@@ -1,5 +1,3 @@
-import React from 'react';
-
 export function ButtonBurguer({ onClick, isMenuOpen }) {
   return (
     <button className="md:hidden flex items-center" onClick={onClick} aria-label="Menú principal">

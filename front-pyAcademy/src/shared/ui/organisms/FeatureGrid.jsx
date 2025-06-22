@@ -43,7 +43,7 @@ FeatureGrid.propTypes = {
       imageUrl: PropTypes.string,
       buttonText: PropTypes.string,
       onButtonClick: PropTypes.func,
-    }),
+    })
   ).isRequired,
   title: PropTypes.string.isRequired,
   subtitle: PropTypes.string.isRequired,

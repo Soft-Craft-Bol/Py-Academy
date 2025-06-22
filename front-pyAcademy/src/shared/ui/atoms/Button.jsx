@@ -1,10 +1,9 @@
-import { Link, useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+
 import { cn } from '@/shared/utils/classnames';
 
-
-import { cn } from '@/shared/utils/classnames';
-
-const Button = ({
+export function Button({
   type = 'button',
   variant = 'primary',
   size = 'md',
@@ -16,28 +15,29 @@ const Button = ({
   data = {},
   iconLeft,
   iconRight,
-}) => {
-  const navigate = useNavigate();
-
+}) {
   const baseClasses =
     'font-medium rounded-lg transition-all duration-200 ease-in-out inline-flex items-center justify-center gap-2';
+
   const variantClasses = {
     primary: 'bg-blue-600 text-white hover:bg-blue-700',
     secondary: 'bg-white text-blue-600 border border-blue-300 hover:bg-blue-50',
     danger: 'bg-red-500 text-white hover:bg-red-600',
   };
+
   const sizeClasses = {
     sm: 'px-3 py-2 text-sm',
     md: 'px-4 py-2.5 text-base',
     lg: 'px-6 py-3 text-lg',
   };
+
   const disabledClasses = 'opacity-60 cursor-not-allowed bg-gray-200 text-gray-500';
 
   const buttonClasses = cn(
     baseClasses,
     disabled ? disabledClasses : variantClasses[variant],
     sizeClasses[size],
-    className,
+    className
   );
 
   const content = (
@@ -61,7 +61,7 @@ const Button = ({
       {content}
     </button>
   );
-};
+}
 
 Button.propTypes = {
   type: PropTypes.oneOf(['button', 'submit', 'reset']),
@@ -75,6 +75,15 @@ Button.propTypes = {
   data: PropTypes.object,
   iconLeft: PropTypes.node,
   iconRight: PropTypes.node,
+};
+
+Button.defaultProps = {
+  type: 'button',
+  variant: 'primary',
+  size: 'md',
+  disabled: false,
+  className: '',
+  data: {},
 };
 
 export default Button;
