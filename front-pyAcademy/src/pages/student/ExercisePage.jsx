@@ -9,16 +9,22 @@ import PythonEditor from './PyEditorPage';
 
 function ExercisePage() {
   const location = useLocation();
-  const { data } = location.state || {};
-  const onEvaluation = (output) => {
-    console.log(output);
-    if (output === data.testCase.output) {
-      window.alert('Correcto');
+  const data = location.state || {};
+
+  const onEvaluation = (expectedOutput) => {
+    if (expectedOutput === data.testCases.expectedOutput) {
+      window.alert("Correcto");
     } else {
       window.alert('Incorrecto');
     }
   };
-  function DescriptorElement({ title, descripcion, input, output, icon }) {
+  const DescriptorElement = ({
+    title,
+    descripcion,
+    inputData,
+    expectedOutput,
+    icon,
+  }) => {
     return (
       <div>
         <h3 className="flex gap-2 items-center">
@@ -27,15 +33,15 @@ function ExercisePage() {
         </h3>
         <p className="p-3 bg-primary-pri4 border rounded-md my-4">
           {descripcion}
-          {input && (
+          {inputData && (
             <p>
-              <span className="text-blue-400">Entrada: {input}</span>
+              <span className="text-blue-400">Entrada: {inputData}</span>
             </p>
           )}
-          {output && (
+          {expectedOutput && (
             <p>
               <span className="text-green-500">Salida: </span>
-              {output}
+              {expectedOutput}
             </p>
           )}
         </p>
@@ -65,22 +71,16 @@ function ExercisePage() {
             descripcion={data.description}
             icon={<BsBook />}
           />
-          <DescriptorElement
-            title={'Instrucciones'}
-            descripcion={data.instruction}
-            icon={<GiBurningBook className="text-label-lg" />}
-          />
 
           <DescriptorElement
-            title={'Casos de Prueba'}
-            descripcion={data.testCase.description}
-            input={data.testCase.input}
-            output={data.testCase.output}
+            title={"Casos de Prueba"}
+            inputData={data.testCases[0].inputData}
+            expectedOutput={data.testCases[0].expectedOutput}
             icon={<GiEvilBook className="text-label-lg" />}
           />
         </section>
         <section className="w-[60%]">
-          <PythonEditor title={false} onEvaluation={onEvaluation} />
+          <PythonEditor title={false} testCases={data.testCases} />
         </section>
       </div>
     </div>
