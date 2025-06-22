@@ -178,12 +178,11 @@ Esta arquitectura ofrece escalabilidad, mantenibilidad y claridad en el código,
 
 ---
 
-# 📘 Documentación de Arquitectura Frontend Backend
+# 📘 Documentación de Arquitectura Backend
 
 ## 🔧 Tecnologías
 
 * ⚙️ Java 17 + Spring Boot 3 (Java modules)
-* 🐍 Python 3.11 + FastAPI
 * 🧱 PostgreSQL
 * 📦 Docker + Docker Compose
 * ✏️ Arquitectura: **Hexagonal (Ports & Adapters)**
@@ -238,11 +237,11 @@ Esta arquitectura ofrece escalabilidad, mantenibilidad y claridad en el código,
 
 | Recurso            | Método | Endpoint                       | Acción                         |
 | ------------------ | ------ | ------------------------------ | ------------------------------ |
-| Prácticas          | `GET`  | `/api/practicas`               | Listar prácticas               |
-|                    | `POST` | `/api/practicas/{id}/corregir` | Corregir código enviado        |
-| Chatbot            | `POST` | `/api/chatbot/preguntar`       | Enviar pregunta al chatbot     |
-|                    | `GET`  | `/api/chatbot/historial`       | Historial de conversación      |
-| Material educativo | `POST` | `/api/materiales/subir`        | Subir PDF, video, presentación |
+| Prácticas          | `GET`  | `/api/v1/practicas`               | Listar prácticas               |
+|                    | `POST` | `/api/v1/practicas/{id}/corregir` | Corregir código enviado        |
+| Chatbot            | `POST` | `/api/v1/chatbot/preguntar`       | Enviar pregunta al chatbot     |
+|                    | `GET`  | `/api/v1/chatbot/historial`       | Historial de conversación      |
+| Material educativo | `POST` | `/api/v1/materiales/subir`        | Subir PDF, video, presentación |
 
 ---
 
@@ -253,12 +252,6 @@ Esta arquitectura ofrece escalabilidad, mantenibilidad y claridad en el código,
 * Cada módulo es un paquete con estructura hexagonal interna
 * Usa `@Service`, `@Repository`, `@RestController` solo en capas correctas
 * Implementaciones van en `infrastructure`, no directamente en `application`
-
-#### FastAPI
-
-* Define routers en `interfaces/`
-* Inyecta servicios usando `Depends()`
-* Mantén la lógica de negocio fuera de los endpoints
 
 ---
 
@@ -276,7 +269,6 @@ Esta arquitectura ofrece escalabilidad, mantenibilidad y claridad en el código,
 | ----------------- | ----------------- | ------------------------------ |
 | Unit Tests (Java) | JUnit 5 + Mockito | `domain`, `application`        |
 | Integration Test  | Spring Boot Test  | `interfaces`, `infrastructure` |
-| Python Tests      | Pytest            | `tests/`                       |
 
 ---
 
@@ -288,24 +280,18 @@ Esta arquitectura ofrece escalabilidad, mantenibilidad y claridad en el código,
    - Docker Desktop instalado
    - JDK 17
 
-2. **Primera configuración**:
-   ```bash
-   cp .env
-   # Editar el .env con tus credenciales únicas
-   ```
-
-3. **Iniciar el entorno**:
+2. **Iniciar el entorno**:
    ```bash
    docker-compose up -d --build
    ```
 
-4. **Accesos**:
+3. **Accesos**:
    - Aplicación: http://localhost:8888/api/v1
    - DB: localhost:5432
      - Usuario: [el que configuraste en .env]
      - DB: [el nombre que configuraste en .env]
 
-5. **Comandos útiles**:
+4. **Comandos útiles**:
    - Ver logs: `docker logs -f pyacademy-app-1`
    - Detener: `docker-compose down`
    - Limpiar todo: `docker-compose down -v`
