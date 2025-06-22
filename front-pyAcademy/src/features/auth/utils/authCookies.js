@@ -7,10 +7,10 @@ export const signOut = () => {
 };
 
 export const saveToken = (token) => {
-  Cookies.set('authToken', token, { 
+  Cookies.set('authToken', token, {
     expires: 1,
     sameSite: 'Strict',
-    secure: process.env.NODE_ENV === 'production'
+    secure: process.env.NODE_ENV === 'production',
   });
 };
 
@@ -20,7 +20,7 @@ export const saveUser = (userData) => {
   Cookies.set('userData', JSON.stringify(userData), {
     expires: 1,
     sameSite: 'Strict',
-    secure: process.env.NODE_ENV === 'production'
+    secure: process.env.NODE_ENV === 'production',
   });
 };
 
@@ -29,7 +29,7 @@ export const getUser = () => {
     const userDataString = Cookies.get('userData');
     return userDataString ? JSON.parse(userDataString) : null;
   } catch (error) {
-    console.error("Error getting user data:", error);
+    console.error('Error getting user data:', error);
     return null;
   }
 };

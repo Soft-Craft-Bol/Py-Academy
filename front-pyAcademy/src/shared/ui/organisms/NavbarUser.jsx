@@ -1,34 +1,33 @@
 // assets
-import logo from "../../../assets/img/logo-python.webp";
-
 //React
-import { useState, useEffect } from "react";
-import { FaUserCircle } from "react-icons/fa";
+import { useEffect, useState } from 'react';
+import { FaUserCircle } from 'react-icons/fa';
 
+import logo from '../../../assets/img/logo-python.webp';
+import { ButtonTheme } from '../atoms/ButtonTheme';
+import { LogoNavbar } from '../atoms/LogoNavbar';
 // components
-import { MobileMenu } from "../molecules/navbar/MobileMenu";
-import { LogoNavbar } from "../atoms/LogoNavbar";
-import { ButtonTheme } from "../atoms/ButtonTheme";
+import { MobileMenu } from '../molecules/navbar/MobileMenu';
 
-export const NavbarUser = () => {
+export function NavbarUser() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [theme, setTheme] = useState(() => {
-    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      return "dark";
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      return 'dark';
     }
-    return "light";
+    return 'light';
   });
 
   useEffect(() => {
-    if (theme === "dark") {
-      document.querySelector("html").classList.add("dark");
+    if (theme === 'dark') {
+      document.querySelector('html').classList.add('dark');
     } else {
-      document.querySelector("html").classList.remove("dark");
+      document.querySelector('html').classList.remove('dark');
     }
   }, [theme]);
 
   const onChangeTheme = () => {
-    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
   };
 
   return (
@@ -38,7 +37,7 @@ export const NavbarUser = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
-          <LogoNavbar logo={logo} title={"PyAcademy"} />
+          <LogoNavbar logo={logo} title={'PyAcademy'} />
           <div className="hidden align-center items-end md:flex space-x-4">
             <ButtonTheme theme={theme} onChangeTheme={onChangeTheme} />
             <FaUserCircle className="rounded text-4xl" />
@@ -49,4 +48,4 @@ export const NavbarUser = () => {
       {isMenuOpen && <MobileMenu />}
     </header>
   );
-};
+}

@@ -1,9 +1,7 @@
-export const MenuInformation = ({ information }) => {
+export function MenuInformation({ information }) {
   return (
     <div className="col-span-1">
-      <h3 className="font-medium text-gray-900 mb-4 dark:text-gray-400">
-        {information.title}
-      </h3>
+      <h3 className="font-medium text-gray-900 mb-4 dark:text-gray-400">{information.title}</h3>
       <ul className="space-y-3">
         {information.items.map((item, index) => (
           <li key={index}>
@@ -18,4 +16,4 @@ export const MenuInformation = ({ information }) => {
       </ul>
     </div>
   );
-};
+}
