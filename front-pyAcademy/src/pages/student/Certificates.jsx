@@ -5,7 +5,6 @@ import python_basico from '@/assets/ManageCourses/python_basico.jpg';
 import EjemploFirma from '@/assets/img/EjemploFirma.png';
 
 import { useLocation, useNavigate } from 'react-router-dom';
-import python_basico from '@/assets/ManageCourses/python_basico.jpg';
 
 const mockCompletedCourses = [
   {
