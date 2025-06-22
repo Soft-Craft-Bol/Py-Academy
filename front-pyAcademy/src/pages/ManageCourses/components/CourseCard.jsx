@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const CourseCard = ({ id, title, description, imageUrl, onEdit, onDelete }) => {
+function CourseCard({ id, title, description, imageUrl, onEdit, onDelete }) {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
@@ -142,6 +142,6 @@ const CourseCard = ({ id, title, description, imageUrl, onEdit, onDelete }) => {
       )}
     </div>
   );
-};
+}
 
 export default CourseCard;

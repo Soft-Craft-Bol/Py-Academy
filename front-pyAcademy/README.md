@@ -3,6 +3,7 @@
 ## 📐 Arquitectura General
 
 ### **Enfoque Modular con Context API**
+
 - **Estructura Feature-Based**: Organización por funcionalidades autocontenidas
 - **Atomic Design**: Componentes UI jerárquicos (átomos → organismos)
 - **Gestión de Estado**: Context API para estado compartido + React Query para data fetching
@@ -46,15 +47,17 @@ src/
 ## 📝 Estándares de Codificación
 
 ### **1. Convenciones de Nomenclatura**
-| Tipo                  | Convención               | Ejemplo                     |
-|-----------------------|--------------------------|-----------------------------|
-| Carpetas              | kebab-case               | `video-lessons`             |
-| Componentes           | PascalCase               | `CodeEditor.jsx`            |
-| Hooks                 | useCamelCase             | `usePythonExecution.js`     |
-| Contextos             | CamelCase + .context     | `auth.context.jsx`          |
-| Servicios/Helpers     | camelCase + .service     | `exercise.service.js`       |
+
+| Tipo              | Convención           | Ejemplo                 |
+| ----------------- | -------------------- | ----------------------- |
+| Carpetas          | kebab-case           | `video-lessons`         |
+| Componentes       | PascalCase           | `CodeEditor.jsx`        |
+| Hooks             | useCamelCase         | `usePythonExecution.js` |
+| Contextos         | CamelCase + .context | `auth.context.jsx`      |
+| Servicios/Helpers | camelCase + .service | `exercise.service.js`   |
 
 ### **2. Documentación**
+
 - **Comentarios JSDoc** para funciones complejas:
   ```javascript
   /**
@@ -72,17 +75,20 @@ src/
   - Ejemplo de uso
 
 ### **3. Formateo de Código**
+
 - **Prettier** con configuración estándar
 - **ESLint** con reglas de Airbnb
 - **Archivo .editorconfig** para consistencia
 
 ### **4. Manejo de Errores**
+
 - **Estrategia unificada**:
   - Errores de API: Interceptores de axios
   - Errores UI: Componentes de error boundaries
   - Logging: Servicio centralizado
 
 ### **5. Control de Versiones**
+
 - **Git Flow** adaptado:
   - `main`: Producción
   - `develop`: Integración
@@ -95,11 +101,13 @@ src/
 ## 🔄 Flujo de Datos
 
 ### **Con React Query + Axios**
+
 1. **Capa de Servicio**:
+
    ```javascript
    // features/exercises/services/exercise.service.js
    import api from '../../../shared/api/axios.config';
-   
+
    export const fetchExercises = async (level) => {
      const response = await api.get(`/exercises?level=${level}`);
      return response.data;
@@ -107,11 +115,13 @@ src/
    ```
 
 2. **Capa de Hook**:
+
    ```javascript
    // features/exercises/hooks/useExercises.js
    import { useQuery } from 'react-query';
+
    import { fetchExercises } from '../services/exercise.service';
-   
+
    export const useExercises = (level) => {
      return useQuery(['exercises', level], () => fetchExercises(level));
    };
@@ -128,15 +138,14 @@ src/
 ## 🧩 Patrones Clave
 
 ### **1. Composición de Proveedores**
+
 ```javascript
 // app/providers/index.js
 export function AppProviders({ children }) {
   return (
     <ThemeProvider>
       <AuthProvider>
-        <QueryClientProvider client={queryClient}>
-          {children}
-        </QueryClientProvider>
+        <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
       </AuthProvider>
     </ThemeProvider>
   );
@@ -144,16 +153,18 @@ export function AppProviders({ children }) {
 ```
 
 ### **2. Contextos Específicos**
+
 - **Contextos globales**: Autenticación, Tema UI
 - **Contextos por feature**: Estado del editor, progreso de lecciones
 
 ### **3. Atomic Design Implementado**
-| Nivel        | Ubicación              | Responsabilidad             |
-|--------------|------------------------|-----------------------------|
-| Átomos       | shared/ui/atoms        | Inputs, Botones básicos     |
-| Moléculas    | shared/ui/molecules    | Cards, Formularios simples  |
-| Organismos   | shared/ui/organisms    | Secciones complejas         |
-| Templates    | features/[feature]      | Páginas/composiciones       |
+
+| Nivel      | Ubicación           | Responsabilidad            |
+| ---------- | ------------------- | -------------------------- |
+| Átomos     | shared/ui/atoms     | Inputs, Botones básicos    |
+| Moléculas  | shared/ui/molecules | Cards, Formularios simples |
+| Organismos | shared/ui/organisms | Secciones complejas        |
+| Templates  | features/[feature]  | Páginas/composiciones      |
 
 ## 🚀 Workflow de Desarrollo
 
@@ -172,4 +183,5 @@ export function AppProviders({ children }) {
 4. **Cumplimiento** de convenciones de nombrado
 5. **Manejo de errores** unificado en toda la app
 
-Esta arquitectura ofrece escalabilidad, mantenibilidad y claridad en el código, aprovechando Context API para estado global y React Query para gestión eficiente de datos asíncronos.
+Esta arquitectura ofrece escalabilidad, mantenibilidad y claridad en el código, aprovechando Context
+API para estado global y React Query para gestión eficiente de datos asíncronos.

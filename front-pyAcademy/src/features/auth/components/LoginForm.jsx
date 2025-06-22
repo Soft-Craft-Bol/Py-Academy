@@ -1,11 +1,12 @@
 // features/auth/components/LoginForm.js
-import React from "react";
-import Button from "@/shared/ui/atoms/Button";
+import React from 'react';
 
-const LoginForm = ({ onSubmit, isLoading, error }) => {
+import Button from '@/shared/ui/atoms/Button';
+
+function LoginForm({ onSubmit, isLoading, error }) {
   const [credentials, setCredentials] = React.useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
 
   const handleChange = (e) => {
@@ -27,10 +28,7 @@ const LoginForm = ({ onSubmit, isLoading, error }) => {
       )}
 
       <div>
-        <label
-          htmlFor="email"
-          className="block text-label-md mb-2 dark:text-neutral-neu0"
-        >
+        <label htmlFor="email" className="block text-label-md mb-2 dark:text-neutral-neu0">
           Correo electrónico
         </label>
         <input
@@ -46,10 +44,7 @@ const LoginForm = ({ onSubmit, isLoading, error }) => {
       </div>
 
       <div>
-        <label
-          htmlFor="password"
-          className="block text-label-md mb-2 dark:text-neutral-neu0"
-        >
+        <label htmlFor="password" className="block text-label-md mb-2 dark:text-neutral-neu0">
           Contraseña
         </label>
         <input
@@ -65,10 +60,10 @@ const LoginForm = ({ onSubmit, isLoading, error }) => {
       </div>
 
       <Button type="submit" className="w-full" disabled={isLoading}>
-        {isLoading ? "Cargando..." : "Iniciar sesión"}
+        {isLoading ? 'Cargando...' : 'Iniciar sesión'}
       </Button>
     </form>
   );
-};
+}
 
 export default LoginForm;
