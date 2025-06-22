@@ -11,7 +11,8 @@ import PythonEditor from "./PyEditorPage";
 
 const ExercisePage = () => {
   const location = useLocation();
-  const { data } = location.state || {};
+  console.log(location);
+  const data = location.state || {};
   const onEvaluation = (output) => {
     console.log(output);
     if (output === data.testCase.output) {
