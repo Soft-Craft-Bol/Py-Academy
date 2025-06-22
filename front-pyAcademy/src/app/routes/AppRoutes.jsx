@@ -47,7 +47,9 @@ export function AppRoutes() {
           <Route path="/certificado/:id" element={<PublicCertificateViewer />} />
         </Route>
 
-        <Route element={<TeacherLayout />}>{/* Rutas futuras para docentes */}</Route>
+        <Route path="/teacher" element={<TeacherLayout />}>
+        
+        </Route>
 
         {/* <Route path="/student" element={<PrivateRoute><StudentLayout /></PrivateRoute>}> */}
         <Route path="/student" element={<StudentLayout />}>
