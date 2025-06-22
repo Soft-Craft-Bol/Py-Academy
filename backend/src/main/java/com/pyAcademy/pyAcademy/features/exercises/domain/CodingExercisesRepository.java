@@ -13,10 +13,22 @@ import java.util.Optional;
 @Repository
 public interface CodingExercisesRepository extends JpaRepository<CodingExercisesEntity, Long> {
     
+    // Método existente (sin test cases)
     List<CodingExercisesEntity> findByIsActiveTrueOrderBySequenceNumber();
     
-    List<CodingExercisesEntity> findByLanguageAndIsActiveTrueOrderBySequenceNumber(String language);
+    // NUEVO método que carga los test cases
+    @Query("SELECT e FROM CodingExercisesEntity e LEFT JOIN FETCH e.testCases WHERE e.isActive = true ORDER BY e.sequenceNumber")
+    List<CodingExercisesEntity> findAllActiveWithTestCases();
     
+    // También puedes agregar versiones con test cases para los otros métodos
+    @Query("SELECT e FROM CodingExercisesEntity e LEFT JOIN FETCH e.testCases WHERE e.language = :language AND e.isActive = true ORDER BY e.sequenceNumber")
+    List<CodingExercisesEntity> findByLanguageAndIsActiveTrueWithTestCases(@Param("language") String language);
+    
+    @Query("SELECT e FROM CodingExercisesEntity e LEFT JOIN FETCH e.testCases WHERE e.difficultyLevel = :difficulty AND e.isActive = true ORDER BY e.sequenceNumber")
+    List<CodingExercisesEntity> findByDifficultyLevelAndIsActiveTrueWithTestCases(@Param("difficulty") String difficulty);
+    
+    // Los demás métodos existentes...
+    List<CodingExercisesEntity> findByLanguageAndIsActiveTrueOrderBySequenceNumber(String language);
     List<CodingExercisesEntity> findByDifficultyLevelAndIsActiveTrueOrderBySequenceNumber(String difficultyLevel);
     
     @Query("SELECT e FROM CodingExercisesEntity e WHERE e.language = :language AND e.difficultyLevel = :difficulty AND e.isActive = true ORDER BY e.sequenceNumber")
