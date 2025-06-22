@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: pg_pyacademy
+    environment:
+      POSTGRES_DB: py_academic
+      POSTGRES_USER: py_academic_owner
+      POSTGRES_PASSWORD: npg_eRKM65CsJznu
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    networks:
+      - pyacademy_net
+
+  backend:
+    build: ./backend
+    container_name: pyacademy_backend
+    depends_on:
+      - postgres
+    environment:
+      DB_URL: jdbc:postgresql://postgres:5432/py_academic
+      DB_USER: py_academic_owner
+      DB_PASSWORD: npg_eRKM65CsJznu
+      CLOUD_NAME: djcfm4nd2
+      API_KEY: 897657815927312
+      API_SECRET: 6Af5mOu8kiKfn9MT-P3Ag6vXF1s
+      SERVER_PORT: 8888
+      SERVER_SERVLET_CONTEXT_PATH: /api/v1
+    ports:
+      - "8888:8888"
+    volumes:
+      - uploads:/app/uploads
+    networks:
+      - pyacademy_net
+
+volumes:
+  pg_data:
+  uploads:
+
+networks:
+  pyacademy_net:
+    driver: bridge

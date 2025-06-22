@@ -3,11 +3,13 @@ import { Outlet } from "react-router-dom";
 import { useState } from "react";
 
 // components
+// Hola 
 import { NavbarUser } from "../ui/organisms/NavbarUser";
 import { Sidebar } from "../ui/organisms/Sidebar";
+import { ChatbotWidget } from "../ui/organisms/chatbot/ChatbotWidget";
 
 export const StudentLayout = () => {
-  const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const [isSidebarOpen, setSidebarOpen] = useState(true);
   const [isMenuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => setMenuOpen(!isMenuOpen);
@@ -30,6 +32,7 @@ export const StudentLayout = () => {
           <Outlet />
         </div>
       </main>
+      <ChatbotWidget />
     </>
   );
 };

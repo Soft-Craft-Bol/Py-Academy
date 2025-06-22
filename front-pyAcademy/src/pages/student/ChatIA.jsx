@@ -1,5 +1,7 @@
-export const ChatIA = () => {
+const ChatIA = () => {
   return (
     <div>ChatIA</div>
-  )
-}
+  );
+};
+
+export default ChatIA;

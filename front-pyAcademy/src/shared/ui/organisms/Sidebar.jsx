@@ -2,6 +2,7 @@
 import { IoCodeSlash } from "react-icons/io5";
 import { LuBookCopy } from "react-icons/lu";
 import { GiArtificialIntelligence } from "react-icons/gi";
+import { PiCertificateBold } from "react-icons/pi";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
@@ -22,8 +23,8 @@ export const Sidebar = ({
   const options = [
     { title: "Mis cursos", to: "/student", Icon: LuBookCopy },
     { title: "Editor de codigo", to: "editor", Icon: IoCodeSlash },
-    { title: "IA Tutor", to: "chatIA", Icon: GiArtificialIntelligence },
     { title: "Ejercicios", to: "exercises", Icon: GiArtificialIntelligence },
+    { title: "Certificados", to: "certificates", Icon: PiCertificateBold },
   ];
 
   const handleLogout = async () => {
