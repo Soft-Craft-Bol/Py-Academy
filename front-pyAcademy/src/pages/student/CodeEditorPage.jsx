@@ -1,18 +1,20 @@
-//Components
-import Button from "../../shared/ui/atoms/Button";
+import Editor from '@monaco-editor/react';
+
+import { useEffect, useState } from 'react';
+
+import Editor from '@monaco-editor/react';
+import { IoIosColorPalette } from 'react-icons/io';
 
 //React
-import Editor from "@monaco-editor/react";
-import { useState, useEffect } from "react";
-import { IoIosColorPalette } from "react-icons/io";
 
 //assets
-import { executeCode } from "../../shared/api/api";
+import { executeCode } from '../../shared/api/api';
+import Button from '../../shared/ui/atoms/Button';
 
 const CodeEditorPage = () => {
   const [code, setCode] = useState("print('Hola mundo')");
-  const [output, setOutput] = useState("");
-  const [themeEditor, setThemeEditor] = useState("vs");
+  const [output, setOutput] = useState('');
+  const [themeEditor, setThemeEditor] = useState('vs');
 
   const handleExecuteCode = async () => {
     const res = await executeCode(JSON.stringify({ code }));
@@ -21,9 +23,9 @@ const CodeEditorPage = () => {
   };
 
   const handleThemeEditor = () => {
-    if (themeEditor == "vs") setThemeEditor("vs-dark");
-    if (themeEditor == "vs-dark") setThemeEditor("hc-black");
-    if (themeEditor == "hc-black") setThemeEditor("vs");
+    if (themeEditor == 'vs') setThemeEditor('vs-dark');
+    if (themeEditor == 'vs-dark') setThemeEditor('hc-black');
+    if (themeEditor == 'hc-black') setThemeEditor('vs');
   };
 
   return (
@@ -62,17 +64,15 @@ const CodeEditorPage = () => {
             onChange={(value) => setCode(value)}
             theme={themeEditor}
           />
-          <h2 className="font-semibold my-4 text-label-md text-white">
-            Salida
-          </h2>
+          <h2 className="font-semibold my-4 text-label-md text-white">Salida</h2>
           <pre
             className={`p-3 rounded-md overflow-auto
             ${
-              themeEditor === "vs"
-                ? "bg-white text-black"
-                : themeEditor === "vs-dark"
-                ? "bg-[#1E1E1E] text-blue-400"
-                : "bg-black text-yellow-300"
+              themeEditor === 'vs'
+                ? 'bg-white text-black'
+                : themeEditor === 'vs-dark'
+                  ? 'bg-[#1E1E1E] text-blue-400'
+                  : 'bg-black text-yellow-300'
             }`}
           >
             {output}
