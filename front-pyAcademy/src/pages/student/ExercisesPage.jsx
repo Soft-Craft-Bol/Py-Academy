@@ -1,7 +1,5 @@
-//React
 import { useNavigate } from 'react-router-dom';
 
-//Componentes
 import Select from '../../shared/ui/atoms/Select';
 
 import { ExcerciseCard } from './components/ExcerciseCard';

@@ -1,5 +1,3 @@
-import React from 'react';
-
 import estDatPy from '../../assets/ManageCourses/estDatPy.jpg';
 import python_basico from '../../assets/ManageCourses/python_basico.jpg';
 import pyWeb from '../../assets/ManageCourses/pyWeb.jpeg';

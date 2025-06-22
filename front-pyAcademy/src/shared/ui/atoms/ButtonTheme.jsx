@@ -1,5 +1,3 @@
-//Components
-//React
 import { BsMoonStarsFill } from 'react-icons/bs';
 import { MdWbSunny } from 'react-icons/md';
 

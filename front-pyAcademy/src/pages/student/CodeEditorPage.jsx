@@ -1,5 +1,3 @@
-//Components
-//React
 import Editor from '@monaco-editor/react';
 
 import { useEffect, useState } from 'react';

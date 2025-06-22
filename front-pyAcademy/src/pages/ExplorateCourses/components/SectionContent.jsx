@@ -1,27 +1,26 @@
-import React from 'react';
-import { 
-  Play, 
-  FileText, 
-  Download, 
-  Clock, 
-  User, 
-  BookOpen, 
-  CheckCircle,
-  PlayCircle,
+import {
+  BookOpen,
   Calendar,
-  Target
+  CheckCircle,
+  Clock,
+  Download,
+  FileText,
+  Play,
+  PlayCircle,
+  Target,
+  User,
 } from 'lucide-react';
 
-const SectionContent = ({ selectedItem, courseData }) => {
+function SectionContent({ selectedItem, courseData }) {
   const findSelectedSubsection = () => {
     for (const module of courseData.modules) {
       for (const section of module.sections) {
-        const subsection = section.subsections.find(sub => sub.id === selectedItem);
+        const subsection = section.subsections.find((sub) => sub.id === selectedItem);
         if (subsection) {
           return {
             subsection,
             section,
-            module
+            module,
           };
         }
       }
@@ -66,7 +65,7 @@ const SectionContent = ({ selectedItem, courseData }) => {
                   </div>
                 </div>
               </div>
-              
+
               <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
                 <h4 className="font-semibold text-blue-800 dark:text-blue-300 mb-2">
                   📋 En este video aprenderás:
@@ -79,9 +78,9 @@ const SectionContent = ({ selectedItem, courseData }) => {
                 </ul>
               </div>
             </div>
-          )
+          ),
         };
-      
+
       case 'reading':
         return {
           type: 'Lectura',
@@ -89,10 +88,8 @@ const SectionContent = ({ selectedItem, courseData }) => {
           content: (
             <div className="space-y-6">
               <div className="prose dark:prose-invert max-w-none">
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-                  {title}
-                </h2>
-                
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">{title}</h2>
+
                 <div className="bg-green-50 dark:bg-green-900/20 border-l-4 border-green-500 p-4 mb-6">
                   <h3 className="font-semibold text-green-800 dark:text-green-300 mb-2">
                     🎯 Objetivos de aprendizaje
@@ -106,21 +103,26 @@ const SectionContent = ({ selectedItem, courseData }) => {
 
                 <h3 className="text-xl font-semibold mb-3">Introducción</h3>
                 <p className="text-gray-700 dark:text-gray-300 mb-4">
-                  En esta lección exploraremos los conceptos fundamentales de <strong>{title.toLowerCase()}</strong>. 
-                  Este tema es esencial para tu progreso en el desarrollo web moderno y te proporcionará 
-                  las bases sólidas necesarias para avanzar en tu aprendizaje.
+                  En esta lección exploraremos los conceptos fundamentales de{' '}
+                  <strong>{title.toLowerCase()}</strong>. Este tema es esencial para tu progreso en
+                  el desarrollo web moderno y te proporcionará las bases sólidas necesarias para
+                  avanzar en tu aprendizaje.
                 </p>
 
                 <h3 className="text-xl font-semibold mb-3">Conceptos Clave</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                   <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
-                    <h4 className="font-semibold text-gray-900 dark:text-white mb-2">🔑 Concepto 1</h4>
+                    <h4 className="font-semibold text-gray-900 dark:text-white mb-2">
+                      🔑 Concepto 1
+                    </h4>
                     <p className="text-sm text-gray-600 dark:text-gray-400">
                       Descripción detallada del primer concepto importante que debes dominar.
                     </p>
                   </div>
                   <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
-                    <h4 className="font-semibold text-gray-900 dark:text-white mb-2">🔧 Concepto 2</h4>
+                    <h4 className="font-semibold text-gray-900 dark:text-white mb-2">
+                      🔧 Concepto 2
+                    </h4>
                     <p className="text-sm text-gray-600 dark:text-gray-400">
                       Explicación práctica del segundo concepto con ejemplos de aplicación.
                     </p>
@@ -130,7 +132,7 @@ const SectionContent = ({ selectedItem, courseData }) => {
                 <h3 className="text-xl font-semibold mb-3">Ejemplo Práctico</h3>
                 <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg mb-4">
                   <pre className="text-sm text-gray-800 dark:text-gray-200 overflow-x-auto">
-{`// Ejemplo de código relacionado con ${title}
+                    {`// Ejemplo de código relacionado con ${title}
 function ejemploPractico() {
   console.log("Aplicando los conceptos aprendidos");
   // Implementación práctica aquí
@@ -149,9 +151,9 @@ function ejemploPractico() {
                 </div>
               </div>
             </div>
-          )
+          ),
         };
-      
+
       default:
         return {
           type: 'Contenido',
@@ -166,7 +168,7 @@ function ejemploPractico() {
                 Este contenido estará disponible próximamente
               </p>
             </div>
-          )
+          ),
         };
     }
   };
@@ -204,7 +206,7 @@ function ejemploPractico() {
               )}
             </div>
           </div>
-          
+
           {!subsection.completed && (
             <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-colors">
               Marcar como completado
@@ -214,9 +216,7 @@ function ejemploPractico() {
       </div>
 
       {/* Content */}
-      <div className="flex-1 overflow-y-auto p-6">
-        {contentData.content}
-      </div>
+      <div className="flex-1 overflow-y-auto p-6">{contentData.content}</div>
 
       {/* Navigation Footer */}
       <div className="bg-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 p-4">
@@ -232,6 +232,6 @@ function ejemploPractico() {
       </div>
     </div>
   );
-};
+}
 
 export default SectionContent;
