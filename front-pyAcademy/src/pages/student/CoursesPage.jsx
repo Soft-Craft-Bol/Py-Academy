@@ -9,8 +9,8 @@ import python_basico from "@/assets/ManageCourses/python_basico.jpg";
 const courses = [
   {
     id: 1,
-    title: "Curso de Python Básico",
-    teacher: "Ana López",
+    title: "Curso de Python Básico casdc",
+    teacher: "Ana López asd",
     imageUrl: python_basico,
     startDate: "01/06/2025",
     endDate: "01/08/2025",
