@@ -1,89 +1,89 @@
 .hero-section {
-    display: flex;
-    align-items: center;
-    padding: 80px 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-    gap: 40px;
+  display: flex;
+  align-items: center;
+  padding: 80px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 40px;
+}
+
+.hero-content {
+  flex: 1;
+}
+
+.hero-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-image img {
+  max-width: 100%;
+  height: auto;
+}
+
+.hero-title {
+  font-size: 48px;
+  font-weight: 800;
+  color: #111827;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.hero-subtitle {
+  font-size: 20px;
+  color: #4b5563;
+  margin-bottom: 32px;
+  line-height: 1.5;
+  max-width: 600px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+}
+
+@media (max-width: 1024px) {
+  .hero-section {
+    flex-direction: column;
+    text-align: center;
+    padding: 60px 20px;
   }
-  
+
   .hero-content {
-    flex: 1;
-  }
-  
-  .hero-image {
-    flex: 1;
     display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero-title {
+    font-size: 36px;
+  }
+
+  .hero-subtitle {
+    font-size: 18px;
+  }
+
+  .hero-actions {
     justify-content: center;
   }
-  
-  .hero-image img {
-    max-width: 100%;
-    height: auto;
-  }
-  
+}
+
+@media (max-width: 480px) {
   .hero-title {
-    font-size: 48px;
-    font-weight: 800;
-    color: #111827;
-    margin-bottom: 20px;
-    line-height: 1.2;
+    font-size: 28px;
   }
-  
+
   .hero-subtitle {
-    font-size: 20px;
-    color: #4b5563;
-    margin-bottom: 32px;
-    line-height: 1.5;
-    max-width: 600px;
+    font-size: 16px;
   }
-  
+
   .hero-actions {
-    display: flex;
-    gap: 16px;
+    flex-direction: column;
+    width: 100%;
   }
-  
-  @media (max-width: 1024px) {
-    .hero-section {
-      flex-direction: column;
-      text-align: center;
-      padding: 60px 20px;
-    }
-    
-    .hero-content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    
-    .hero-title {
-      font-size: 36px;
-    }
-    
-    .hero-subtitle {
-      font-size: 18px;
-    }
-    
-    .hero-actions {
-      justify-content: center;
-    }
+
+  .hero-actions .btn {
+    width: 100%;
   }
-  
-  @media (max-width: 480px) {
-    .hero-title {
-      font-size: 28px;
-    }
-    
-    .hero-subtitle {
-      font-size: 16px;
-    }
-    
-    .hero-actions {
-      flex-direction: column;
-      width: 100%;
-    }
-    
-    .hero-actions .btn {
-      width: 100%;
-    }
-  }
+}

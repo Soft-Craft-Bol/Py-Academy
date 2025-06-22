@@ -1,54 +1,55 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import { FaUserGraduate } from "react-icons/fa";
-import { BsClockHistory } from "react-icons/bs";
-import pyWeb from "@/assets/ManageCourses/pyWeb.jpeg";
-import estDatPy from "@/assets/ManageCourses/estDatPy.jpg";
-import python_basico from "@/assets/ManageCourses/python_basico.jpg";
+import React from 'react';
+import { BsClockHistory } from 'react-icons/bs';
+import { FaUserGraduate } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+
+import estDatPy from '@/assets/ManageCourses/estDatPy.jpg';
+import python_basico from '@/assets/ManageCourses/python_basico.jpg';
+import pyWeb from '@/assets/ManageCourses/pyWeb.jpeg';
 
 const courses = [
   {
     id: 1,
-    title: "Curso de Python Básico",
-    teacher: "Ana López",
+    title: 'Curso de Python Básico',
+    teacher: 'Ana López',
     imageUrl: python_basico,
-    startDate: "01/06/2025",
-    endDate: "01/08/2025",
-    duration: "8 semanas",
-    level: "Básico",
+    startDate: '01/06/2025',
+    endDate: '01/08/2025',
+    duration: '8 semanas',
+    level: 'Básico',
     price: 0,
     enrolled: 12,
     maxStudents: 30,
   },
   {
     id: 2,
-    title: "Curso de Estructuras de Datos",
-    teacher: "Carlos Pérez",
+    title: 'Curso de Estructuras de Datos',
+    teacher: 'Carlos Pérez',
     imageUrl: estDatPy,
-    startDate: "05/06/2025",
-    endDate: "05/09/2025",
-    duration: "10 semanas",
-    level: "Intermedio",
+    startDate: '05/06/2025',
+    endDate: '05/09/2025',
+    duration: '10 semanas',
+    level: 'Intermedio',
     price: 25,
     enrolled: 20,
     maxStudents: 30,
   },
   {
     id: 3,
-    title: "Desarrollo Web",
-    teacher: "María Torres",
+    title: 'Desarrollo Web',
+    teacher: 'María Torres',
     imageUrl: pyWeb,
-    startDate: "10/06/2025",
-    endDate: "10/09/2025",
-    duration: "12 semanas",
-    level: "Avanzado",
+    startDate: '10/06/2025',
+    endDate: '10/09/2025',
+    duration: '12 semanas',
+    level: 'Avanzado',
     price: 50,
     enrolled: 15,
     maxStudents: 25,
   },
 ];
 
-const CoursesPage = () => {
+function CoursesPage() {
   const navigate = useNavigate();
 
   const handleCardClick = (id) => {
@@ -57,9 +58,7 @@ const CoursesPage = () => {
 
   return (
     <section className="px-4 md:px-10 py-10 min-h-screen bg-gray-50 dark:bg-gradient-1">
-      <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-white">
-        Mis Cursos
-      </h2>
+      <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-white">Mis Cursos</h2>
 
       <div className="grid gap-8 sm:grid-cols-2 xl:grid-cols-3">
         {courses.map((course) => (
@@ -68,11 +67,7 @@ const CoursesPage = () => {
             onClick={() => handleCardClick(course.id)}
             className="cursor-pointer bg-white dark:bg-zinc-800 rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden flex flex-col"
           >
-            <img
-              src={course.imageUrl}
-              alt={course.title}
-              className="h-48 w-full object-cover"
-            />
+            <img src={course.imageUrl} alt={course.title} className="h-48 w-full object-cover" />
 
             <div className="p-4 flex flex-col justify-between flex-grow">
               <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-2">
@@ -98,7 +93,7 @@ const CoursesPage = () => {
                   Nivel: <strong>{course.level}</strong>
                 </span>
                 <span>
-                  Precio:{" "}
+                  Precio:{' '}
                   {course.price === 0 ? (
                     <span className="text-green-600 font-bold">Gratis</span>
                   ) : (
@@ -112,6 +107,6 @@ const CoursesPage = () => {
       </div>
     </section>
   );
-};
+}
 
 export default CoursesPage;
