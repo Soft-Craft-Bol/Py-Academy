@@ -1,21 +1,18 @@
-//React
-//assets
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
-
 
 import loginImage from '@/assets/img/login.webp';
 
-//Components
 import LoginForm from '@/features/auth/components/LoginForm';
 
 import { useAuth } from '@/app/context/AuthContext';
+import { useState } from 'react';
+
 //assets
 
 function LoginPage() {
   const navigate = useNavigate();
   const { login, isLoading } = useAuth();
-  const [error, setError] = React.useState('');
+  const [error, setError] = useState('');
 
   const handleSubmit = async (credentials) => {
     try {

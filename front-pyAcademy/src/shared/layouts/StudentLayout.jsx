@@ -1,15 +1,15 @@
-//React
+// React debe ir primero
 import { useState } from 'react';
-
 import { Outlet } from 'react-router-dom';
 
-import { ChatbotWidget } from '../ui/organisms/chatbot/ChatbotWidget';
-// components
-import { ChatbotWidget } from '../ui/organisms/chatbot/ChatbotWidget';
-import { NavbarUser } from '../ui/organisms/NavbarUser';
-import { Sidebar } from '../ui/organisms/Sidebar';
+import { ChatbotWidget } from '@/shared/ui/organisms/chatbot/ChatbotWidget';
 
-export const StudentLayout = () => {
+import { Sidebar } from '../ui/organisms/Sidebar';
+import { NavbarUser } from '../ui/organisms/NavbarUser';
+
+
+// Componente como declaración de función
+export function StudentLayout() {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
   const [isMenuOpen, setMenuOpen] = useState(false);
 
@@ -36,4 +36,6 @@ export const StudentLayout = () => {
       <ChatbotWidget />
     </>
   );
-};
+}
+
+

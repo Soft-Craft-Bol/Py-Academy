@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import estDatPy from '../../assets/ManageCourses/estDatPy.jpg';
 import python_basico from '../../assets/ManageCourses/python_basico.jpg';
@@ -52,7 +52,7 @@ function ManageCourses() {
 
   const handleEditCourse = (id, updatedData) => {
     setCourses((prev) =>
-      prev.map((course) => (course.id === id ? { ...course, ...updatedData } : course)),
+      prev.map((course) => (course.id === id ? { ...course, ...updatedData } : course))
     );
   };
 
