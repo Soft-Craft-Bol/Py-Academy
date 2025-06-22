@@ -1,12 +1,4 @@
-const Select = ({
-  className,
-  name,
-  id,
-  onChange,
-  options,
-  placeholder,
-  errors = null,
-}) => {
+function Select({ className, name, id, onChange, options, placeholder, errors = null }) {
   return (
     <div>
       <select
@@ -26,11 +18,9 @@ const Select = ({
             );
           })}
       </select>
-      {errors && errors[name] && (
-        <span className="text-red-500">{errors[name].message}</span>
-      )}
+      {errors && errors[name] && <span className="text-red-500">{errors[name].message}</span>}
     </div>
   );
-};
+}
 
 export default Select;

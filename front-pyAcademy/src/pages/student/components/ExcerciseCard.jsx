@@ -1,7 +1,6 @@
-import React from "react";
-import Button from "../../../shared/ui/atoms/Button";
+import Button from '../../../shared/ui/atoms/Button';
 
-export const ExcerciseCard = ({ exercise, btnText }) => {
+export function ExcerciseCard({ exercise, btnText }) {
   const styleCategory =
     exercise.difficultyLevel === "Principiante"
       ? "bg-green-500 shadow-green-500/70 shadow-md"
@@ -15,9 +14,7 @@ export const ExcerciseCard = ({ exercise, btnText }) => {
         <h2 className="font-semibold text-title-sm">{exercise.title}</h2>
         <span className="text-label-md">✔</span>
       </div>
-      <p className="text-gray-500 dark:text-gray-300 my-4">
-        {exercise.description}
-      </p>
+      <p className="text-gray-500 dark:text-gray-300 my-4">{exercise.description}</p>
       <div className="flex justify-between items-center">
         <div className="flex gap-5 items-center">
           <p className={`${styleCategory} p-1 rounded-md h-[90%]`}>
@@ -33,10 +30,10 @@ export const ExcerciseCard = ({ exercise, btnText }) => {
             </ul>
           </div> */}
         </div>
-        <Button to={"/student/exercise"} data={exercise}>
+        <Button to={'/student/exercise'} data={exercise}>
           {btnText}
         </Button>
       </div>
     </div>
   );
-};
+}

@@ -1,18 +1,7 @@
-import React from "react";
-
-export const ButtonBurguer = ({ onClick, isMenuOpen }) => {
+export function ButtonBurguer({ onClick, isMenuOpen }) {
   return (
-    <button
-      className="md:hidden flex items-center"
-      onClick={onClick}
-      aria-label="Menú principal"
-    >
-      <svg
-        className="w-6 h-6 text-gray-700"
-        stroke="currentColor"
-        fill="none"
-        viewBox="0 0 24 24"
-      >
+    <button className="md:hidden flex items-center" onClick={onClick} aria-label="Menú principal">
+      <svg className="w-6 h-6 text-gray-700" stroke="currentColor" fill="none" viewBox="0 0 24 24">
         {isMenuOpen ? (
           <path
             strokeLinecap="round"
@@ -31,4 +20,4 @@ export const ButtonBurguer = ({ onClick, isMenuOpen }) => {
       </svg>
     </button>
   );
-};
+}
