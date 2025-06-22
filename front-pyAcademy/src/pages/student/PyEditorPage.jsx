@@ -6,7 +6,7 @@ import { python } from "@codemirror/lang-python";
 //Components
 import Button from "../../shared/ui/atoms/Button";
 
-const PythonEditor = ({ title = true, onEvaluation }) => {
+const PythonEditor = ({ title = true, onEvaluation, testCases = [] }) => {
   const [pyodide, setPyodide] = useState(null);
   const [code, setCode] = useState("");
   const [input, setInput] = useState("");
@@ -30,7 +30,6 @@ const PythonEditor = ({ title = true, onEvaluation }) => {
       setOutput("Pyodide aún no está listo");
       return;
     }
-
     try {
       const inputLines = input.split("\n");
       let index = 0;
@@ -50,6 +49,59 @@ const PythonEditor = ({ title = true, onEvaluation }) => {
       if (onEvaluation) onEvaluation(salida);
     } catch (error) {
       setOutput(`Error: ${error.message}`);
+    }
+  };
+
+  const handleExecuteTestCases = async () => {
+    if (!pyodide) {
+      setOutput("Pyodide aún no está listo");
+      return;
+    }
+
+    let allTestsPassed = true;
+    let results = "";
+
+    for (let testCase of testCases) {
+      try {
+        // Dividir por espacios Y por saltos de línea para manejar ambos casos
+        const inputLines = testCase.inputData
+          .split(/[\s\n]+/) // ✅ Divide por espacios y saltos de línea
+          .filter((line) => line.trim() !== ""); // Filtra líneas vacías
+
+        let index = 0;
+        console.log("Los inputs lines son", inputLines);
+
+        pyodide.globals.set("input", () => {
+          if (index >= inputLines.length) {
+            throw new Error("No hay más entradas disponibles para input()");
+          }
+          return inputLines[index++];
+        });
+
+        let salida = "";
+        pyodide.setStdout({ batched: (text) => (salida += text) });
+
+        await pyodide.runPythonAsync(code);
+
+        if (salida.trim() !== testCase.expectedOutput.trim()) {
+          allTestsPassed = false;
+          results += `Test ${testCase.id}: FALLÓ\nEsperado: ${
+            testCase.expectedOutput
+          }\nObtenido: ${salida.trim()}\n\n`;
+        } else {
+          results += `Test ${testCase.id}: PASÓ\n\n`;
+        }
+      } catch (error) {
+        allTestsPassed = false;
+        results += `Test ${testCase.id}: ERROR - ${error.message}\n\n`;
+      }
+    }
+
+    setOutput(results);
+    if (allTestsPassed) {
+      window.alert("Todos los tests pasaron correctamente");
+    } else {
+      window.alert("Algunos tests fallaron");
     }
   };
 
@@ -87,7 +139,9 @@ const PythonEditor = ({ title = true, onEvaluation }) => {
         <Button
           variant="primary"
           size="large"
-          onClick={handleExecuteCode}
+          onClick={
+            testCases.length == 0 ? handleExecuteCode : handleExecuteTestCases
+          }
           className="bg-primary-pri1 px-4 py-2 mt-3"
         >
           Ejecutar
