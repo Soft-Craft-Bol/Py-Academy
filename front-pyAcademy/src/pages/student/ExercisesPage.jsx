@@ -1,6 +1,9 @@
+//React
 import { useNavigate } from 'react-router-dom';
 
+//Components
 import Select from '../../shared/ui/atoms/Select';
+import { ExcerciseCard } from '../../features/exercises/components/ExcerciseCard';
 
 //Data
 import { exercises } from "./dataTest";
