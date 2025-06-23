@@ -524,5 +524,4 @@ const CourseDashboard = () => {
     </div>
   );
 };
-
 export default CourseDashboard;
