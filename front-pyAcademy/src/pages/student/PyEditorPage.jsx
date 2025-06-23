@@ -1,57 +1,21 @@
 //React
-import React, { useEffect, useState } from "react";
-import CodeMirror from "@uiw/react-codemirror";
-import { python } from "@codemirror/lang-python";
+import { python } from '@codemirror/lang-python';
+import CodeMirror from '@uiw/react-codemirror';
+import React from 'react';
 
 //Components
-import Button from "../../shared/ui/atoms/Button";
+import Button from '../../shared/ui/atoms/Button';
 
-const PythonEditor = ({ title = true, onEvaluation }) => {
-  const [pyodide, setPyodide] = useState(null);
-  const [code, setCode] = useState("");
-  const [input, setInput] = useState("");
-  const [output, setOutput] = useState("");
+//Hooks
+import { usePyodide } from '@/features/code/hooks/usePyodide';
+import { useExecuteCode } from '@/features/code/hooks/useExecuteCode';
+import { useExecuteTestCases } from '@/features/code/hooks/useExecuteTestCases';
 
-  useEffect(() => {
-    const load = async () => {
-      if (!window.loadPyodide) {
-        setOutput("No se pudo cargar Pyodide. Verifica que esté en index.html");
-        return;
-      }
-      const pyodideInstance = await window.loadPyodide();
-      setPyodide(pyodideInstance);
-      console.log("Pyodide cargado");
-    };
-    load();
-  }, []);
-
-  const handleExecuteCode = async () => {
-    if (!pyodide) {
-      setOutput("Pyodide aún no está listo");
-      return;
-    }
-
-    try {
-      const inputLines = input.split("\n");
-      let index = 0;
-
-      pyodide.globals.set("input", () => {
-        if (index >= inputLines.length) {
-          throw new Error("No hay más entradas disponibles para input()");
-        }
-        return inputLines[index++];
-      });
-
-      let salida = "";
-      pyodide.setStdout({ batched: (text) => (salida += text) });
-
-      await pyodide.runPythonAsync(code);
-      setOutput(salida);
-      if (onEvaluation) onEvaluation(salida);
-    } catch (error) {
-      setOutput(`Error: ${error.message}`);
-    }
-  };
+const PythonEditor = ({ title = true, testCases = [] }) => {
+  const { pyodide, error, isLoading } = usePyodide();
+  const { code, setCode, output, setOutput, input, setInput, handleExecuteCode } =
+    useExecuteCode(pyodide);
+  const { handleExecuteTestCases } = useExecuteTestCases(pyodide, setOutput, testCases, code);
 
   return (
     <div className="mt-6 mx-auto px-4 w-full max-w-7xl">
@@ -71,12 +35,9 @@ const PythonEditor = ({ title = true, onEvaluation }) => {
           className="text-blue-700 border rounded"
         />
 
-        <h2 className="font-semibold my-4 text-label-md text-white">
-          Entradas para `input()`:
-        </h2>
+        <h2 className="font-semibold my-4 text-label-md text-white">Entradas para `input()`:</h2>
         <textarea
           rows={3}
-          //cols={60}
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Una línea por input()"
@@ -87,7 +48,7 @@ const PythonEditor = ({ title = true, onEvaluation }) => {
         <Button
           variant="primary"
           size="large"
-          onClick={handleExecuteCode}
+          onClick={testCases.length == 0 ? handleExecuteCode : handleExecuteTestCases}
           className="bg-primary-pri1 px-4 py-2 mt-3"
         >
           Ejecutar
