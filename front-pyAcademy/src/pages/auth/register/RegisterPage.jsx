@@ -21,21 +21,11 @@ function RegisterPage() {
   return (
     <div className="min-h-screen flex flex-col text-gray-800">
       <main className="flex flex-1 w-full flex-col-reverse lg:flex-row items-center justify-center gap-8 px-4 sm:px-6 md:px-10 py-12">
-        {/* Imagen ilustrativa
-            <div className="w-full max-w-md rounded-lg overflow-hidden lg:max-w-lg dark:shadow-yellow-500/50 shadow-xl transition-transform duration-300 ease-in-out">
-            <img
-                src={registerImage}
-                alt="Imagen de registro"
-                className="w-full h-auto object-cover"
-            />
-            </div> */}
-
         <section className="bg-white dark:bg-gradient-1 rounded-2xl p-8 sm:p-10 w-full max-w-lg shadow-xl">
           <h2 className="text-display-sm font-bold mb-8 text-center text-gray-900 dark:text-white">
             Crear cuenta
           </h2>
 
-          {/* Segment Switch con animación */}
           <div className="relative mb-6 w-full max-w-sm mx-auto">
             <div className="relative flex items-center justify-between bg-neutral-800 border border-blue-500 rounded-full overflow-hidden">
               <div
