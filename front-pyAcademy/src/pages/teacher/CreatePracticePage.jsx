@@ -13,9 +13,7 @@ const DIFFICULTIES = [
 ];
 
 const LANGUAGES = [
-  { label: "Python", value: "python" },
-  { label: "JavaScript", value: "javascript" },
-  { label: "C++", value: "cpp" },
+  { label: "Python", value: "python" }
 ];
 
 export default function CreatePracticePage() {
@@ -43,7 +41,7 @@ export default function CreatePracticePage() {
     setTestCases(testCases.map(tc => (tc.id === id ? { ...tc, ...changes } : tc)));
   };
 
-  const removeTestCase = (id) => {
+  const removeTestCase = id => {
     setTestCases(testCases.filter(tc => tc.id !== id));
   };
 
@@ -63,85 +61,158 @@ export default function CreatePracticePage() {
 
   return (
     <div className="max-w-4xl mx-auto py-8 px-4">
-      <h1 className="text-3xl font-bold mb-6">Crear Práctica de Programación</h1>
+      <h1 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
+        Crear Práctica de Programación
+      </h1>
 
-      <div className="space-y-4 bg-white p-6 rounded-lg shadow-md">
-        <Input
-          placeholder="Título del ejercicio"
-          value={title}
-          onChange={e => setTitle(e.target.value)}
-        />
+      <div className="space-y-6 bg-white dark:bg-zinc-800 p-6 rounded-lg shadow-md">
 
-        <Textarea
-          placeholder="Descripción del ejercicio"
-          rows={5}
-          value={description}
-          onChange={e => setDescription(e.target.value)}
-        />
+        {/* Título */}
+        <div>
+          <label className="block mb-1 text-gray-700 dark:text-gray-300 font-medium">
+            Título del ejercicio
+          </label>
+          <Input
+            value={title}
+            onChange={e => setTitle(e.target.value)}
+            placeholder="Título del ejercicio"
+            className="bg-white dark:bg-zinc-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+          />
+        </div>
 
-        <Textarea
-          placeholder="Código inicial (starter code)"
-          rows={6}
-          value={starterCode}
-          onChange={e => setStarterCode(e.target.value)}
-        />
+        {/* Descripción */}
+        <div>
+          <label className="block mb-1 text-gray-700 dark:text-gray-300 font-medium">
+            Descripción
+          </label>
+          <Textarea
+            rows={5}
+            value={description}
+            onChange={e => setDescription(e.target.value)}
+            placeholder="Describe el problema que debe resolverse"
+            className="bg-white dark:bg-zinc-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+          />
+        </div>
 
+        {/* Código inicial */}
+        <div>
+          <label className="block mb-1 text-gray-700 dark:text-gray-300 font-medium">
+            Código inicial
+          </label>
+          <Textarea
+            rows={6}
+            value={starterCode}
+            onChange={e => setStarterCode(e.target.value)}
+            placeholder="Código base que el estudiante verá"
+            className="bg-white dark:bg-zinc-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 font-mono"
+          />
+        </div>
+
+        {/* Dificultad y Lenguaje */}
         <div className="flex gap-4">
-          <Select
-            options={DIFFICULTIES}
-            value={difficulty}
-            onChange={e => setDifficulty(e.target.value)}
-            className="flex-1"
-          />
-          <Select
-            options={LANGUAGES}
-            value={language}
-            onChange={e => setLanguage(e.target.value)}
-            className="flex-1"
-          />
+          <div className="flex-1">
+            <label className="block mb-1 text-gray-700 dark:text-gray-300 font-medium">
+              Dificultad
+            </label>
+            <Select
+              options={DIFFICULTIES}
+              value={difficulty}
+              onChange={e => setDifficulty(e.target.value)}
+              className="bg-white dark:bg-zinc-800 text-gray-900 dark:text-white"
+            />
+          </div>
+          <div className="flex-1">
+            <label className="block mb-1 text-gray-700 dark:text-gray-300 font-medium">
+              Lenguaje
+            </label>
+            <Select
+              options={LANGUAGES}
+              value={language}
+              onChange={e => setLanguage(e.target.value)}
+              className="bg-white dark:bg-zinc-800 text-gray-900 dark:text-white"
+            />
+          </div>
         </div>
       </div>
 
-      <div className="mt-8">
-        <h2 className="text-xl font-semibold mb-4">Casos de prueba</h2>
+      {/* Casos de prueba */}
+      <div className="mt-10">
+        <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">
+          Casos de prueba
+        </h2>
+
         <div className="space-y-4">
           {testCases.map((tc, i) => (
             <div
               key={tc.id}
-              className="p-4 bg-gray-50 border rounded-md shadow-sm space-y-2"
+              className="p-4 bg-gray-50 dark:bg-zinc-900 border border-gray-200 dark:border-zinc-700 rounded-md shadow-sm space-y-4"
             >
               <div className="flex justify-between items-center">
-                <h3 className="font-medium">Caso #{i + 1}</h3>
+                <h3 className="font-medium text-gray-800 dark:text-white">
+                  Caso #{i + 1}
+                </h3>
                 <Button variant="danger" onClick={() => removeTestCase(tc.id)}>
                   <Trash2 className="h-4 w-4" />
                 </Button>
               </div>
 
-              <Input
-                placeholder="Entrada (input)"
-                value={tc.inputData}
-                onChange={e => updateTestCase(tc.id, { inputData: e.target.value })}
-              />
-
-              <Input
-                placeholder="Salida esperada (output)"
-                value={tc.expectedOutput}
-                onChange={e => updateTestCase(tc.id, { expectedOutput: e.target.value })}
-              />
-
-              <div className="flex gap-4 items-center">
+              {/* Entrada */}
+              <div>
+                <label className="block mb-1 text-gray-700 dark:text-gray-300 font-medium">
+                  Entrada (input)
+                </label>
                 <Input
-                  type="number"
-                  placeholder="Peso (%)"
-                  value={tc.weight}
-                  onChange={e => updateTestCase(tc.id, { weight: Number(e.target.value) })}
+                  value={tc.inputData}
+                  onChange={e =>
+                    updateTestCase(tc.id, { inputData: e.target.value })
+                  }
+                  placeholder="Ej: 2 3"
+                  className="bg-white dark:bg-zinc-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                 />
+              </div>
 
-                <label className="flex items-center gap-2">
+              {/* Salida */}
+              <div>
+                <label className="block mb-1 text-gray-700 dark:text-gray-300 font-medium">
+                  Salida esperada (output)
+                </label>
+                <Input
+                  value={tc.expectedOutput}
+                  onChange={e =>
+                    updateTestCase(tc.id, { expectedOutput: e.target.value })
+                  }
+                  placeholder="Ej: 5"
+                  className="bg-white dark:bg-zinc-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+                />
+              </div>
+
+              {/* Puntaje y oculto */}
+              <div className="flex gap-4 items-center">
+                <div className="flex-1">
+                  <label className="block mb-1 text-gray-700 dark:text-gray-300 font-medium">
+                    Puntaje (%)
+                  </label>
+                  <Input
+                    type="number"
+                    value={tc.weight}
+                    onChange={e =>
+                      updateTestCase(tc.id, {
+                        weight: Number(e.target.value)
+                      })
+                    }
+                    placeholder="Ej: 20"
+                    className="bg-white dark:bg-zinc-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+                  />
+                </div>
+
+                <label className="flex items-center gap-2 text-gray-700 dark:text-gray-300 mt-6">
                   <input
                     type="checkbox"
                     checked={tc.isHidden}
-                    onChange={e => updateTestCase(tc.id, { isHidden: e.target.checked })}
+                    onChange={e =>
+                      updateTestCase(tc.id, { isHidden: e.target.checked })
+                    }
+                    className="accent-blue-600"
                   />
                   Oculto
                 </label>
@@ -155,6 +226,7 @@ export default function CreatePracticePage() {
         </Button>
       </div>
 
+      {/* Guardar */}
       <div className="mt-8">
         <Button variant="primary" onClick={handleSave}>
           Guardar práctica (simulado)
