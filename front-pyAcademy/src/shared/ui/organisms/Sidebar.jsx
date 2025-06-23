@@ -5,6 +5,7 @@ import { IoCodeSlash } from 'react-icons/io5';
 import { LuBookCopy } from 'react-icons/lu';
 import { PiCertificateBold } from 'react-icons/pi';
 import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import { MobileMenuButton } from '../atoms/MobileMenuButton';
 import { MobileSidebar } from '../molecules/sidebar/MobileSidebar';
@@ -60,3 +61,11 @@ export function Sidebar({ isSidebarOpen, isMenuOpen, toggleSidebar, toggleMenu }
     </>
   );
 }
+
+// Validación de props
+Sidebar.propTypes = {
+  isSidebarOpen: PropTypes.bool.isRequired,
+  isMenuOpen: PropTypes.bool.isRequired,
+  toggleSidebar: PropTypes.func.isRequired,
+  toggleMenu: PropTypes.func.isRequired,
+};
