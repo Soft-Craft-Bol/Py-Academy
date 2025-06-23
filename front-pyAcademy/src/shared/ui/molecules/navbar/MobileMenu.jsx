@@ -1,7 +1,7 @@
-import { NavigationLink } from "../../atoms/NavigationLink";
-import Button from "../../atoms/Button";
+import Button from '../../atoms/Button';
+import { NavigationLink } from '../../atoms/NavigationLink';
 
-export const MobileMenu = () => {
+export function MobileMenu() {
   return (
     <div className="md:hidden border-t border-gray-200">
       <nav className="px-4 py-2">
@@ -22,4 +22,4 @@ export const MobileMenu = () => {
       </nav>
     </div>
   );
-};
+}

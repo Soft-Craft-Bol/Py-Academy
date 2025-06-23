@@ -1,38 +1,38 @@
-// src/pages/student/Certificates.jsx
-import React, { useState, useEffect } from "react";
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
-import { useLocation, useNavigate } from "react-router-dom";
-import CertificateLogo from "@/assets/CertificateLogo.png";
-import python_basico from "@/assets/ManageCourses/python_basico.jpg";
-import estDatPy from "@/assets/ManageCourses/estDatPy.jpg";
-import EjemploFirma from "@/assets/img/EjemploFirma.png";
+import { useEffect, useState } from 'react';
+import CertificateLogo from '@/assets/CertificateLogo.png';
+import estDatPy from '@/assets/ManageCourses/estDatPy.jpg';
+import python_basico from '@/assets/ManageCourses/python_basico.jpg';
+import EjemploFirma from '@/assets/img/EjemploFirma.png';
+
+import { useLocation, useNavigate } from 'react-router-dom';
+import html2canvas from 'html2canvas';
+import { jsPDF } from 'jspdf';
 
 const mockCompletedCourses = [
   {
-    id: "cert-001",
-    courseName: "Python desde cero",
-    description: "Aprende los fundamentos del lenguaje de programación Python.",
+    id: 'cert-001',
+    courseName: 'Python desde cero',
+    description: 'Aprende los fundamentos del lenguaje de programación Python.',
     hours: 8,
-    date: "15 de junio de 2025",
-    certificateId: "c001-a1b2-c3d4",
-    imageUrl: python_basico
+    date: '15 de junio de 2025',
+    certificateId: 'c001-a1b2-c3d4',
+    imageUrl: python_basico,
   },
   {
-    id: "cert-002",
-    courseName: "Estructuras de Datos",
-    description: "Domina listas, pilas y árboles con Python.",
+    id: 'cert-002',
+    courseName: 'Estructuras de Datos',
+    description: 'Domina listas, pilas y árboles con Python.',
     hours: 6,
-    date: "12 de junio de 2025",
-    certificateId: "c002-x9y8-z7w6",
-    imageUrl: estDatPy
-  }
+    date: '12 de junio de 2025',
+    certificateId: 'c002-x9y8-z7w6',
+    imageUrl: estDatPy,
+  },
 ];
 
 const Certificates = () => {
   const [certificates, setCertificates] = useState([]);
   const [selected, setSelected] = useState(null);
-  const userName = "Rodrigo Mauricio Cespedes Paredes"; // ← Simulado desde AuthContext
+  const userName = 'Rodrigo Mauricio Cespedes Paredes'; // ← Simulado desde AuthContext
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -40,32 +40,32 @@ const Certificates = () => {
     setTimeout(() => {
       setCertificates(mockCompletedCourses);
       const params = new URLSearchParams(location.search);
-      const certId = params.get("cert");
+      const certId = params.get('cert');
       if (certId) {
-        const cert = mockCompletedCourses.find(c => c.id === certId);
+        const cert = mockCompletedCourses.find((c) => c.id === certId);
         if (cert) setSelected(cert);
       }
     }, 500);
   }, [location.search]);
 
   const handleDownloadPDF = async () => {
-    const element = document.getElementById("certificate-view");
+    const element = document.getElementById('certificate-view');
     const canvas = await html2canvas(element, {
       scale: 2,
       useCORS: true,
-      scrollY: -window.scrollY
+      scrollY: -window.scrollY,
     });
-    const imgData = canvas.toDataURL("image/png");
-    const pdf = new jsPDF("landscape", "mm", "a4");
+    const imgData = canvas.toDataURL('image/png');
+    const pdf = new jsPDF('landscape', 'mm', 'a4');
     const pdfWidth = pdf.internal.pageSize.getWidth();
     const pdfHeight = pdf.internal.pageSize.getHeight();
-    pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
     pdf.save(`${selected.courseName}_certificado.pdf`);
   };
 
   const handleShare = () => {
     const shareURL = `${window.location.origin}/certificado/${selected.id}`;
-    navigator.clipboard.writeText(shareURL).then(() => alert("Enlace copiado al portapapeles"));
+    navigator.clipboard.writeText(shareURL).then(() => alert('Enlace copiado al portapapeles'));
   };
 
   if (selected) {
@@ -77,9 +77,7 @@ const Certificates = () => {
         >
           <div className="flex justify-between items-start mb-6">
             <img src={CertificateLogo} alt="Logo" className="w-32 sm:w-40 h-auto" />
-            <div className="text-right text-sm text-gray-500">
-              ID: {selected.certificateId}
-            </div>
+            <div className="text-right text-sm text-gray-500">ID: {selected.certificateId}</div>
           </div>
 
           <h2 className="text-xl text-gray-600 font-semibold mb-2 tracking-widest">CERTIFICADO</h2>
@@ -93,20 +91,26 @@ const Certificates = () => {
           </div>
 
           <ul className="text-sm text-gray-700 mb-6 space-y-1">
-            <li>📘 <strong>{selected.hours}</strong> Horas de capacitación</li>
-            <li>📅 <strong>{selected.date}</strong></li>
             <li>
-              🔗 <a
-                href={`https://mi-plataforma.edu/cursos/${selected.courseName.toLowerCase().replace(/ /g, "-")}`}
+              📘 <strong>{selected.hours}</strong> Horas de capacitación
+            </li>
+            <li>
+              📅 <strong>{selected.date}</strong>
+            </li>
+            <li>
+              🔗{' '}
+              <a
+                href={`https://mi-plataforma.edu/cursos/${selected.courseName.toLowerCase().replace(/ /g, '-')}`}
                 className="text-blue-700 underline"
               >
-                https://mi-plataforma.edu/cursos/{selected.courseName.toLowerCase().replace(/ /g, "-")}
+                https://mi-plataforma.edu/cursos/
+                {selected.courseName.toLowerCase().replace(/ /g, '-')}
               </a>
             </li>
           </ul>
 
           <div className="flex flex-col sm:flex-row justify-end gap-12 mt-10">
-            {["Vladimir Costas", "Leticia Blanco"].map((name) => (
+            {['Vladimir Costas', 'Leticia Blanco'].map((name) => (
               <div key={name} className="text-center">
                 <div className="flex flex-col items-center">
                   <img src={EjemploFirma} alt="Firma" className="h-12 mb-1 object-contain" />
@@ -122,7 +126,7 @@ const Certificates = () => {
         <div className="flex flex-wrap justify-center gap-4 mt-6">
           <button
             onClick={() => {
-              navigate("/student/certificates");
+              navigate('/student/certificates');
               setSelected(null);
             }}
             className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 text-sm"

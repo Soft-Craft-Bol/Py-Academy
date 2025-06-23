@@ -1,9 +1,10 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
-import { NavbarPublic } from "../ui/organisms/NavbarPublic";
-import { Footer } from "../ui/organisms/Footer";
+import React from 'react';
+import { Outlet } from 'react-router-dom';
 
-export const PublicLayout = () => {
+import { Footer } from '../ui/organisms/Footer';
+import { NavbarPublic } from '../ui/organisms/NavbarPublic';
+
+export function PublicLayout() {
   return (
     <>
       <NavbarPublic />
@@ -13,4 +14,4 @@ export const PublicLayout = () => {
       <Footer />
     </>
   );
-};
+}
