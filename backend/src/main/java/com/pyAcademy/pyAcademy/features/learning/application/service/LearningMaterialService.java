@@ -1,7 +1,7 @@
 package com.pyAcademy.pyAcademy.features.learning.application.service;
 
-import com.pyAcademy.pyAcademy.features.learning.domain.models.LearningMaterialsEntity;
-import com.pyAcademy.pyAcademy.features.learning.domain.repository.LearningMaterialJpaRepository;
+import com.pyAcademy.pyAcademy.features.learning.domain.models.LearningMaterialsEntity;;
+import com.pyAcademy.pyAcademy.features.learning.infrastructure.adapter.output.jpa.LearningMaterialJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
