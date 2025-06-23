@@ -34,6 +34,7 @@ const CourseStudent = lazy(() => import('@/pages/student/CourseStudent'));
 //Docentes
 const AssessmentsListPage = lazy(() => import( '@/pages/teacher/AssessmentsListPage'));
 const AssessmentEditorPage = lazy(() => import( '@/pages/teacher/AssessmentEditorPage'));
+const CreatePracticePage = lazy(() => import( '@/pages/teacher/CreatePracticePage'));
 
 export function AppRoutes() {
   return (
@@ -57,7 +58,7 @@ export function AppRoutes() {
         <Route path="/teacher" element={<TeacherLayout />}>
           <Route index element={<AssessmentsListPage />} />
           <Route path="newAssessments" element={<AssessmentEditorPage />} />
-          <Route path="create-practice" element={<AssessmentEditorPage />} />
+          <Route path="create-practice" element={<CreatePracticePage />} />
         </Route>
 
         
