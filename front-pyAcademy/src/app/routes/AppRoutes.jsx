@@ -7,9 +7,6 @@ import { StudentLayout } from '../../shared/layouts/StudentLayout';
 import { TeacherLayout } from '../../shared/layouts/TeacherLayout';
 
 
-import { StudentLayout } from "../../shared/layouts/StudentLayout";
-import { TeacherLayout } from "../../shared/layouts/TeacherLayout";
-import { PublicLayout } from "../../shared/layouts/PublicLayout";
 import CourseManangement from "../../shared/layouts/CourseManangement";
 import LearningUnitsManager from "../../shared/layouts/LearningUnitsManager";
 
