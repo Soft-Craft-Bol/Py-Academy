@@ -28,8 +28,8 @@ const PublicCertificateViewer = lazy(() => import('@/pages/student/PublicCertifi
 const CourseStudent = lazy(() => import('@/pages/student/CourseStudent'));
 
 //Docentes
+const AssessmentsListPage = lazy(() => import( '@/pages/teacher/AssessmentsListPage'));
 const AssessmentEditorPage = lazy(() => import( '@/pages/teacher/AssessmentEditorPage'));
-
 
 export function AppRoutes() {
   return (
@@ -51,6 +51,7 @@ export function AppRoutes() {
 
         {/* Docentes (falta hacer la ruta privada) */}
         <Route path="/teacher" element={<TeacherLayout />}>
+          <Route index element={<AssessmentsListPage />} />
           <Route path="newAssessments" element={<AssessmentEditorPage />} />
         </Route>
 
