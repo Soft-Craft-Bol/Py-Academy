@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
+//Layouts
 import { PublicLayout } from '../../shared/layouts/PublicLayout';
 import { StudentLayout } from '../../shared/layouts/StudentLayout';
 import { TeacherLayout } from '../../shared/layouts/TeacherLayout';
@@ -14,20 +15,21 @@ const ExplorateCourses = lazy(() => import('../../pages/ExplorateCourses/Explora
 const PrivateCourseView = lazy(() => import('../../pages/ExplorateCourses/PrivateCourseView'));
 const LoginPage = lazy(() => import('../../pages/auth/login/LoginPage'));
 const RegisterPage = lazy(() => import('@/pages/auth/register/RegisterPage'));
+const ResourceManager = lazy(() => import('../../pages/ManageResources/ManageResources'));
 
-const CoursesPage = lazy(() => import('../../pages/student/CoursesPage'));
+//Estudiante
 const PyEditor = lazy(() => import('../../pages/student/PyEditorPage'));
 const ChatIA = lazy(() => import('../../pages/student/ChatIA'));
-const ResourceManager = lazy(() => import('../../pages/ManageResources/ManageResources'));
 const ExercisesPage = lazy(() => import('../../pages/student/ExercisesPage'));
-
+const CoursesPage = lazy(() => import('../../pages/student/CoursesPage'));
 const ExercisePage = lazy(() => import('../../pages/student/ExercisePage'));
-
 const Certificates = lazy(() => import('@/pages/student/Certificates'));
-
 const PublicCertificateViewer = lazy(() => import('@/pages/student/PublicCertificateViewer'));
-
 const CourseStudent = lazy(() => import('@/pages/student/CourseStudent'));
+
+//Docentes
+const AssessmentEditorPage = lazy(() => import( '@/pages/teacher/AssessmentEditorPage'));
+
 
 export function AppRoutes() {
   return (
@@ -47,10 +49,12 @@ export function AppRoutes() {
           <Route path="/certificado/:id" element={<PublicCertificateViewer />} />
         </Route>
 
+        {/* Docentes (falta hacer la ruta privada) */}
         <Route path="/teacher" element={<TeacherLayout />}>
-        
+          <Route path="newAssessments" element={<AssessmentEditorPage />} />
         </Route>
 
+        {/* Estudiantes */}
         {/* <Route path="/student" element={<PrivateRoute><StudentLayout /></PrivateRoute>}> */}
         <Route path="/student" element={<StudentLayout />}>
           <Route index element={<CoursesPage />} />
