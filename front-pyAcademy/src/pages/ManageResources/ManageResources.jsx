@@ -1,12 +1,6 @@
-import React, { useState, useRef } from "react";
-import {
-    FaFilePdf,
-    FaVideo,
-    FaFilePowerpoint,
-    FaTrash,
-    FaTimesCircle,
-} from "react-icons/fa";
-import { FiUploadCloud } from "react-icons/fi";
+import { useRef, useState } from 'react';
+import { FaFilePdf, FaFilePowerpoint, FaTimesCircle, FaTrash, FaVideo } from 'react-icons/fa';
+import { FiUploadCloud } from 'react-icons/fi';
 
     const MAX_FILE_SIZE_MB = 10;
     const ALLOWED_EXTENSIONS = [
@@ -24,10 +18,10 @@ import { FiUploadCloud } from "react-icons/fi";
     const fileInputRef = useRef(null);
     const [errorModal, setErrorModal] = useState({ visible: false, message: "" });
 
-    const validateFile = (file) => {
-        const extension = file.name.substring(file.name.lastIndexOf(".")).toLowerCase();
-        const isAllowed = ALLOWED_EXTENSIONS.includes(extension);
-        const isSizeOk = file.size <= MAX_FILE_SIZE_MB * 1024 * 1024;
+  const validateFile = (file) => {
+    const extension = file.name.substring(file.name.lastIndexOf('.')).toLowerCase();
+    const isAllowed = ALLOWED_EXTENSIONS.includes(extension);
+    const isSizeOk = file.size <= MAX_FILE_SIZE_MB * 1024 * 1024;
 
         if (!isAllowed)
         return `El archivo "${file.name}" tiene una extensión no permitida.`;
@@ -35,20 +29,20 @@ import { FiUploadCloud } from "react-icons/fi";
         if (!isSizeOk)
         return `El archivo "${file.name}" excede los ${MAX_FILE_SIZE_MB}MB permitidos.`;
 
-        return null;
-    };
+    return null;
+  };
 
-    const handleFileSelect = (e) => {
-        const files = Array.from(e.target.files);
-        processFiles(files);
-    };
+  const handleFileSelect = (e) => {
+    const files = Array.from(e.target.files);
+    processFiles(files);
+  };
 
-    const handleDrop = (e) => {
-        e.preventDefault();
-        setIsDragging(false);
-        const files = Array.from(e.dataTransfer.files);
-        processFiles(files);
-    };
+  const handleDrop = (e) => {
+    e.preventDefault();
+    setIsDragging(false);
+    const files = Array.from(e.dataTransfer.files);
+    processFiles(files);
+  };
 
     const processFiles = (files) => {
         const valid = [];
@@ -80,11 +74,11 @@ import { FiUploadCloud } from "react-icons/fi";
         return <FiUploadCloud className="text-gray-500 text-2xl" />;
     };
 
-    const handleDelete = (id) => {
-        const updated = resources.filter((res) => res.id !== id);
-        setResources(updated);
-        console.log("Recurso eliminado:", id);
-    };
+  const handleDelete = (id) => {
+    const updated = resources.filter((res) => res.id !== id);
+    setResources(updated);
+    console.log('Recurso eliminado:', id);
+  };
 
     return (
         <section className="min-h-screen bg-gradient-to-br from-slate-900 to-gray-950 px-4 py-10 text-white">

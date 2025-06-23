@@ -1,27 +1,54 @@
-import React, { useState } from "react";
-import CourseCard from "./components/CourseCard";
-import pyWeb from "../../assets/ManageCourses/pyWeb.jpeg";
-import estDatPy from "../../assets/ManageCourses/estDatPy.jpg";
-import python_basico from "../../assets/ManageCourses/python_basico.jpg";
+import { useState } from 'react';
+
+import estDatPy from '../../assets/ManageCourses/estDatPy.jpg';
+import python_basico from '../../assets/ManageCourses/python_basico.jpg';
+import pyWeb from '../../assets/ManageCourses/pyWeb.jpeg';
+
+import CourseCard from './components/CourseCard';
 
 const initialCourses = [
-  { id: 1, title: "Curso de Python Básico", description: "Aprende los fundamentos de Python desde cero.", imageUrl: python_basico },
-  { id: 2, title: "Curso de Estructuras de Datos", description: "Conoce listas, pilas, colas y árboles con ejemplos prácticos.", imageUrl: estDatPy },
-  { id: 3, title: "Curso de Desarrollo Web", description: "Crea aplicaciones web usando HTML, CSS y JavaScript.", imageUrl: pyWeb },
-  { id: 4, title: "Curso Avanzado de Estructuras de Datos", description: "Profundiza en estructuras con ejemplos prácticos.", imageUrl: estDatPy },
-  { id: 5, title: "Curso Avanzado de Estructuras de Datos", description: "Profundiza en estructuras con ejemplos prácticos.", imageUrl: estDatPy }
+  {
+    id: 1,
+    title: 'Curso de Python Básico',
+    description: 'Aprende los fundamentos de Python desde cero.',
+    imageUrl: python_basico,
+  },
+  {
+    id: 2,
+    title: 'Curso de Estructuras de Datos',
+    description: 'Conoce listas, pilas, colas y árboles con ejemplos prácticos.',
+    imageUrl: estDatPy,
+  },
+  {
+    id: 3,
+    title: 'Curso de Desarrollo Web',
+    description: 'Crea aplicaciones web usando HTML, CSS y JavaScript.',
+    imageUrl: pyWeb,
+  },
+  {
+    id: 4,
+    title: 'Curso Avanzado de Estructuras de Datos',
+    description: 'Profundiza en estructuras con ejemplos prácticos.',
+    imageUrl: estDatPy,
+  },
+  {
+    id: 5,
+    title: 'Curso Avanzado de Estructuras de Datos',
+    description: 'Profundiza en estructuras con ejemplos prácticos.',
+    imageUrl: estDatPy,
+  },
 ];
 
-const ManageCourses = () => {
+function ManageCourses() {
   const [courses, setCourses] = useState(initialCourses);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [newCourseData, setNewCourseData] = useState({
-    title: "",
-    description: "",
-    imageUrl: "",
+    title: '',
+    description: '',
+    imageUrl: '',
   });
 
-  const handleViewMore = (id) => alert("Detalles del curso " + id);
+  const handleViewMore = (id) => alert('Detalles del curso ' + id);
 
   const handleEditCourse = (id, updatedData) => {
     setCourses((prev) =>
@@ -63,7 +90,9 @@ const ManageCourses = () => {
           <div className="bg-white dark:bg-gray-800 p-6 rounded-lg w-full max-w-md">
             <h3 className="text-lg font-bold mb-4 dark:text-white">Crear Nuevo Curso</h3>
 
-            <label className="block mb-1 font-semibold text-gray-700 dark:text-gray-300">Título</label>
+            <label className="block mb-1 font-semibold text-gray-700 dark:text-gray-300">
+              Título
+            </label>
             <input
               type="text"
               placeholder="Título"
@@ -71,7 +100,9 @@ const ManageCourses = () => {
               value={newCourseData.title}
               onChange={(e) => setNewCourseData({ ...newCourseData, title: e.target.value })}
             />
-            <label className="block mb-1 font-semibold text-gray-700 dark:text-gray-300">Descripción</label>
+            <label className="block mb-1 font-semibold text-gray-700 dark:text-gray-300">
+              Descripción
+            </label>
             <textarea
               placeholder="Descripción"
               className="w-full p-2 mb-3 border rounded placeholder-gray-500 dark:placeholder-gray-400 bg-white dark:bg-gray-700 text-black dark:text-white"
@@ -79,7 +110,9 @@ const ManageCourses = () => {
               onChange={(e) => setNewCourseData({ ...newCourseData, description: e.target.value })}
             />
 
-            <label className="block mb-1 font-semibold text-gray-700 dark:text-gray-300">Imagen (PNG, JPG, JPEG)</label>
+            <label className="block mb-1 font-semibold text-gray-700 dark:text-gray-300">
+              Imagen (PNG, JPG, JPEG)
+            </label>
             <input
               type="file"
               accept="image/png, image/jpeg, image/jpg"
@@ -93,7 +126,7 @@ const ManageCourses = () => {
                   reader.readAsDataURL(file);
                 }
               }}
-/>
+            />
 
             <div className="flex justify-end gap-2">
               <button
@@ -105,7 +138,7 @@ const ManageCourses = () => {
               <button
                 onClick={() => {
                   if (!newCourseData.title || !newCourseData.description) {
-                    alert("Completa título y descripción");
+                    alert('Completa título y descripción');
                     return;
                   }
                   const newCourse = {
@@ -113,7 +146,7 @@ const ManageCourses = () => {
                     ...newCourseData,
                   };
                   setCourses([...courses, newCourse]);
-                  setNewCourseData({ title: "", description: "", imageUrl: "" });
+                  setNewCourseData({ title: '', description: '', imageUrl: '' });
                   setShowCreateModal(false);
                 }}
                 className="px-4 py-2 rounded bg-indigo-600 text-white hover:bg-indigo-700"
@@ -126,6 +159,6 @@ const ManageCourses = () => {
       )}
     </section>
   );
-};
+}
 
 export default ManageCourses;
