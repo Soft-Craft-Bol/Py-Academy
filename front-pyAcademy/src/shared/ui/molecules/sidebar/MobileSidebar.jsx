@@ -1,26 +1,18 @@
-import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
-import { FiLogOut } from "react-icons/fi";
+import { motion } from 'framer-motion';
+import { FiLogOut } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 
-export const MobileSidebar = ({
-  isMenuOpen,
-  options,
-  onToggleMenu,
-  onLogout,
-}) => {
+export function MobileSidebar({ isMenuOpen, options, onToggleMenu, onLogout }) {
   return (
     <>
       {isMenuOpen && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40"
-          onClick={onToggleMenu}
-        />
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-40" onClick={onToggleMenu} />
       )}
 
       <motion.div
-        initial={{ x: "-100%" }}
-        animate={{ x: isMenuOpen ? 0 : "-100%" }}
-        transition={{ type: "tween" }}
+        initial={{ x: '-100%' }}
+        animate={{ x: isMenuOpen ? 0 : '-100%' }}
+        transition={{ type: 'tween' }}
         className="fixed top-0 left-0 w-64 h-full bg-white dark:bg-primary-pri2 dark:text-white text-black z-50 p-6 mt-[73px] px-2 border-t-2 border-gray-400"
       >
         <div className="flex flex-col space-y-6">
@@ -50,4 +42,4 @@ export const MobileSidebar = ({
       </motion.div>
     </>
   );
-};
+}

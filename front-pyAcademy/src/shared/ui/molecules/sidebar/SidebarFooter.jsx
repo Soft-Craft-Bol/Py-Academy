@@ -1,6 +1,6 @@
-import { FiChevronsLeft, FiChevronsRight, FiLogOut } from "react-icons/fi";
+import { FiChevronsLeft, FiChevronsRight, FiLogOut } from 'react-icons/fi';
 
-export const SidebarFooter = ({ isSidebarOpen, onToggleSidebar, onLogout }) => {
+export function SidebarFooter({ isSidebarOpen, onToggleSidebar, onLogout }) {
   return (
     <div className="absolute left-0 bottom-4 w-full p-4 border-t border-gray-400">
       <button
@@ -14,7 +14,7 @@ export const SidebarFooter = ({ isSidebarOpen, onToggleSidebar, onLogout }) => {
         )}
         <span
           className={`text-sm font-medium text-black dark:text-white ${
-            isSidebarOpen ? "inline" : "hidden"
+            isSidebarOpen ? 'inline' : 'hidden'
           }`}
         >
           Cerrar menu
@@ -28,7 +28,7 @@ export const SidebarFooter = ({ isSidebarOpen, onToggleSidebar, onLogout }) => {
         <FiLogOut className="text-xl text-black dark:text-white" />
         <span
           className={`text-sm font-medium text-black dark:text-white ${
-            isSidebarOpen ? "inline" : "hidden"
+            isSidebarOpen ? 'inline' : 'hidden'
           }`}
         >
           Cerrar sesión
@@ -36,4 +36,4 @@ export const SidebarFooter = ({ isSidebarOpen, onToggleSidebar, onLogout }) => {
       </button>
     </div>
   );
-};
+}

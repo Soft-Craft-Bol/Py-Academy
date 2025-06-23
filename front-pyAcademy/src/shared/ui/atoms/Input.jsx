@@ -1,6 +1,8 @@
-import { useState } from "react";
-import PropTypes from "prop-types";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useState } from 'react';
+
+import PropTypes from 'prop-types';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+
 
 /**
  * Componente Input - Átomo reutilizable para campos de texto/contraseña
@@ -14,17 +16,17 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
  * @param {string} className - Clases personalizadas
  */
 const Input = ({
-  type = "text",
+  type = 'text',
   placeholder,
   value,
   onChange,
   name,
   showToggle = false,
-  className = "",
+  className = '',
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
-  const isPassword = type === "password";
+  const isPassword = type === 'password';
 
   const handleToggleVisibility = () => {
     setShowPassword((prev) => !prev);
@@ -33,7 +35,7 @@ const Input = ({
   return (
     <div className={`relative w-full ${className}`}>
       <input
-        type={showPassword && isPassword ? "text" : type}
+        type={showPassword && isPassword ? 'text' : type}
         placeholder={placeholder}
         value={value}
         name={name}
