@@ -1,12 +1,6 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
-export const SidebarMenuItem = ({
-  title,
-  to,
-  Icon,
-  isSidebarOpen,
-  className = "",
-}) => {
+export function SidebarMenuItem({ title, to, Icon, isSidebarOpen, className = '' }) {
   return (
     <Link
       to={to}
@@ -15,11 +9,11 @@ export const SidebarMenuItem = ({
       <Icon className="text-xl text-black dark:text-white" />
       <span
         className={`ml-4 text-sm font-medium text-black dark:text-white ${
-          isSidebarOpen ? "inline" : "hidden"
+          isSidebarOpen ? 'inline' : 'hidden'
         }`}
       >
         {title}
       </span>
     </Link>
   );
-};
+}

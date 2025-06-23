@@ -1,6 +1,6 @@
-import { SidebarMenuItem } from "../../atoms/SidebarMenuItem";
+import { SidebarMenuItem } from '../../atoms/SidebarMenuItem';
 
-export const SidebarMenu = ({ options, isSidebarOpen }) => {
+export function SidebarMenu({ options, isSidebarOpen }) {
   return (
     <div className="flex flex-col space-y-2 mt-[72px] px-2 border-t ">
       {options.map(({ title, to, Icon }) => (
@@ -14,4 +14,4 @@ export const SidebarMenu = ({ options, isSidebarOpen }) => {
       ))}
     </div>
   );
-};
+}

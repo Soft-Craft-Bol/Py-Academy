@@ -1,13 +1,15 @@
-//React
-import { Outlet } from "react-router-dom";
-import { useState } from "react";
+// React debe ir primero
+import { useState } from 'react';
+import { Outlet } from 'react-router-dom';
 
-// components
-import { NavbarUser } from "../ui/organisms/NavbarUser";
-import { Sidebar } from "../ui/organisms/Sidebar";
-import { ChatbotWidget } from "../ui/organisms/chatbot/ChatbotWidget";
+import { ChatbotWidget } from '@/shared/ui/organisms/chatbot/ChatbotWidget';
 
-export const StudentLayout = () => {
+import { Sidebar } from '../ui/organisms/Sidebar';
+import { NavbarUser } from '../ui/organisms/NavbarUser';
+
+
+// Componente como declaración de función
+export function StudentLayout() {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
   const [isMenuOpen, setMenuOpen] = useState(false);
 
@@ -15,12 +17,12 @@ export const StudentLayout = () => {
   const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
 
   const styleMain =
-    "min-h-screen flex flex-col md:grid md:grid-cols-[65px_auto] md:[&.open]:grid-cols-[226px_auto]";
+    'min-h-screen flex flex-col md:grid md:grid-cols-[65px_auto] md:[&.open]:grid-cols-[226px_auto]';
 
   return (
     <>
       <NavbarUser />
-      <main className={`${styleMain} ${isSidebarOpen ? "open" : ""}`}>
+      <main className={`${styleMain} ${isSidebarOpen ? 'open' : ''}`}>
         <Sidebar
           isSidebarOpen={isSidebarOpen}
           isMenuOpen={isMenuOpen}
@@ -34,4 +36,6 @@ export const StudentLayout = () => {
       <ChatbotWidget />
     </>
   );
-};
+}
+
+

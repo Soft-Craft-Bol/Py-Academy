@@ -1,11 +1,10 @@
-import React from "react";
-import Button from "../../../shared/ui/atoms/Button";
+import Button from '../../../shared/ui/atoms/Button';
 
-export const ExcerciseCard = ({ exercise, btnText }) => {
+export function ExcerciseCard({ exercise, btnText }) {
   const styleCategory =
-    exercise.category === "Principiante"
+    exercise.difficultyLevel === "Principiante"
       ? "bg-green-500 shadow-green-500/70 shadow-md"
-      : exercise.category === "Intermedio"
+      : exercise.difficultyLevel === "Intermedio"
       ? "bg-yellow-500 shadow-yellow-500/70 shadow-md"
       : "bg-blue-500 shadow-blue-500/70 shadow-xl";
 
@@ -15,15 +14,13 @@ export const ExcerciseCard = ({ exercise, btnText }) => {
         <h2 className="font-semibold text-title-sm">{exercise.title}</h2>
         <span className="text-label-md">✔</span>
       </div>
-      <p className="text-gray-500 dark:text-gray-300 my-4">
-        {exercise.description}
-      </p>
+      <p className="text-gray-500 dark:text-gray-300 my-4">{exercise.description}</p>
       <div className="flex justify-between items-center">
         <div className="flex gap-5 items-center">
           <p className={`${styleCategory} p-1 rounded-md h-[90%]`}>
-            {exercise.category}
+            {exercise.difficultyLevel}
           </p>
-          <div>
+          {/* <div>
             <p>Tags:</p>
             <ul className="flex">
               {exercise.tags &&
@@ -31,12 +28,12 @@ export const ExcerciseCard = ({ exercise, btnText }) => {
                   return <li key={key}>{tag},</li>;
                 })}
             </ul>
-          </div>
+          </div> */}
         </div>
-        <Button to={"/student/exercise"} data={exercise}>
+        <Button to={'/student/exercise'} data={exercise}>
           {btnText}
         </Button>
       </div>
     </div>
   );
-};
+}
