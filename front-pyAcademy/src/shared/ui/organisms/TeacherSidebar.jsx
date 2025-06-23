@@ -17,8 +17,9 @@ export function TeacherSidebar({ isSidebarOpen, isMenuOpen, toggleSidebar, toggl
 
     const options = [
         { title: 'Mis Evaluaciones', to: '/teacher', Icon: LuClipboardList },
-        { title: 'Crear Evaluación', to: '/teacher/newAssessments', Icon: LuFilePlus },
+        { title: 'Crear evaluación', to: '/teacher/newAssessments', Icon: LuFilePlus },
         { title: 'Cursos Asignados', to: '/teacher/courses', Icon: LuBookMarked },
+        { title: 'Crear práctica de programación', to: '/teacher/create-practice', Icon: LuFilePlus }
     ];
 
     const handleLogout = () => {

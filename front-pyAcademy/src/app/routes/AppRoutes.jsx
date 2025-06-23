@@ -57,6 +57,7 @@ export function AppRoutes() {
         <Route path="/teacher" element={<TeacherLayout />}>
           <Route index element={<AssessmentsListPage />} />
           <Route path="newAssessments" element={<AssessmentEditorPage />} />
+          <Route path="create-practice" element={<AssessmentEditorPage />} />
         </Route>
 
         
