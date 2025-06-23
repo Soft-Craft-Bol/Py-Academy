@@ -18,7 +18,7 @@ vi.mock('@/shared/ui/atoms/Button', () => ({
   __esModule: true,
   default: (props) => <button {...props}>{props.children}</button>,
 }));
-
+/* cambio */
 vi.mock('@/shared/ui/molecules/profile/ProfileImageUpload', () => ({
   __esModule: true,
   default: ({ onChange }) => (
