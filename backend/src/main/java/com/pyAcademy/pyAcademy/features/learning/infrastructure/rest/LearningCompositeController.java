@@ -4,6 +4,9 @@ import com.pyAcademy.pyAcademy.features.learning.application.service.LearningCom
 import com.pyAcademy.pyAcademy.features.learning.domain.models.LearningContentEntity;
 import com.pyAcademy.pyAcademy.features.learning.domain.models.LearningTitleEntity;
 import com.pyAcademy.pyAcademy.features.learning.domain.models.LearningUnitsEntity;
+import com.pyAcademy.pyAcademy.features.learning.infrastructure.dto.request.ContentRequest;
+import com.pyAcademy.pyAcademy.features.learning.infrastructure.dto.request.TitleRequest;
+import com.pyAcademy.pyAcademy.features.learning.infrastructure.dto.request.UnitRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/learning/composite")
@@ -24,25 +28,25 @@ public class LearningCompositeController {
     @PostMapping("/create")
     public ResponseEntity<LearningUnitsEntity> createUnitWithTitlesAndContents(@RequestBody UnitRequest request) {
         LearningUnitsEntity unit = new LearningUnitsEntity();
-        unit.setTitle(request.getTitle());
-        unit.setDescription(request.getDescription());
-        unit.setIsActive(request.getIsActive());
-        unit.setSequenceNumber(request.getSequenceNumber());
+        unit.setTitle(request.title());
+        unit.setDescription(request.description());
+        unit.setIsActive(request.isActive());
+        unit.setSequenceNumber(request.sequenceNumber());
 
-        List<LearningTitleEntity> titles = request.getTitles().stream().map(titleRequest -> {
+        List<LearningTitleEntity> titles = request.titles().stream().map(titleRequest -> {
             LearningTitleEntity title = new LearningTitleEntity();
-            title.setTitle(titleRequest.getTitle());
-            title.setDescription(titleRequest.getDescription());
-            title.setIsActive(titleRequest.getIsActive());
-            title.setSequenceNumber(titleRequest.getSequenceNumber());
+            title.setTitle(titleRequest.title());
+            title.setDescription(titleRequest.description());
+            title.setIsActive(titleRequest.isActive());
+            title.setSequenceNumber(titleRequest.sequenceNumber());
 
-            List<LearningContentEntity> contents = titleRequest.getContents().stream().map(contentRequest -> {
+            List<LearningContentEntity> contents = titleRequest.contents().stream().map(contentRequest -> {
                 LearningContentEntity content = new LearningContentEntity();
-                content.setContent(contentRequest.getContent());
+                content.setContent(contentRequest.content());
                 return content;
             }).toList();
 
-            title.setContents(contents);
+            title.setContents((Set<LearningContentEntity>) contents);
             return title;
         }).toList();
 
