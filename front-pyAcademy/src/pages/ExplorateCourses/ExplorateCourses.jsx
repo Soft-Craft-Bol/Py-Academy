@@ -3,7 +3,7 @@ import python_basico from '../../assets/ManageCourses/python_basico.jpg';
 import pyWeb from '../../assets/ManageCourses/pyWeb.jpeg';
 
 import CourseCardStudent from './components/CourseCardStudent';
-
+/* coement */
 const courses = [
   {
     id: 1,
