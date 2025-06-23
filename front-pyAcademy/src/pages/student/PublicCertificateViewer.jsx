@@ -1,10 +1,9 @@
-// src/pages/public/PublicCertificateViewer.jsx
 import  { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import CertificateLogo from '@/assets/CertificateLogo.png';
 import estDatPy from '@/assets/ManageCourses/estDatPy.jpg';
 import python_basico from '@/assets/ManageCourses/python_basico.jpg';
 import EjemploFirma from '@/assets/img/EjemploFirma.png';
-
 
 const mockCompletedCourses = [
   {
