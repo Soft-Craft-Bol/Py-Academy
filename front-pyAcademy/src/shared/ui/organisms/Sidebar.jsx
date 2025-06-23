@@ -25,6 +25,7 @@ export const Sidebar = ({
     { title: "Editor de codigo", to: "editor", Icon: IoCodeSlash },
     { title: "Ejercicios", to: "exercises", Icon: GiArtificialIntelligence },
     { title: "Certificados", to: "certificates", Icon: PiCertificateBold },
+    { title: "Creacion de cursos", to: "create-course", Icon: PiCertificateBold },
   ];
 
   const handleLogout = async () => {

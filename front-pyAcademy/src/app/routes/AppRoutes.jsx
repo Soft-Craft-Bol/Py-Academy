@@ -4,6 +4,8 @@ import { Route, Routes } from "react-router-dom";
 import { StudentLayout } from "../../shared/layouts/StudentLayout";
 import { TeacherLayout } from "../../shared/layouts/TeacherLayout";
 import { PublicLayout } from "../../shared/layouts/PublicLayout";
+import CourseManangement from "../../shared/layouts/CourseManangement";
+import LearningUnitsManager from "../../shared/layouts/LearningUnitsManager";
 // import PrivateRoute from "@/features/auth/components/PrivateRoute";
 // import { ExercisesPage } from "../../pages/student/ExercisesPage";
 
@@ -57,16 +59,18 @@ export const AppRoutes = () => {
         <Route element={<TeacherLayout />}>
           {/* Rutas futuras para docentes */}
         </Route>
-
+        
         {/* <Route path="/student" element={<PrivateRoute><StudentLayout /></PrivateRoute>}> */}
         <Route path="/student" element={<StudentLayout />}>
+          <Route path="create-course" element={<CourseManangement />} />
+          <Route path="learning-units" element={<LearningUnitsManager />} />
           <Route index element={<CoursesPage />} />
           <Route path="editor" element={<PyEditor />} />
           <Route path="chatIA" element={<ChatIA />} />
           <Route path="exercises" element={<ExercisesPage />} />
           <Route path="exercise" element={<ExercisePage />} />
           <Route path="certificates" element={<Certificates/>} />
-          <Route path="/student/curso/:id" element={<CourseStudent />} />
+          <Route path="curso/:id" element={<CourseStudent />} />
         </Route>
       </Routes>
     </Suspense>
