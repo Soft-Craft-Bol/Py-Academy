@@ -1,6 +1,6 @@
 NOMBRE DE CARPETA FEATURE: Auth Domain Enums
 
-DESCRIPCIÓN: EDefne los distintos roles de usuario disponibles y es utilizado en el módulo de autenticación y control de acceso
+DESCRIPCIÓN: Define los distintos roles de usuario disponibles y es utilizado en el módulo de autenticación y control de acceso
 
 PROPÓSITO
 
