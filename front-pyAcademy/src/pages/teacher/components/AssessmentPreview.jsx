@@ -10,7 +10,13 @@ import { Button } from '@/shared/ui/atoms/Button';
      * @param {Array} questions - Arreglo de preguntas a mostrar
      * @param {function} onBack - Función para volver a modo edición
  */
-export function AssessmentPreview({ title, description, questions, onBack }) {
+export function AssessmentPreview({ 
+    title, 
+    description, 
+    questions, 
+    onBack,
+    hideBackButton = false, 
+}) {
     const [answers, setAnswers] = useState({});
     
     return (
@@ -96,9 +102,11 @@ export function AssessmentPreview({ title, description, questions, onBack }) {
             ))}
         </div>
 
-        <Button className="bg-sky-950" onClick={onBack}>
+        {!hideBackButton && onBack && (
+            <Button className="bg-green-700" onClick={onBack}>
             Volver a editar
-        </Button>
+            </Button>
+        )}
         </div>
     );
 }
@@ -116,4 +124,5 @@ AssessmentPreview.propTypes = {
         })
     ).isRequired,
     onBack: PropTypes.func.isRequired,
+    hideBackButton: PropTypes.bool,
 };
