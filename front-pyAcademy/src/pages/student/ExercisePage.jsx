@@ -13,41 +13,47 @@ function ExercisePage() {
 
   const onEvaluation = (expectedOutput) => {
     if (expectedOutput === data.testCases.expectedOutput) {
-      window.alert("Correcto");
+      window.alert('Correcto');
     } else {
       window.alert('Incorrecto');
     }
   };
-  const DescriptorElement = ({
-    title,
-    descripcion,
-    inputData,
-    expectedOutput,
-    icon,
-  }) => {
+  const DescriptorElement = ({ title, descripcion, testCases, icon }) => {
     return (
       <div>
         <h3 className="flex gap-2 items-center">
           {icon && icon}
           {title}
         </h3>
-        <p className="p-3 bg-primary-pri4 border rounded-md my-4">
-          {descripcion}
-          {inputData && (
-            <p>
-              <span className="text-blue-400">Entrada: {inputData}</span>
+        {descripcion && <p className="p-3 bg-primary-pri4 border rounded-md my-4">{descripcion}</p>}
+        {testCases && (
+          <>
+            <p className="p-3 bg-primary-pri4 border rounded-md my-4">
+              <p>
+                <span className="text-blue-400">Entrada: {testCases[0].inputData}</span>
+              </p>
+              <p>
+                <span className="text-green-500">Salida: </span>
+                {testCases[0].expectedOutput}
+              </p>
             </p>
-          )}
-          {expectedOutput && (
-            <p>
-              <span className="text-green-500">Salida: </span>
-              {expectedOutput}
+            <p className="p-3 bg-primary-pri4 border rounded-md my-4">
+              <p>
+                <span className="text-blue-400">Entrada: {testCases[1].inputData}</span>
+              </p>
+              <p>
+                <span className="text-green-500">Salida: </span>
+                {testCases[1].expectedOutput}
+              </p>
             </p>
-          )}
-        </p>
+            <p className="text-primary-pri1">
+              Y otros {testCases.length - 2} casos de prueba mas...
+            </p>
+          </>
+        )}
       </div>
     );
-  }
+  };
 
   return (
     <div className="-m-8">
@@ -62,7 +68,7 @@ function ExercisePage() {
           <p>|</p>
           <h1 className="text-title-sm font-semibold">{data.title}</h1>
         </div>
-        <p className="bg-green-500 p-1 rounded-md h-[90%]">{data.category}</p>
+        <p className="bg-green-500 p-1 rounded-md h-[90%]">{data.difficultyLevel}</p>
       </header>
       <div className="flex">
         <section className="dark:bg-gradient-2 w-[40%] h-screen p-5 sticky top-0">
@@ -73,9 +79,8 @@ function ExercisePage() {
           />
 
           <DescriptorElement
-            title={"Casos de Prueba"}
-            inputData={data.testCases[0].inputData}
-            expectedOutput={data.testCases[0].expectedOutput}
+            title={'Casos de Prueba'}
+            testCases={data.testCases}
             icon={<GiEvilBook className="text-label-lg" />}
           />
         </section>
