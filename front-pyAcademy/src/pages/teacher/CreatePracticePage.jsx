@@ -5,6 +5,7 @@ import { Textarea } from "@/shared/ui/atoms/Textarea";
 import Select from "@/shared/ui/atoms/Select";
 import Button from "@/shared/ui/atoms/Button";
 import { Trash2 } from "lucide-react";
+import { useCreateExercise } from "@/shared/hooks/useCreateExercise";
 
 const DIFFICULTIES = [
   { label: "Principiante", value: "Principiante" },
@@ -23,6 +24,8 @@ export default function CreatePracticePage() {
   const [difficulty, setDifficulty] = useState("Principiante");
   const [language, setLanguage] = useState("python");
   const [testCases, setTestCases] = useState([]);
+
+   const { mutate: createExercise, isPending, isSuccess, isError } = useCreateExercise();
 
   const addTestCase = () => {
     setTestCases([
@@ -45,18 +48,37 @@ export default function CreatePracticePage() {
     setTestCases(testCases.filter(tc => tc.id !== id));
   };
 
-  const handleSave = () => {
+ const handleSave = () => {
     const newPractice = {
       title,
       description,
       starterCode,
+      solutionCode: "jajs", 
       difficultyLevel: difficulty,
       language,
-      testCases
+      sequenceNumber: 1, 
+      testCases: testCases.map(tc => ({
+        inputData: tc.inputData,
+        expectedOutput: tc.expectedOutput,
+        isHidden: tc.isHidden ? 1 : 0,
+        weight: tc.weight
+      }))
     };
 
-    console.log("Ejercicio guardado (simulado):", newPractice);
-    alert("Ejercicio guardado (simulado)");
+    createExercise(newPractice, {
+      onSuccess: () => {
+        alert("Ejercicio creado correctamente");
+        // Opcional: resetear campos
+        setTitle("");
+        setDescription("");
+        setStarterCode("");
+        setTestCases([]);
+      },
+      onError: (err) => {
+        console.error("Error creando el ejercicio:", err);
+        alert("Error al crear el ejercicio");
+      }
+    });
   };
 
   return (
@@ -228,8 +250,8 @@ export default function CreatePracticePage() {
 
       {/* Guardar */}
       <div className="mt-8">
-        <Button variant="primary" onClick={handleSave}>
-          Guardar práctica (simulado)
+        <Button variant="primary" onClick={handleSave} disabled={isPending}>
+          {isPending ? "Guardando..." : "Guardar práctica"}
         </Button>
       </div>
     </div>
