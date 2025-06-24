@@ -21,11 +21,12 @@ export default function CreatePracticePage() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [starterCode, setStarterCode] = useState("");
+  const [solutionCode, setSolutionCode] = useState("");
   const [difficulty, setDifficulty] = useState("Principiante");
   const [language, setLanguage] = useState("python");
   const [testCases, setTestCases] = useState([]);
 
-   const { mutate: createExercise, isPending, isSuccess, isError } = useCreateExercise();
+  const { mutate: createExercise, isPending, isSuccess, isError } = useCreateExercise();
 
   const addTestCase = () => {
     setTestCases([
@@ -48,15 +49,15 @@ export default function CreatePracticePage() {
     setTestCases(testCases.filter(tc => tc.id !== id));
   };
 
- const handleSave = () => {
+  const handleSave = () => {
     const newPractice = {
       title,
       description,
       starterCode,
-      solutionCode: "jajs", 
+      solutionCode,
       difficultyLevel: difficulty,
       language,
-      sequenceNumber: 1, 
+      sequenceNumber: 1,
       testCases: testCases.map(tc => ({
         inputData: tc.inputData,
         expectedOutput: tc.expectedOutput,
@@ -72,6 +73,7 @@ export default function CreatePracticePage() {
         setTitle("");
         setDescription("");
         setStarterCode("");
+        solutionCode("");
         setTestCases([]);
       },
       onError: (err) => {
@@ -126,6 +128,19 @@ export default function CreatePracticePage() {
             value={starterCode}
             onChange={e => setStarterCode(e.target.value)}
             placeholder="Código base que el estudiante verá"
+            className="bg-white dark:bg-zinc-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 font-mono"
+          />
+        </div>
+
+        <div>
+          <label className="block mb-1 text-gray-700 dark:text-gray-300 font-medium">
+            Solución esperada (solución del ejercicio)
+          </label>
+          <Textarea
+            rows={6}
+            value={solutionCode}
+            onChange={e => setSolutionCode(e.target.value)}
+            placeholder="Código de solución que se usará para validar"
             className="bg-white dark:bg-zinc-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 font-mono"
           />
         </div>
