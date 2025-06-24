@@ -39,3 +39,5 @@ export const saludo = (nombre = 'Usuario') =>
   });
 //Simulador de codigo python bro
 export const executeCode = (data) => api.post('/execute', data);
+
+export const createExercises = (data) => api.post('/exercises', data);
