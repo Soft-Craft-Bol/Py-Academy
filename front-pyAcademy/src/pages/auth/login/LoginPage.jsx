@@ -7,7 +7,7 @@ import LoginForm from "@/features/auth/components/LoginForm";
 import { useAuth } from "@/app/context/AuthContext";
 
 //assets
-import loginImage from "@/assets/img/LoginImage.webp";
+import loginImage from "@/assets/img/login.webp";
 
 const LoginPage = () => {
   const navigate = useNavigate();
