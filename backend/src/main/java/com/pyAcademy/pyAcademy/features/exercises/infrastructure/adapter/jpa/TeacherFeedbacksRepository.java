@@ -1,4 +1,4 @@
-package com.pyAcademy.pyAcademy.features.exercises.domain;
+package com.pyAcademy.pyAcademy.features.exercises.infrastructure.adapter.jpa;
 
 
 import com.pyAcademy.pyAcademy.features.exercises.domain.models.TeacherFeedbacksEntity;

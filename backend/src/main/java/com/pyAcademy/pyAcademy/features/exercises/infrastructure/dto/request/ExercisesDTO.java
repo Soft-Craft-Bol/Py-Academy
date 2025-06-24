@@ -1,4 +1,4 @@
-package com.pyAcademy.pyAcademy.features.exercises.application.dto;
+package com.pyAcademy.pyAcademy.features.exercises.infrastructure.dto.request;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
