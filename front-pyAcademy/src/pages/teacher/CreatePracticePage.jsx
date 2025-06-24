@@ -5,6 +5,7 @@ import { Textarea } from "@/shared/ui/atoms/Textarea";
 import Select from "@/shared/ui/atoms/Select";
 import Button from "@/shared/ui/atoms/Button";
 import { Trash2 } from "lucide-react";
+import { useCreateExercise } from "@/shared/hooks/useCreateExercise";
 
 const DIFFICULTIES = [
   { label: "Principiante", value: "Principiante" },
@@ -20,9 +21,12 @@ export default function CreatePracticePage() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [starterCode, setStarterCode] = useState("");
+  const [solutionCode, setSolutionCode] = useState("");
   const [difficulty, setDifficulty] = useState("Principiante");
   const [language, setLanguage] = useState("python");
   const [testCases, setTestCases] = useState([]);
+
+  const { mutate: createExercise, isPending, isSuccess, isError } = useCreateExercise();
 
   const addTestCase = () => {
     setTestCases([
@@ -50,13 +54,33 @@ export default function CreatePracticePage() {
       title,
       description,
       starterCode,
+      solutionCode,
       difficultyLevel: difficulty,
       language,
-      testCases
+      sequenceNumber: 1,
+      testCases: testCases.map(tc => ({
+        inputData: tc.inputData,
+        expectedOutput: tc.expectedOutput,
+        isHidden: tc.isHidden ? 1 : 0,
+        weight: tc.weight
+      }))
     };
 
-    console.log("Ejercicio guardado (simulado):", newPractice);
-    alert("Ejercicio guardado (simulado)");
+    createExercise(newPractice, {
+      onSuccess: () => {
+        alert("Ejercicio creado correctamente");
+        // Opcional: resetear campos
+        setTitle("");
+        setDescription("");
+        setStarterCode("");
+        solutionCode("");
+        setTestCases([]);
+      },
+      onError: (err) => {
+        console.error("Error creando el ejercicio:", err);
+        alert("Error al crear el ejercicio");
+      }
+    });
   };
 
   return (
@@ -104,6 +128,19 @@ export default function CreatePracticePage() {
             value={starterCode}
             onChange={e => setStarterCode(e.target.value)}
             placeholder="Código base que el estudiante verá"
+            className="bg-white dark:bg-zinc-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 font-mono"
+          />
+        </div>
+
+        <div>
+          <label className="block mb-1 text-gray-700 dark:text-gray-300 font-medium">
+            Solución esperada (solución del ejercicio)
+          </label>
+          <Textarea
+            rows={6}
+            value={solutionCode}
+            onChange={e => setSolutionCode(e.target.value)}
+            placeholder="Código de solución que se usará para validar"
             className="bg-white dark:bg-zinc-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 font-mono"
           />
         </div>
@@ -228,8 +265,8 @@ export default function CreatePracticePage() {
 
       {/* Guardar */}
       <div className="mt-8">
-        <Button variant="primary" onClick={handleSave}>
-          Guardar práctica (simulado)
+        <Button variant="primary" onClick={handleSave} disabled={isPending}>
+          {isPending ? "Guardando..." : "Guardar práctica"}
         </Button>
       </div>
     </div>
