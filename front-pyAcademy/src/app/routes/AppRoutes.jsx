@@ -49,7 +49,6 @@ export function AppRoutes() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
 
-          <Route path="/gestionar-cursos" element={<ManageCourses />} />
           <Route path="/curso/:id" element={<PrivateCourseView />} />
           <Route path="/certificado/:id" element={<PublicCertificateViewer />} />
         </Route>
@@ -59,6 +58,7 @@ export function AppRoutes() {
           <Route index element={<AssessmentsListPage />} />
           <Route path="newAssessments" element={<AssessmentEditorPage />} />
           <Route path="create-practice" element={<CreatePracticePage />} />
+          <Route path="gestionar-cursos" element={<ManageCourses />} />
         </Route>
 
         

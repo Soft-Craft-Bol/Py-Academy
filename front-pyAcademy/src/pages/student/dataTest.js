@@ -10,6 +10,11 @@ export const exercises = [
     sequenceNumber: 1,
     isActive: true,
     createdAt: "2025-06-22T21:01:18.982+00:00",
+    achievements: [
+      { label: "Todos los casos de prueba pasados", completed: false },
+      { label: "Sin errores de ejecución", completed: true },
+      { label: "Solución en menos de 5 líneas", completed: false },
+    ],
     testCases: [
       {
         id: 4,
@@ -59,6 +64,11 @@ export const exercises = [
     sequenceNumber: 2,
     isActive: true,
     createdAt: "2025-06-22T21:01:18.982+00:00",
+    achievements: [
+      { label: "Todos los casos de prueba pasados", completed: true },
+      { label: "Sin errores de ejecución", completed: true },
+      { label: "Solución usando lower()", completed: false },
+    ],
     testCases: [
       {
         id: 10,
@@ -121,6 +131,11 @@ export const exercises = [
     sequenceNumber: 3,
     isActive: true,
     createdAt: "2025-06-22T21:01:18.982+00:00",
+    achievements: [
+      { label: "Todos los casos de prueba pasados", completed: false },
+      { label: "Sin errores de ejecución", completed: false },
+      { label: "Solución eficiente", completed: false },
+    ],
     testCases: [
       {
         id: 13,
@@ -191,6 +206,11 @@ export const exercises = [
     sequenceNumber: 4,
     isActive: true,
     createdAt: "2025-06-22T21:01:18.982+00:00",
+    achievements: [
+      { label: "Todos los casos de prueba pasados", completed: true },
+      { label: "Sin errores de ejecución", completed: true },
+      { label: "Solución usando slicing", completed: false },
+    ],
     testCases: [
       {
         id: 25,

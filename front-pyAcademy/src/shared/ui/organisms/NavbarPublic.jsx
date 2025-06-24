@@ -27,11 +27,7 @@ export function NavbarPublic() {
     {
       title: 'Recursos OER',
       to: '/recursos-OER',
-    },
-    {
-      title: 'Gestionar Cursos',
-      to: '/gestionar-cursos',
-    },
+    }
   ];
 
   useEffect(() => {
