@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function CourseCard({ id, title, description, imageUrl, onEdit, onDelete }) {
+function CourseCard({ id, title, description, imageUrl, onEdit, onDelete, onEditPage }) {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
@@ -27,7 +27,11 @@ function CourseCard({ id, title, description, imageUrl, onEdit, onDelete }) {
             <div className="absolute right-0 mt-2 bg-white shadow-md rounded-lg text-sm z-20">
               <button
                 onClick={() => {
-                  setEditModalOpen(true);
+                  if (onEditPage) {
+                    onEditPage();
+                  } else {
+                    setEditModalOpen(true);
+                  }
                   setMenuOpen(false);
                 }}
                 className="block px-4 py-2 hover:bg-gray-100 w-full text-left text-black"
