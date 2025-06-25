@@ -6,6 +6,7 @@ import LoginForm from '@/features/auth/components/LoginForm';
 
 import { useAuth } from '@/app/context/AuthContext';
 import { useState } from 'react';
+import { getUser } from '@/features/auth/utils/authCookies';
 
 //assets
 
@@ -14,14 +15,25 @@ function LoginPage() {
   const { login, isLoading } = useAuth();
   const [error, setError] = useState('');
 
-  const handleSubmit = async (credentials) => {
-    try {
-      await login(credentials);
-      navigate('/student'); // O "/dashboard" según tu estructura
-    } catch (err) {
-      setError(err.message || 'Error al iniciar sesión');
+ const handleSubmit = async (credentials) => {
+  try {
+    const success = await login(credentials);
+    if (!success) return;
+
+    const { role } = getUser();
+
+    if (role === 'MAESTRO') {
+      navigate('/teacher');
+    } else if (role === 'ESTUDIANTE') {
+      navigate('/student');
+    } else {
+      navigate('/dashboard');
     }
-  };
+  } catch (err) {
+    setError(err.message || 'Error al iniciar sesión');
+  }
+};
+
 
   return (
     <div className="min-h-screen flex flex-col text-gray-800">
