@@ -16,7 +16,7 @@ public class CodingExercisesEntity {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Long id;
-
+//jas
     @Column(name = "title", nullable = false)
     private String title;
 
