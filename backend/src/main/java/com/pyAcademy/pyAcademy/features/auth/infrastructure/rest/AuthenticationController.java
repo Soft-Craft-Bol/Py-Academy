@@ -6,6 +6,8 @@ import com.pyAcademy.pyAcademy.features.auth.infrastructure.request.AuthCreateRo
 import com.pyAcademy.pyAcademy.features.auth.infrastructure.request.AuthCreateUserRequest;
 import com.pyAcademy.pyAcademy.features.auth.infrastructure.request.AuthLoginRequest;
 import com.pyAcademy.pyAcademy.features.auth.infrastructure.response.AuthResponse;
+import com.pyAcademy.pyAcademy.features.education.infrastructure.dto.request.StudentRegisterData;
+import com.pyAcademy.pyAcademy.features.education.infrastructure.dto.request.TeacherRegisterData;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,31 +33,28 @@ public class AuthenticationController {
             @RequestPart("nombre") String nombre,
             @RequestPart("apellido") String apellido,
             @RequestPart(value = "photo", required = false) MultipartFile photo,
-            @RequestPart("roleRequest") String roleRequestJson) {
+            @RequestPart("roleRequest") String roleRequestJson,
+            @RequestPart(value = "studentData", required = false) String studentJson,
+            @RequestPart(value = "teacherData", required = false) String teacherJson) {
 
         try {
-            // Convertir JSON a objeto
-            AuthCreateRoleRequest roleRequest = new ObjectMapper()
-                    .readValue(roleRequestJson, AuthCreateRoleRequest.class);
+            AuthCreateRoleRequest roleRequest = new ObjectMapper().readValue(roleRequestJson, AuthCreateRoleRequest.class);
+            StudentRegisterData studentData = studentJson != null
+                    ? new ObjectMapper().readValue(studentJson, StudentRegisterData.class)
+                    : null;
+            TeacherRegisterData teacherData = teacherJson != null
+                    ? new ObjectMapper().readValue(teacherJson, TeacherRegisterData.class)
+                    : null;
 
-            // Crear el request
             AuthCreateUserRequest userRequest = new AuthCreateUserRequest(
-                    username,
-                    password,
-                    email,
-                    telefono,
-                    nombre,
-                    apellido,
-                    photo,
-                    roleRequest
+                    username, password, email, telefono,
+                    nombre, apellido, photo, roleRequest,
+                    studentData, teacherData
             );
 
-            return new ResponseEntity<>(
-                    userDetailService.createUser(userRequest),
-                    HttpStatus.CREATED
-            );
+            return new ResponseEntity<>(userDetailService.createUser(userRequest), HttpStatus.CREATED);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body(new AuthResponse(username, "Error: " + e.getMessage(), null, false, null));
         }
     }
 
