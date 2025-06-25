@@ -12,6 +12,7 @@ import { MobileSidebar } from '../molecules/sidebar/MobileSidebar';
 import { SidebarFooter } from '../molecules/sidebar/SidebarFooter';
 //Components
 import { SidebarMenu } from '../molecules/sidebar/SidebarMenu';
+import { signOut } from '@/features/auth/utils/authCookies';
 
 export function Sidebar({ isSidebarOpen, isMenuOpen, toggleSidebar, toggleMenu }) {
   const navigate = useNavigate();
@@ -26,12 +27,13 @@ export function Sidebar({ isSidebarOpen, isMenuOpen, toggleSidebar, toggleMenu }
   ];
 
   const handleLogout = async () => {
-    try {
-      navigate('/', { replace: true, state: { loggedOut: true } });
-    } catch (error) {
-      console.error('Error al cerrar sesión:', error);
-    }
-  };
+  try {
+    signOut(); // Limpia cookies
+    navigate('/', { replace: true, state: { loggedOut: true } }); // Redirige al login
+  } catch (error) {
+    console.error('Error al cerrar sesión:', error);
+  }
+};
 
   return (
     <>
