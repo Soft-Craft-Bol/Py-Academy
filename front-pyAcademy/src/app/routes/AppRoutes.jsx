@@ -65,7 +65,7 @@ export function AppRoutes() {
           </Route>
         </Route>
 
-        {/* 🎓 Rutas protegidas para ESTUDIANTES */}
+        {/* 🎓 Rutas protegidas para ESTUDIANTES coment*/}
         <Route element={<PrivateRoute />}>
           <Route path="/student" element={<StudentLayout />}>
             <Route path="learning-units" element={<LearningUnitsManager />} />
