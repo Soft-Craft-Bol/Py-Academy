@@ -29,7 +29,7 @@ const Certificates = lazy(() => import('@/pages/student/Certificates'));
 const PublicCertificateViewer = lazy(() => import('@/pages/student/PublicCertificateViewer'));
 const CourseStudent = lazy(() => import('@/pages/student/CourseStudent'));
 
-// Docente
+// Maestro
 const AssessmentsListPage = lazy(() => import('@/pages/teacher/AssessmentsListPage'));
 const AssessmentEditorPage = lazy(() => import('@/pages/teacher/AssessmentEditorPage'));
 const CreatePracticePage = lazy(() => import('@/pages/teacher/CreatePracticePage'));
