@@ -5,11 +5,11 @@ import { FiUploadCloud } from 'react-icons/fi';
     const MAX_FILE_SIZE_MB = 10;
     const ALLOWED_EXTENSIONS = [
         ".pdf", ".docx", ".odt", ".txt",
-        ".ppt", ".pptx", ".odp",
-        ".mp4", ".mov", ".webm",
-        ".png", ".jpg", ".jpeg", ".svg",
-        ".ipynb", ".html", ".py",
-        ".zip", ".csv", ".json"
+        ".ppt", ".pptx",
+        ".mp4", ".mov",
+        ".png", ".jpg", ".jpeg",
+        ".html", ".py",
+        ".zip", ".json"
     ];
 
     const ResourceManager = () => {
@@ -103,8 +103,9 @@ import { FiUploadCloud } from 'react-icons/fi';
                 <span className="text-indigo-400 underline">haz clic para buscar</span>
             </p>
             <p className="text-xs text-gray-500 mt-2">
-                Tipos: PDF, DOCX, PPT, MP4, IPYNB, ZIP, etc. Máx: {MAX_FILE_SIZE_MB}MB
+                Tipos permitidos: PDF, DOCX, PPT, MP4, MOV, ZIP, ODT, TXT, PPT, JPG, JPEG, PNG, HTML, PY, JSON 
             </p>
+            <b>Máx: {MAX_FILE_SIZE_MB}MB</b>
             <input
                 ref={fileInputRef}
                 type="file"
