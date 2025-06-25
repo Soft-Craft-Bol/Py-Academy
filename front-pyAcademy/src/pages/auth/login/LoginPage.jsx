@@ -8,7 +8,6 @@ import { useAuth } from '@/app/context/AuthContext';
 import { useState } from 'react';
 import { getUser } from '@/features/auth/utils/authCookies';
 
-//assets
 
 function LoginPage() {
   const navigate = useNavigate();
