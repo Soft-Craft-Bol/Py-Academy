@@ -57,13 +57,13 @@ export function AppRoutes() {
             <Route path="newAssessments" element={<AssessmentEditorPage />} />
             <Route path="create-practice" element={<CreatePracticePage />} />
             <Route path="gestionar-cursos" element={<ManageCourses />} />
+            <Route path="create-course" element={<CourseManangement />} />
           </Route>
         </Route>
 
         {/* 🎓 Rutas protegidas para ESTUDIANTES */}
         <Route element={<PrivateRoute />}>
           <Route path="/student" element={<StudentLayout />}>
-            <Route path="create-course" element={<CourseManangement />} />
             <Route path="learning-units" element={<LearningUnitsManager />} />
             <Route index element={<CoursesPage />} />
             <Route path="editor" element={<PyEditor />} />
