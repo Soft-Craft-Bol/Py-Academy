@@ -613,6 +613,6 @@ function CourseDashboard() {
       </div>
     </div>
   );
-}
 
+};
 export default CourseDashboard;

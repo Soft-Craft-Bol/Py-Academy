@@ -12,24 +12,28 @@ import { MobileSidebar } from '../molecules/sidebar/MobileSidebar';
 import { SidebarFooter } from '../molecules/sidebar/SidebarFooter';
 //Components
 import { SidebarMenu } from '../molecules/sidebar/SidebarMenu';
+import { signOut } from '@/features/auth/utils/authCookies';
 
 export function Sidebar({ isSidebarOpen, isMenuOpen, toggleSidebar, toggleMenu }) {
   const navigate = useNavigate();
 
   const options = [
-    { title: 'Mis cursos', to: '/student', Icon: LuBookCopy },
-    { title: 'Editor de codigo', to: 'editor', Icon: IoCodeSlash },
-    { title: 'Ejercicios', to: 'exercises', Icon: GiArtificialIntelligence },
-    { title: 'Certificados', to: 'certificates', Icon: PiCertificateBold },
+    { title: "Mis cursos", to: "/student", Icon: LuBookCopy },
+    { title: "Editor de codigo", to: "editor", Icon: IoCodeSlash },
+    { title: "Ejercicios", to: "exercises", Icon: GiArtificialIntelligence },
+    { title: "Certificados", to: "certificates", Icon: PiCertificateBold },
+    { title: "Creacion de cursos", to: "create-course", Icon: PiCertificateBold },
+
   ];
 
   const handleLogout = async () => {
-    try {
-      navigate('/', { replace: true, state: { loggedOut: true } });
-    } catch (error) {
-      console.error('Error al cerrar sesión:', error);
-    }
-  };
+  try {
+    signOut(); // Limpia cookies
+    navigate('/', { replace: true, state: { loggedOut: true } }); // Redirige al login
+  } catch (error) {
+    console.error('Error al cerrar sesión:', error);
+  }
+};
 
   return (
     <>
