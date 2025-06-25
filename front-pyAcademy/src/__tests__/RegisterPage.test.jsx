@@ -1,72 +1,65 @@
-import '@testing-library/jest-dom/vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
-import RegisterPage from '@/app/pages/RegisterPage';
-import { vi } from 'vitest';
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import RegisterPage from "@/pages/auth/register/RegisterPage";
+import React from "react";
 
-vi.mock('@/shared/hooks/useAuth', () => ({
-  useRegister: () => ({
-    mutate: vi.fn(),
-  }),
+// Mocks de componentes y hooks
+vi.mock("@/shared/ui/atoms/Input", () => ({
+    __esModule: true,
+    default: React.forwardRef((props, ref) => <input ref={ref} {...props} />),
 }));
-
-vi.mock('@/shared/ui/atoms/Input', () => ({
-  __esModule: true,
-  default: (props) => <input {...props} data-testid={`input-${props.name}`} />,
+vi.mock("@/shared/ui/atoms/Button", () => ({
+    __esModule: true,
+    default: ({ children, ...props }) => <button {...props}>{children}</button>,
 }));
-
-vi.mock('@/shared/ui/atoms/Button', () => ({
-  __esModule: true,
-  default: (props) => <button {...props}>{props.children}</button>,
+vi.mock("@/shared/ui/molecules/profile/ProfileImageUpload", () => ({
+    __esModule: true,
+    default: () => <div data-testid="profile-image-upload" />,
 }));
-/* cambio */
-vi.mock('@/shared/ui/molecules/profile/ProfileImageUpload', () => ({
-  __esModule: true,
-  default: ({ onChange }) => (
-    <input
-      type="file"
-      data-testid="profile-upload"
-      onChange={(e) => onChange(e.target.files?.[0])}
-    />
-  ),
+vi.mock("@/shared/hooks/useAuth", () => ({
+    useRegister: () => ({ mutate: vi.fn() }),
 }));
+vi.mock("@/app/validations/RegisterSchema", () => ({ RegisterSchema: {} }));
 
-describe('RegisterPage', () => {
-  it('debe renderizar el formulario correctamente', () => {
-    render(<RegisterPage />);
+describe("RegisterPage", () => {
+    it("renderiza el formulario de registro y los campos principales", () => {
+        render(<RegisterPage />);
+        expect(screen.getByText(/crear cuenta/i)).toBeInTheDocument();
+        expect(screen.getByLabelText(/nombre/i)).toBeInTheDocument();
+        expect(screen.getByLabelText(/apellido/i)).toBeInTheDocument();
+        expect(screen.getByLabelText(/nombre de usuario/i)).toBeInTheDocument();
+        expect(screen.getByLabelText(/correo electrónico/i)).toBeInTheDocument();
+        expect(screen.getByLabelText(/contraseña/i)).toBeInTheDocument();
+        expect(screen.getByLabelText(/teléfono/i)).toBeInTheDocument();
+        expect(screen.getByRole("button", { name: /registrarse/i })).toBeInTheDocument();
+    });
 
-    expect(screen.getByText('Crear cuenta')).toBeInTheDocument();
-    expect(screen.getByText('Estudiante')).toBeInTheDocument();
-    expect(screen.getByText('Docente')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /Registrarse/i })).toBeInTheDocument();
-  });
+    it("muestra el campo materia solo si el rol es docente", () => {
+        render(<RegisterPage />);
+        // Cambia el rol a docente
+        fireEvent.click(screen.getByRole("button", { name: /docente/i }));
+        expect(screen.getByLabelText(/materia/i)).toBeInTheDocument();
+    });
 
-  it('debe mostrar el campo de materia solo cuando el rol es DOCENTE', () => {
-    render(<RegisterPage />);
+    it("no muestra el campo materia si el rol es estudiante", () => {
+        render(<RegisterPage />);
+        fireEvent.click(screen.getByRole("button", { name: /estudiante/i }));
+        expect(screen.queryByLabelText(/materia/i)).not.toBeInTheDocument();
+    });
 
-    expect(screen.queryByLabelText(/Materia/i)).not.toBeInTheDocument();
-
-    fireEvent.click(screen.getByRole('button', { name: /Docente/i }));
-
-    expect(screen.getByLabelText(/Materia/i)).toBeInTheDocument();
-  });
-
-  it('debe mantener el campo materia oculto cuando el rol es ESTUDIANTE', () => {
-    render(<RegisterPage />);
-    expect(screen.queryByLabelText(/Materia/i)).not.toBeInTheDocument();
-  });
-
-  it('debe permitir cambiar entre Estudiante y Docente', () => {
-    render(<RegisterPage />);
-
-    const estudianteBtn = screen.getByRole('button', { name: 'Estudiante' });
-    const docenteBtn = screen.getByRole('button', { name: 'Docente' });
-
-    // Cambiar a Docente y verificar campo materia
-    fireEvent.click(docenteBtn);
-    expect(screen.getByLabelText(/Materia/i)).toBeInTheDocument();
-
-    // Cambiar a Estudiante y verificar que desaparece
-    fireEvent.click(estudianteBtn);
-    expect(screen.queryByLabelText(/Materia/i)).not.toBeInTheDocument();
-  });
+    it("llama a mutate al enviar el formulario", async () => {
+        const { useRegister } = require("@/shared/hooks/useAuth");
+        const mutateMock = vi.fn();
+        useRegister.mockReturnValue({ mutate: mutateMock });
+        render(<RegisterPage />);
+        fireEvent.change(screen.getByLabelText(/nombre/i), { target: { value: "Juan" } });
+        fireEvent.change(screen.getByLabelText(/apellido/i), { target: { value: "Pérez" } });
+        fireEvent.change(screen.getByLabelText(/nombre de usuario/i), { target: { value: "juanp" } });
+        fireEvent.change(screen.getByLabelText(/correo electrónico/i), { target: { value: "juan@mail.com" } });
+        fireEvent.change(screen.getByLabelText(/contraseña/i), { target: { value: "123456" } });
+        fireEvent.change(screen.getByLabelText(/teléfono/i), { target: { value: "123456789" } });
+        fireEvent.click(screen.getByRole("button", { name: /registrarse/i }));
+        await waitFor(() => {
+            expect(mutateMock).toHaveBeenCalled();
+        });
+    });
 });
