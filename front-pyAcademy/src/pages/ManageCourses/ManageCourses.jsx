@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from "react-router-dom";
 import estDatPy from '../../assets/ManageCourses/estDatPy.jpg';
 import python_basico from '../../assets/ManageCourses/python_basico.jpg';
 import pyWeb from '../../assets/ManageCourses/pyWeb.jpeg';
@@ -41,6 +41,7 @@ const initialCourses = [
 
 function ManageCourses() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [courses, setCourses] = useState(initialCourses);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [newCourseData, setNewCourseData] = useState({
@@ -61,6 +62,19 @@ function ManageCourses() {
     setCourses((prev) => prev.filter((course) => course.id !== id));
   };
 
+  useEffect(() => {
+    if (location.state && location.state.editedCourse) {
+      setCourses((prev) =>
+        prev.map((course) =>
+          course.id === location.state.editedCourse.id
+            ? { ...course, ...location.state.editedCourse }
+            : course
+        )
+      );
+      window.history.replaceState({}, document.title);
+    }
+  }, [location.state]);
+
   return (
     <section className="py-16 px-4 md:px-10 bg-gray-50 min-h-screen dark:bg-gradient-1">
       <div className="flex justify-between items-center mb-6">
@@ -77,12 +91,19 @@ function ManageCourses() {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 w-full px-4">
         {courses.map((course) => (
           <CourseCard
+            key={course.id}
             id={course.id}
             title={course.title}
             description={course.description}
             imageUrl={course.imageUrl}
             onEdit={(updatedData) => handleEditCourse(course.id, updatedData)}
             onDelete={() => handleDeleteCourse(course.id)}
+            onEditPage={() => {
+              const currentCourse = courses.find(c => c.id === course.id);
+              navigate(`/teacher/gestionar-cursos/edit/${course.id}`, {
+                state: { course: currentCourse },
+              });
+            }}
           />
         ))}
       </div>
