@@ -20,6 +20,15 @@ export function ExcerciseCard({ exercise, btnText }) {
           <p className={`${styleCategory} p-1 rounded-md h-[90%]`}>
             {exercise.difficultyLevel}
           </p>
+          {/* <div>
+            <p>Tags:</p>
+            <ul className="flex">
+              {exercise.tags &&
+                exercise.tags.map((tag, key) => {
+                  return <li key={key}>{tag},</li>;
+                })}
+            </ul>
+          </div> */}
         </div>
         <Button to={'/student/exercise'} data={exercise}>
           {btnText}

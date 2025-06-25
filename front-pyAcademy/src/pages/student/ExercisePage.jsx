@@ -6,42 +6,70 @@ import { NavLink, useLocation } from 'react-router-dom';
 
 //Componentes
 import PythonEditor from './PyEditorPage';
+import { ExerciseAchievements } from './components/ExerciseAchievements';
+import Select from '../../shared/ui/atoms/Select';
+import { exercises } from './dataTest';
+import { ExcerciseCard } from './components/ExcerciseCard';
+import { FaCheckCircle, FaRegCircle } from 'react-icons/fa';
 
 function ExercisePage() {
   const location = useLocation();
-  const { data } = location.state || {};
-  const onEvaluation = (output) => {
-    console.log(output);
-    if (output === data.testCase.output) {
-      window.alert('Correcto');
+  const data = location.state || {};
+
+  const onEvaluation = (expectedOutput) => {
+    if (expectedOutput === data.testCases.expectedOutput) {
+      window.alert("Correcto");
     } else {
       window.alert('Incorrecto');
     }
   };
-  function DescriptorElement({ title, descripcion, input, output, icon }) {
+
+  const exerciseAchievements = data.achievements || [];
+
+  const DescriptorElement = ({
+    title,
+    descripcion,
+    inputData,
+    expectedOutput,
+    icon,
+  }) => {
+    // Usar los testCases del ejercicio si existen
+    const testCases = data.testCases || [];
     return (
       <div>
         <h3 className="flex gap-2 items-center">
           {icon && icon}
           {title}
         </h3>
-        <p className="p-3 bg-primary-pri4 border rounded-md my-4">
-          {descripcion}
-          {input && (
-            <p>
-              <span className="text-blue-400">Entrada: {input}</span>
-            </p>
-          )}
-          {output && (
-            <p>
-              <span className="text-green-500">Salida: </span>
-              {output}
-            </p>
-          )}
-        </p>
+        {descripcion && <p className="p-3 bg-primary-pri4 border rounded-md my-4">{descripcion}</p>}
+        {testCases.length > 0 && (
+          <>
+            {testCases[0] && (
+              <p className="p-3 bg-primary-pri4 border rounded-md my-4">
+                <span className="text-blue-400">Entrada: {testCases[0].inputData}</span>
+                <br />
+                <span className="text-green-500">Salida: </span>
+                {testCases[0].expectedOutput}
+              </p>
+            )}
+            {testCases[1] && (
+              <p className="p-3 bg-primary-pri4 border rounded-md my-4">
+                <span className="text-blue-400">Entrada: {testCases[1].inputData}</span>
+                <br />
+                <span className="text-green-500">Salida: </span>
+                {testCases[1].expectedOutput}
+              </p>
+            )}
+            {testCases.length > 2 && (
+              <p className="text-primary-pri1">
+                Y otros {testCases.length - 2} casos de prueba más...
+              </p>
+            )}
+          </>
+        )}
       </div>
     );
-  }
+  };
 
   return (
     <div className="-m-8">
@@ -56,8 +84,9 @@ function ExercisePage() {
           <p>|</p>
           <h1 className="text-title-sm font-semibold">{data.title}</h1>
         </div>
-        <p className="bg-green-500 p-1 rounded-md h-[90%]">{data.category}</p>
+        <p className="bg-green-500 p-1 rounded-md h-[90%]">{data.difficultyLevel}</p>
       </header>
+      <ExerciseAchievements achievements={exerciseAchievements} />
       <div className="flex">
         <section className="dark:bg-gradient-2 w-[40%] h-screen p-5 sticky top-0">
           <DescriptorElement
@@ -65,22 +94,16 @@ function ExercisePage() {
             descripcion={data.description}
             icon={<BsBook />}
           />
-          <DescriptorElement
-            title={'Instrucciones'}
-            descripcion={data.instruction}
-            icon={<GiBurningBook className="text-label-lg" />}
-          />
 
           <DescriptorElement
-            title={'Casos de Prueba'}
-            descripcion={data.testCase.description}
-            input={data.testCase.input}
-            output={data.testCase.output}
+            title={"Casos de Prueba"}
+            inputData={data.testCases && data.testCases[0]?.inputData}
+            expectedOutput={data.testCases && data.testCases[0]?.expectedOutput}
             icon={<GiEvilBook className="text-label-lg" />}
           />
         </section>
         <section className="w-[60%]">
-          <PythonEditor title={false} onEvaluation={onEvaluation} />
+          <PythonEditor title={false} testCases={data.testCases} />
         </section>
       </div>
     </div>

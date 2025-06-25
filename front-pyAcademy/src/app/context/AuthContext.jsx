@@ -1,4 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+import { jwtDecode } from 'jwt-decode';
+
 
 import { isTokenValid } from '../../features/auth/services/authFunctions';
 import {
@@ -38,28 +40,32 @@ export function AuthProvider({ children }) {
   }, []);
 
   const login = async (credentials) => {
-    setIsLoading(true);
-    try {
-      const res = await loginUser(credentials);
-      console.log('Login response:', res.data);
+  setIsLoading(true);
+  try {
+    const res = await loginUser(credentials);
+    console.log('Login response:', res.data);
 
-      const { jwt: token, username, photo } = res.data;
-      const userData = { username, photo }; // Guarda todos los datos relevantes
+    const { jwt: token, username, photo } = res.data;
 
-      saveToken(token);
-      saveUser(userData); // Guarda el objeto completo
+    const decoded = jwtDecode(token);
+    const role = decoded.authorities?.replace('ROLE_', ''); // MAESTRO o ESTUDIANTE
 
-      setUser(userData);
-      setIsAuthenticated(true);
-      return true;
-    } catch (error) {
-      console.error('Login error:', error);
-      signOut(); // Limpia estado en caso de error
-      return false;
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    const userData = { username, photo, role };
+
+    saveToken(token);
+    saveUser(userData);
+
+    setUser(userData);
+    setIsAuthenticated(true);
+    return true;
+  } catch (error) {
+    console.error('Login error:', error);
+    signOut();
+    return false;
+  } finally {
+    setIsLoading(false);
+  }
+};
 
   const logout = () => {
     signOut();

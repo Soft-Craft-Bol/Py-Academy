@@ -16,51 +16,38 @@ function RegisterPage() {
   const [photoFile, setPhotoFile] = useState(null);
   const [role, setRole] = useState('ESTUDIANTE');
 
-  const isTeacher = role === 'DOCENTE';
+  const isTeacher = role === 'MAESTRO';
 
   return (
     <div className="min-h-screen flex flex-col text-gray-800">
       <main className="flex flex-1 w-full flex-col-reverse lg:flex-row items-center justify-center gap-8 px-4 sm:px-6 md:px-10 py-12">
-        {/* Imagen ilustrativa
-            <div className="w-full max-w-md rounded-lg overflow-hidden lg:max-w-lg dark:shadow-yellow-500/50 shadow-xl transition-transform duration-300 ease-in-out">
-            <img
-                src={registerImage}
-                alt="Imagen de registro"
-                className="w-full h-auto object-cover"
-            />
-            </div> */}
-
         <section className="bg-white dark:bg-gradient-1 rounded-2xl p-8 sm:p-10 w-full max-w-lg shadow-xl">
           <h2 className="text-display-sm font-bold mb-8 text-center text-gray-900 dark:text-white">
             Crear cuenta
           </h2>
 
-          {/* Segment Switch con animación */}
           <div className="relative mb-6 w-full max-w-sm mx-auto">
             <div className="relative flex items-center justify-between bg-neutral-800 border border-blue-500 rounded-full overflow-hidden">
               <div
-                className={`absolute top-0 bottom-0 left-0 w-1/2 bg-blue-600 rounded-full transition-transform duration-300 ease-in-out ${
-                  role === 'DOCENTE' ? 'translate-x-full' : 'translate-x-0'
-                }`}
+                className={`absolute top-0 bottom-0 left-0 w-1/2 bg-blue-600 rounded-full transition-transform duration-300 ease-in-out ${role === 'MAESTRO' ? 'translate-x-full' : 'translate-x-0'
+                  }`}
               ></div>
 
               <button
                 type="button"
                 onClick={() => setRole('ESTUDIANTE')}
-                className={`relative z-10 w-1/2 py-2 text-sm font-medium transition-colors duration-200 ${
-                  role === 'ESTUDIANTE' ? 'text-white' : 'text-blue-400 hover:text-white'
-                }`}
+                className={`relative z-10 w-1/2 py-2 text-sm font-medium transition-colors duration-200 ${role === 'ESTUDIANTE' ? 'text-white' : 'text-blue-400 hover:text-white'
+                  }`}
               >
                 Estudiante
               </button>
               <button
                 type="button"
-                onClick={() => setRole('DOCENTE')}
-                className={`relative z-10 w-1/2 py-2 text-sm font-medium transition-colors duration-200 ${
-                  role === 'DOCENTE' ? 'text-white' : 'text-blue-400 hover:text-white'
-                }`}
+                onClick={() => setRole('MAESTRO')}
+                className={`relative z-10 w-1/2 py-2 text-sm font-medium transition-colors duration-200 ${role === 'MAESTRO' ? 'text-white' : 'text-blue-400 hover:text-white'
+                  }`}
               >
-                Docente
+                Maestro
               </button>
             </div>
           </div>
@@ -73,31 +60,53 @@ function RegisterPage() {
               email: '',
               password: '',
               telefono: '',
-              materia: '',
+              department: '', // para MAESTRO
+              specialization: '',
+              academicDegree: '',
+              enrollmentNumber: '', // para ESTUDIANTE
+              academicProgram: '',
+              semester: '',
               roleRequest: { roleListName: [role] },
             }}
+
             validationSchema={RegisterSchema}
             onSubmit={(values, actions) => {
-              registerMutation.mutate(
-                {
-                  ...values,
-                  roleRequest: { roleListName: [role] },
-                  photo: photoFile,
+              const commonData = {
+                ...values,
+                roleRequest: { roleListName: [role] },
+                photo: photoFile,
+              };
+
+              if (role === 'MAESTRO') {
+                commonData.teacherData = {
+                  department: values.department,
+                  specialization: values.specialization,
+                  academicDegree: values.academicDegree,
+                };
+              }
+
+              if (role === 'ESTUDIANTE') {
+                commonData.studentData = {
+                  enrollmentNumber: values.enrollmentNumber,
+                  academicProgram: values.academicProgram,
+                  semester: parseInt(values.semester, 10),
+                };
+              }
+
+              registerMutation.mutate(commonData, {
+                onSuccess: () => {
+                  alert('Usuario registrado correctamente');
+                  actions.resetForm();
+                  setPreview(null);
+                  setPhotoFile(null);
                 },
-                {
-                  onSuccess: () => {
-                    alert('Usuario registrado correctamente');
-                    actions.resetForm();
-                    setPreview(null);
-                    setPhotoFile(null);
-                  },
-                  onError: (error) => {
-                    console.error(error);
-                    alert('Error al registrar usuario: ' + error.message);
-                  },
-                }
-              );
+                onError: (error) => {
+                  console.error(error);
+                  alert('Error al registrar usuario: ' + error.message);
+                },
+              });
             }}
+
           >
             {({ isSubmitting, setFieldValue }) => (
               <Form className="space-y-4">
@@ -162,11 +171,42 @@ function RegisterPage() {
 
                 {/* Campo exclusivo de Docente */}
                 {isTeacher && (
-                  <div>
-                    <label className="block mb-1 text-gray-900 dark:text-white">Materia</label>
-                    <Field name="materia" as={Input} placeholder="Materia que impartirá" />
-                    <ErrorMessage name="materia" component="div" className="text-red-500 text-sm" />
-                  </div>
+                  <>
+                    <div>
+                      <label>Departamento</label>
+                      <Field name="department" as={Input} placeholder="Departamento" />
+                      <ErrorMessage name="department" component="div" className="text-red-500 text-sm" />
+                    </div>
+                    <div>
+                      <label>Especialización</label>
+                      <Field name="specialization" as={Input} placeholder="Especialización" />
+                      <ErrorMessage name="specialization" component="div" className="text-red-500 text-sm" />
+                    </div>
+                    <div>
+                      <label>Grado académico</label>
+                      <Field name="academicDegree" as={Input} placeholder="Grado académico" />
+                      <ErrorMessage name="academicDegree" component="div" className="text-red-500 text-sm" />
+                    </div>
+                  </>
+                )}
+                {!isTeacher && (
+                  <>
+                    <div>
+                      <label>Número de matrícula</label>
+                      <Field name="enrollmentNumber" as={Input} placeholder="Número de matrícula" />
+                      <ErrorMessage name="enrollmentNumber" component="div" className="text-red-500 text-sm" />
+                    </div>
+                    <div>
+                      <label>Programa académico</label>
+                      <Field name="academicProgram" as={Input} placeholder="Programa académico" />
+                      <ErrorMessage name="academicProgram" component="div" className="text-red-500 text-sm" />
+                    </div>
+                    <div>
+                      <label>Semestre</label>
+                      <Field name="semester" as={Input} placeholder="Semestre" type="number" />
+                      <ErrorMessage name="semester" component="div" className="text-red-500 text-sm" />
+                    </div>
+                  </>
                 )}
 
                 <Button
