@@ -1,7 +1,11 @@
 package com.pyAcademy.pyAcademy.features.exercises.infrastructure;
 
-import com.pyAcademy.pyAcademy.features.exercises.application.dto.ExercisesDTO;
 import com.pyAcademy.pyAcademy.features.exercises.application.ExercisesService;
+import com.pyAcademy.pyAcademy.features.exercises.application.usecase.CreateExerciseUseCase;
+import com.pyAcademy.pyAcademy.features.exercises.domain.models.CodingExercisesEntity;
+import com.pyAcademy.pyAcademy.features.exercises.infrastructure.dto.request.CreateExerciseRequest;
+import com.pyAcademy.pyAcademy.features.exercises.infrastructure.dto.request.ExercisesDTO;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +23,10 @@ public class ExercisesController {
     
     @Autowired
     private ExercisesService exercisesService;
+
+    @Autowired
+    private CreateExerciseUseCase createExerciseUseCase;
+
     
     // === CODING EXERCISES ENDPOINTS ===
     
@@ -191,5 +199,11 @@ public class ExercisesController {
     public ResponseEntity<Long> getTotalTestCasesCount(@PathVariable Long submissionId) {
         Long count = exercisesService.getTotalTestCasesCount(submissionId);
         return ResponseEntity.ok(count);
+    }
+
+    @PostMapping
+    public ResponseEntity<CodingExercisesEntity> createExercise(@RequestBody CreateExerciseRequest request) {
+        CodingExercisesEntity created = createExerciseUseCase.create(request);
+        return ResponseEntity.ok(created);
     }
 }

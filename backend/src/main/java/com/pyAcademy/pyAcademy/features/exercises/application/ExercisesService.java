@@ -1,13 +1,14 @@
 package com.pyAcademy.pyAcademy.features.exercises.application;
 
-import com.pyAcademy.pyAcademy.features.exercises.application.dto.ExercisesDTO;
-import com.pyAcademy.pyAcademy.features.exercises.domain.CodingExercisesRepository;
-import com.pyAcademy.pyAcademy.features.exercises.domain.ExerciseSubmissionsRepository;
-import com.pyAcademy.pyAcademy.features.exercises.domain.TeacherFeedbacksRepository;
-import com.pyAcademy.pyAcademy.features.exercises.domain.TestCaseResultsRepository;
-import com.pyAcademy.pyAcademy.features.exercises.domain.TestCasesRepository;
 import com.pyAcademy.pyAcademy.features.exercises.domain.models.*;
 import com.pyAcademy.pyAcademy.features.exercises.infrastructure.*;
+import com.pyAcademy.pyAcademy.features.exercises.infrastructure.adapter.jpa.CodingExercisesRepository;
+import com.pyAcademy.pyAcademy.features.exercises.infrastructure.adapter.jpa.ExerciseSubmissionsRepository;
+import com.pyAcademy.pyAcademy.features.exercises.infrastructure.adapter.jpa.TeacherFeedbacksRepository;
+import com.pyAcademy.pyAcademy.features.exercises.infrastructure.adapter.jpa.TestCaseResultsRepository;
+import com.pyAcademy.pyAcademy.features.exercises.infrastructure.adapter.jpa.TestCasesRepository;
+import com.pyAcademy.pyAcademy.features.exercises.infrastructure.dto.request.ExercisesDTO;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.pyAcademy.pyAcademy.features.auth.domain.repository.abstraction;
+package com.pyAcademy.pyAcademy.features.auth.domain.repository;
 
 import com.pyAcademy.pyAcademy.features.auth.domain.enums.RoleEnum;
 import com.pyAcademy.pyAcademy.features.auth.domain.models.RoleEntity;
