@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 // Icons
 import { LuClipboardList, LuFilePlus, LuBookMarked } from 'react-icons/lu';
+import { FaBook } from "react-icons/fa";
 
 // Componentes internos
 import { SidebarMenu } from '../molecules/sidebar/SidebarMenu';
@@ -16,9 +17,11 @@ export function TeacherSidebar({ isSidebarOpen, isMenuOpen, toggleSidebar, toggl
     const navigate = useNavigate();
 
     const options = [
-        { title: 'Mis Evaluaciones', to: '/teacher', Icon: LuClipboardList },
-        { title: 'Crear Evaluación', to: '/teacher/newAssessments', Icon: LuFilePlus },
-        { title: 'Cursos Asignados', to: '/teacher/courses', Icon: LuBookMarked },
+        { title: 'Cursos', to: '/teacher', Icon: FaBook },
+        { title: 'Mis Evaluaciones', to: '/teacher/assessmentsList', Icon: LuClipboardList },
+        { title: 'Crear evaluación', to: '/teacher/newAssessments', Icon: LuFilePlus },
+        { title: 'Cursos creados', to: '/teacher/gestionar-cursos', Icon: LuBookMarked },
+        { title: 'Crear práctica de programación', to: '/teacher/create-practice', Icon: LuFilePlus }
     ];
 
     const handleLogout = () => {
