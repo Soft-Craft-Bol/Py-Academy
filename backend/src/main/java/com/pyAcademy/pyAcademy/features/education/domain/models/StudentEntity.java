@@ -24,7 +24,7 @@ public class StudentEntity extends UserEntity {
     private String academicProgram;
 
     private Integer semester;
-
+//coment
     @Column(name = "progress_summary", columnDefinition = "TEXT")
     private String progressSummary;
 
