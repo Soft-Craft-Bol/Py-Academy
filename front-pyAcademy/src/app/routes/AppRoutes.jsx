@@ -9,6 +9,7 @@ import { TeacherLayout } from '../../shared/layouts/TeacherLayout';
 
 import CourseManangement from "../../shared/layouts/CourseManangement";
 import LearningUnitsManager from "../../shared/layouts/LearningUnitsManager";
+//import { R } from '@tanstack/react-query-devtools/build/legacy/ReactQueryDevtools-Cn7cKi7o';
 
 // import PrivateRoute from "@/features/auth/components/PrivateRoute";
 // import { ExercisesPage } from "../../pages/student/ExercisesPage";
@@ -35,6 +36,8 @@ const CourseStudent = lazy(() => import('@/pages/student/CourseStudent'));
 const AssessmentsListPage = lazy(() => import( '@/pages/teacher/AssessmentsListPage'));
 const AssessmentEditorPage = lazy(() => import( '@/pages/teacher/AssessmentEditorPage'));
 const CreatePracticePage = lazy(() => import( '@/pages/teacher/CreatePracticePage'));
+const StudentListPage = lazy(() => import(  '@/pages/teacher/StudentListPage'));
+const TeacherCoursesPage = lazy(() => import( '@/pages/teacher/components/TeacherCoursesPage' ));
 
 export function AppRoutes() {
   return (
@@ -55,7 +58,9 @@ export function AppRoutes() {
 
         {/* Docentes (falta hacer la ruta privada) */}
         <Route path="/teacher" element={<TeacherLayout />}>
-          <Route index element={<AssessmentsListPage />} />
+          <Route index element={<TeacherCoursesPage />} />
+          <Route path="assessmentsList" element={<AssessmentsListPage />} />
+          <Route path="studentList/:id" element={<StudentListPage />} />
           <Route path="newAssessments" element={<AssessmentEditorPage />} />
           <Route path="create-practice" element={<CreatePracticePage />} />
           <Route path="gestionar-cursos" element={<ManageCourses />} />
