@@ -20,10 +20,19 @@ export const useRegister = () => {
 
       formData.append('roleRequest', JSON.stringify(data.roleRequest));
 
+      if (data.roleRequest.roleListName.includes('ESTUDIANTE')) {
+        formData.append('studentData', JSON.stringify(data.studentData));
+      }
+
+      if (data.roleRequest.roleListName.includes('MAESTRO')) {
+        formData.append('teacherData', JSON.stringify(data.teacherData));
+      }
+
       return addUser(formData);
     },
   });
 };
+
 
 export const useLogin = () => {
   return useMutation({

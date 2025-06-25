@@ -20,7 +20,7 @@ export function TeacherSidebar({ isSidebarOpen, isMenuOpen, toggleSidebar, toggl
         { title: 'Cursos', to: '/teacher', Icon: FaBook },
         { title: 'Mis Evaluaciones', to: '/teacher/assessmentsList', Icon: LuClipboardList },
         { title: 'Crear evaluación', to: '/teacher/newAssessments', Icon: LuFilePlus },
-        { title: 'Crear Curso', to: '/teacher/gestionar-cursos', Icon: LuBookMarked },
+        { title: 'Cursos creados', to: '/teacher/gestionar-cursos', Icon: LuBookMarked },
         { title: 'Crear práctica de programación', to: '/teacher/create-practice', Icon: LuFilePlus }
     ];
 
