@@ -7,34 +7,14 @@ import { NavLink, useLocation } from 'react-router-dom';
 //Componentes
 import PythonEditor from './PyEditorPage';
 import { ExerciseAchievements } from './components/ExerciseAchievements';
-import Select from '../../shared/ui/atoms/Select';
-import { exercises } from './dataTest';
-import { ExcerciseCard } from './components/ExcerciseCard';
-import { FaCheckCircle, FaRegCircle } from 'react-icons/fa';
 
 function ExercisePage() {
   const location = useLocation();
   const data = location.state || {};
 
-  const onEvaluation = (expectedOutput) => {
-    if (expectedOutput === data.testCases.expectedOutput) {
-      window.alert("Correcto");
-    } else {
-      window.alert('Incorrecto');
-    }
-  };
-
   const exerciseAchievements = data.achievements || [];
 
-  const DescriptorElement = ({
-    title,
-    descripcion,
-    inputData,
-    expectedOutput,
-    icon,
-  }) => {
-    // Usar los testCases del ejercicio si existen
-    const testCases = data.testCases || [];
+  const DescriptorElement = ({ title, descripcion, icon, testCases }) => {
     return (
       <div>
         <h3 className="flex gap-2 items-center">
@@ -42,7 +22,7 @@ function ExercisePage() {
           {title}
         </h3>
         {descripcion && <p className="p-3 bg-primary-pri4 border rounded-md my-4">{descripcion}</p>}
-        {testCases.length > 0 && (
+        {testCases && testCases.length > 0 && (
           <>
             {testCases[0] && (
               <p className="p-3 bg-primary-pri4 border rounded-md my-4">
@@ -96,9 +76,8 @@ function ExercisePage() {
           />
 
           <DescriptorElement
-            title={"Casos de Prueba"}
-            inputData={data.testCases && data.testCases[0]?.inputData}
-            expectedOutput={data.testCases && data.testCases[0]?.expectedOutput}
+            title={'Casos de Prueba'}
+            testCases={data.testCases}
             icon={<GiEvilBook className="text-label-lg" />}
           />
         </section>
