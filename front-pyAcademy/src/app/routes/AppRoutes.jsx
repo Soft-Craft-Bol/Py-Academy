@@ -19,6 +19,9 @@ const LoginPage = lazy(() => import('../../pages/auth/login/LoginPage'));
 const RegisterPage = lazy(() => import('@/pages/auth/register/RegisterPage'));
 const ResourceManager = lazy(() => import('../../pages/ManageResources/ManageResources'));
 
+//const CoursesPage = lazy(() => import('../../pages/student/CoursesPage'));
+//const CourseStudent = lazy(() => import('@/pages/student/CourseStudent'));
+
 // Estudiante
 const PyEditor = lazy(() => import('../../pages/student/PyEditorPage'));
 const ChatIA = lazy(() => import('../../pages/student/ChatIA'));
