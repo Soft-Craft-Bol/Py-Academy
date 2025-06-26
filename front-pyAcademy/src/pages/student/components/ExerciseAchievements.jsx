@@ -15,7 +15,7 @@ export function ExerciseAchievements({ achievements = [] }) {
         {achievements.map((ach, idx) => (
           <div
             key={idx}
-            className={`flex flex-col items-center justify-center h-28 rounded-xl border transition-all duration-300 shadow-md p-3 text-center ${ach.completed ? 'bg-gradient-to-br from-green-100 to-green-300 border-green-300 dark:from-green-900/30 dark:to-green-700/30' : 'bg-gradient-to-br from-gray-100 to-gray-200 border-gray-200 dark:from-gray-800/30 dark:to-gray-700/30 opacity-60'}`}
+            className={`flex flex-col items-center justify-center h-20 rounded-xl border transition-all duration-300 shadow-md p-3 text-center ${ach.completed ? 'bg-gradient-to-br from-green-100 to-green-300 border-green-300 dark:from-green-900/30 dark:to-green-700/30' : 'bg-gradient-to-br from-gray-100 to-gray-200 border-gray-200 dark:from-gray-800/30 dark:to-gray-700/30 opacity-60'}`}
           >
             <div className="mb-2">
               {ach.completed ? (
@@ -24,7 +24,11 @@ export function ExerciseAchievements({ achievements = [] }) {
                 <FaRegCircle className="text-gray-400 text-3xl" />
               )}
             </div>
-            <span className={`text-xs ${ach.completed ? 'text-green-800 dark:text-green-200 font-semibold' : 'text-gray-500 dark:text-gray-300'}`}>{ach.label}</span>
+            <span
+              className={`text-xs ${ach.completed ? 'text-green-800 dark:text-green-200 font-semibold' : 'text-gray-500 dark:text-gray-300'}`}
+            >
+              {ach.label}
+            </span>
           </div>
         ))}
       </div>

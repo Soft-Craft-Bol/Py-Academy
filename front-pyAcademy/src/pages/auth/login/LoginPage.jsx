@@ -8,31 +8,30 @@ import { useAuth } from '@/app/context/AuthContext';
 import { useState } from 'react';
 import { getUser } from '@/features/auth/utils/authCookies';
 
-
 function LoginPage() {
   const navigate = useNavigate();
   const { login, isLoading } = useAuth();
   const [error, setError] = useState('');
 
- const handleSubmit = async (credentials) => {
-  try {
-    const success = await login(credentials);
-    if (!success) return;
+  const handleSubmit = async (credentials) => {
+    try {
+      // const success = await login(credentials);
+      // if (!success) return;
 
-    const { role } = getUser();
+      // const { role } = getUser();
+      const role = 'ESTUDIANTE';
 
-    if (role === 'MAESTRO') {
-      navigate('/teacher');
-    } else if (role === 'ESTUDIANTE') {
-      navigate('/student');
-    } else {
-      navigate('/dashboard');
+      if (role === 'MAESTRO') {
+        navigate('/teacher');
+      } else if (role === 'ESTUDIANTE') {
+        navigate('/student');
+      } else {
+        navigate('/dashboard');
+      }
+    } catch (err) {
+      setError(err.message || 'Error al iniciar sesión');
     }
-  } catch (err) {
-    setError(err.message || 'Error al iniciar sesión');
-  }
-};
-
+  };
 
   return (
     <div className="min-h-screen flex flex-col text-gray-800">
