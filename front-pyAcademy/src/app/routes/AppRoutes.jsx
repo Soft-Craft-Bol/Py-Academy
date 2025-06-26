@@ -19,6 +19,9 @@ const LoginPage = lazy(() => import('../../pages/auth/login/LoginPage'));
 const RegisterPage = lazy(() => import('@/pages/auth/register/RegisterPage'));
 const ResourceManager = lazy(() => import('../../pages/ManageResources/ManageResources'));
 
+//const CoursesPage = lazy(() => import('../../pages/student/CoursesPage'));
+//const CourseStudent = lazy(() => import('@/pages/student/CourseStudent'));
+
 // Estudiante
 const PyEditor = lazy(() => import('../../pages/student/PyEditorPage'));
 const ChatIA = lazy(() => import('../../pages/student/ChatIA'));
@@ -69,13 +72,13 @@ export function AppRoutes() {
         <Route element={<PrivateRoute />}>
           <Route path="/student" element={<StudentLayout />}>
             <Route path="learning-units" element={<LearningUnitsManager />} />
-            <Route index element={<CoursesPage />} />
             <Route path="editor" element={<PyEditor />} />
             <Route path="chatIA" element={<ChatIA />} />
             <Route path="exercises" element={<ExercisesPage />} />
             <Route path="exercise" element={<ExercisePage />} />
             <Route path="certificates" element={<Certificates />} />
-            <Route path="curso/:id" element={<CourseStudent />} />
+            <Route index element={<CoursesPage />} />
+            <Route path="/cursos/:id" element={<CourseStudent />} />
           </Route>
         </Route>
       </Routes>

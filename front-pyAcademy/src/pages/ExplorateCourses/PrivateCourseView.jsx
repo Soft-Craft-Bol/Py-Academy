@@ -469,32 +469,7 @@ function CourseDashboard() {
 
   return (
     <div className="h-screen bg-gray-50 dark:bg-gray-900 flex flex-col">
-      {/* Header */}
-      <header className="bg-gradient-to-r from-blue-700 via-indigo-700 to-purple-700 shadow-lg p-6 flex justify-between items-center">
-        <div className="flex items-center space-x-4">
-          <div className="flex items-center space-x-3">
-            <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
-              <span className="text-white font-bold text-lg">DW</span>
-            </div>
-            <div>
-              <h1 className="text-3xl font-bold text-white">{courseData.title}</h1>
-              <p className="text-blue-100">{courseData.subtitle}</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="flex items-center space-x-4">
-          <button className="p-3 text-white hover:text-yellow-200 hover:bg-white/10 rounded-xl transition-all">
-            <Search className="w-6 h-6" />
-          </button>
-          <button className="p-3 text-white hover:text-yellow-200 hover:bg-white/10 rounded-xl transition-all">
-            <Bell className="w-6 h-6" />
-          </button>
-          <button className="p-3 text-white hover:text-yellow-200 hover:bg-white/10 rounded-xl transition-all">
-            <User className="w-6 h-6" />
-          </button>
-        </div>
-      </header>
+      
 
       <div className="flex flex-1 overflow-hidden">
         {/* Sidebar */}
