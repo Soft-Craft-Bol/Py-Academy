@@ -15,7 +15,6 @@ const EncabezadoCurso = ({ courseData }) => {
           </div>
         </div>
       </div>
-
       <div className="flex items-center space-x-4">
         <button className="p-3 text-white hover:text-yellow-200 hover:bg-white/10 rounded-xl transition-all">
           <Bell className="w-6 h-6" />
