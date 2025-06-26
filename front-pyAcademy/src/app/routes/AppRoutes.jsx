@@ -38,6 +38,7 @@ const AssessmentEditorPage = lazy(() => import('@/pages/teacher/AssessmentEditor
 const CreatePracticePage = lazy(() => import('@/pages/teacher/CreatePracticePage'));
 const StudentListPage = lazy(() => import(  '@/pages/teacher/StudentListPage'));
 const TeacherCoursesPage = lazy(() => import( '@/pages/teacher/components/TeacherCoursesPage' ));
+const EditCoursePage = lazy(() => import('../../shared/layouts/EditCoursePage'));
 
 export function AppRoutes() {
   return (
@@ -65,6 +66,7 @@ export function AppRoutes() {
             <Route path="create-practice" element={<CreatePracticePage />} />
             <Route path="gestionar-cursos" element={<ManageCourses />} />
             <Route path="create-course" element={<CourseManangement />} />
+            <Route path="gestionar-cursos/edit/:id" element={<EditCoursePage />} />
           </Route>
         </Route>
 
