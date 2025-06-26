@@ -20,7 +20,7 @@ api.interceptors.request.use(
   },
   (error) => {
     return Promise.reject(error);
-  },
+  }
 );
 
 export default api;
@@ -37,7 +37,7 @@ export const saludo = (nombre = 'Usuario') =>
   api.get('/saludo', {
     params: { nombre },
   });
-//Simulador de codigo python bro
+
 export const executeCode = (data) => api.post('/execute', data);
 
 export const createExercises = (data) => api.post('/exercises', data);
