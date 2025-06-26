@@ -1,17 +1,34 @@
 import DocViewer, { DocViewerRenderers } from "@cyntler/react-doc-viewer";
+import "@cyntler/react-doc-viewer/dist/index.css" ;
 
 export function VisorFile(){
     const archivos = [
         {
-            uri: "https://drive.google.com/file/d/1jlPabJRvTLzL4xK-KA_uH0oaV_aytyDn/view?usp=drive_link",
+            uri: "/aprendizaje.pdf",
             fileType: "pdf",
             fileName: "ejemplo.pdf"
         },
+        {
+            uri: "/HOJA DE VIDA2024.docx",
+            fileType: "docx",
+            fileName: "ejemplo.docx"
+        },
+        {
+            uri: "/progradb.png",
+            fileType: "png",
+            fileName: "ejemplo.png"
+        },
+        
     ]
     return (
-        <div>
-            <h1>Material</h1>
-            <DocViewer documents={archivos} pluginRenderers={DocViewerRenderers}/>
+        <div className="h-full flex flex-col">
+            <div className="flex-1 overflow-y-auto">
+                <DocViewer
+                    documents={archivos}
+                    pluginRenderers={DocViewerRenderers}
+                    className="h-full"
+                />
+            </div>
         </div>
     );
 }
