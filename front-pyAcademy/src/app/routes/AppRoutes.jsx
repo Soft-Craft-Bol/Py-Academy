@@ -36,15 +36,14 @@ const CourseStudent = lazy(() => import('@/pages/student/CourseStudent'));
 const AssessmentsListPage = lazy(() => import('@/pages/teacher/AssessmentsListPage'));
 const AssessmentEditorPage = lazy(() => import('@/pages/teacher/AssessmentEditorPage'));
 const CreatePracticePage = lazy(() => import('@/pages/teacher/CreatePracticePage'));
-const StudentListPage = lazy(() => import(  '@/pages/teacher/StudentListPage'));
-const TeacherCoursesPage = lazy(() => import( '@/pages/teacher/components/TeacherCoursesPage' ));
+const StudentListPage = lazy(() => import('@/pages/teacher/StudentListPage'));
+const TeacherCoursesPage = lazy(() => import('@/pages/teacher/components/TeacherCoursesPage'));
 const EditCoursePage = lazy(() => import('../../shared/layouts/EditCoursePage'));
 
 export function AppRoutes() {
   return (
     <Suspense fallback={<div>Cargando...</div>}>
       <Routes>
-        {/* 🌐 Rutas públicas */}
         <Route element={<PublicLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/explorar-cursos" element={<ExplorateCourses />} />
@@ -56,12 +55,11 @@ export function AppRoutes() {
           <Route path="/certificado/:id" element={<PublicCertificateViewer />} />
         </Route>
 
-        {/* 👨‍🏫 Rutas protegidas para MAESTROS */}
         <Route element={<PrivateRoute />}>
           <Route path="/teacher" element={<TeacherLayout />}>
             <Route index element={<TeacherCoursesPage />} />
-          <Route path="assessmentsList" element={<AssessmentsListPage />} />
-          <Route path="studentList/:id" element={<StudentListPage />} />
+            <Route path="assessmentsList" element={<AssessmentsListPage />} />
+            <Route path="studentList/:id" element={<StudentListPage />} />
             <Route path="newAssessments" element={<AssessmentEditorPage />} />
             <Route path="create-practice" element={<CreatePracticePage />} />
             <Route path="gestionar-cursos" element={<ManageCourses />} />
@@ -70,19 +68,18 @@ export function AppRoutes() {
           </Route>
         </Route>
 
-        {/* 🎓 Rutas protegidas para ESTUDIANTES coment*/}
-        <Route element={<PrivateRoute />}>
-          <Route path="/student" element={<StudentLayout />}>
-            <Route path="learning-units" element={<LearningUnitsManager />} />
-            <Route path="editor" element={<PyEditor />} />
-            <Route path="chatIA" element={<ChatIA />} />
-            <Route path="exercises" element={<ExercisesPage />} />
-            <Route path="exercise" element={<ExercisePage />} />
-            <Route path="certificates" element={<Certificates />} />
-            <Route index element={<CoursesPage />} />
-            <Route path="/cursos/:id" element={<CourseStudent />} />
-          </Route>
+        {/* <Route element={<PrivateRoute />}> */}
+        <Route path="/student" element={<StudentLayout />}>
+          <Route path="learning-units" element={<LearningUnitsManager />} />
+          <Route index element={<CoursesPage />} />
+          <Route path="editor" element={<PyEditor />} />
+          <Route path="chatIA" element={<ChatIA />} />
+          <Route path="exercises" element={<ExercisesPage />} />
+          <Route path="exercise" element={<ExercisePage />} />
+          <Route path="certificates" element={<Certificates />} />
+          <Route path="curso/:id" element={<CourseStudent />} />
         </Route>
+        {/* </Route> */}
       </Routes>
     </Suspense>
   );
