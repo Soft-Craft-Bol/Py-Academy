@@ -10,8 +10,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Map;
 
-@RestController
-@RequestMapping("/execute")
+// @RestController
+// @RequestMapping("/execute")
 public class PythonController {
 
     @PostMapping
