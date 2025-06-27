@@ -15,11 +15,11 @@ function LoginPage() {
 
   const handleSubmit = async (credentials) => {
     try {
-      // const success = await login(credentials);
-      // if (!success) return;
+      const success = await login(credentials);
+      if (!success) return;
 
-      // const { role } = getUser();
-      const role = 'ESTUDIANTE';
+      const { role } = getUser();
+      
 
       if (role === 'MAESTRO') {
         navigate('/teacher');
