@@ -19,7 +19,6 @@ function LoginPage() {
       if (!success) return;
 
       const { role } = getUser();
-      
 
       if (role === 'MAESTRO') {
         navigate('/teacher');
