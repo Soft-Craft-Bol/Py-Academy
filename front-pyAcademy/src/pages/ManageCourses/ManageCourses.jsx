@@ -3,6 +3,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 import estDatPy from '../../assets/ManageCourses/estDatPy.jpg';
 import python_basico from '../../assets/ManageCourses/python_basico.jpg';
 import pyWeb from '../../assets/ManageCourses/pyWeb.jpeg';
+import { deleteCourse } from '../../shared/api/courses';
+import { toast } from 'react-toastify';
 
 import CourseCard from './components/CourseCard';
 
@@ -58,8 +60,18 @@ function ManageCourses() {
     );
   };
 
-  const handleDeleteCourse = (id) => {
+  const handleDeleteCourse = async (id) => {
     setCourses((prev) => prev.filter((course) => course.id !== id));
+    const result = await deleteCourse(id);
+    if (result.success) {
+      toast.success('Curso eliminado correctamente');
+    } else if (result.status === 404) {
+      toast.error('El curso no existe o ya fue eliminado');
+    } else if (result.status === 401 || result.status === 403) {
+      toast.error('No tienes permisos para eliminar este curso');
+    } else {
+      toast.error('Error al eliminar el curso: ' + (result.data?.message || result.data || 'Error desconocido'));
+    }
   };
 
   useEffect(() => {
