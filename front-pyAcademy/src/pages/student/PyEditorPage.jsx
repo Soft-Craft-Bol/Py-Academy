@@ -10,7 +10,7 @@ import {
   TerminalSquare,
   AlignLeft,
   Code2,
-} from 'lucide-react'; // ✅ Todos existen
+} from 'lucide-react';
 
 // Hooks
 import { usePyodide } from '@/features/code/hooks/usePyodide';
@@ -34,7 +34,6 @@ const PythonEditor = ({ title = true, testCases = [], timeLimit = 120 }) => {
   const [timerStarted, setTimerStarted] = useState(false);
   const [isExecuting, setIsExecuting] = useState(false);
 
-  // Temporizador: cuenta regresiva cuando comienza
   useEffect(() => {
     if (!timerStarted || timeLeft <= 0) return;
 
@@ -45,7 +44,99 @@ const PythonEditor = ({ title = true, testCases = [], timeLimit = 120 }) => {
     return () => clearInterval(interval);
   }, [timerStarted, timeLeft]);
 
-  // Ejecutar código con feedback de carga
+  // Función que interpreta el mensaje de error y devuelve explicación amigable
+  const explainPythonError = (errorMsg) => {
+    const msg = errorMsg.toLowerCase();
+
+    // Buscar la línea correcta en File "<exec>"
+    const execLineMatch = errorMsg.match(/File "<exec>", line (\d+)/i);
+    const line = execLineMatch ? execLineMatch[1] : '?';
+
+    if (msg.includes('syntaxerror')) {
+      if (msg.includes('unexpected eof while parsing')) {
+        return `Error de sintaxis: falta cerrar alguna estructura (paréntesis, comillas, corchetes) cerca de la línea ${line}.`;
+      }
+      if (msg.includes('unexpected indent')) {
+        return `Error de sintaxis: indentación inesperada en la línea ${line}. Revisa la sangría.`;
+      }
+      if (msg.includes('invalid syntax')) {
+        return `Error de sintaxis en la línea ${line}. Verifica la estructura y símbolos del código.`;
+      }
+      return `Error de sintaxis en la línea ${line}.`;
+    }
+
+    if (msg.includes('nameerror')) {
+      const nameMatch = errorMsg.match(/name ['"](.+?)['"]/i);
+      const name = nameMatch ? nameMatch[1] : 'variable desconocida';
+      return `Error: nombre no definido '${name}'. Asegúrate de que esté declarado antes de usarlo.`;
+    }
+
+    if (msg.includes('indentationerror')) {
+      return `Error de indentación en la línea ${line}. Revisa que uses espacios o tabuladores de forma consistente.`;
+    }
+
+    if (msg.includes('typeerror')) {
+      return `Error de tipo: verifica las operaciones y tipos de datos en tu código.`;
+    }
+
+    if (msg.includes('valueerror')) {
+      return `Error de valor: alguno de los valores no es válido o está fuera de rango.`;
+    }
+
+    if (msg.includes('indexerror')) {
+      return `Error de índice: intentaste acceder a una posición que no existe en una lista o cadena.`;
+    }
+
+    if (msg.includes('keyerror')) {
+      return `Error de clave: la clave indicada no existe en el diccionario.`;
+    }
+
+    if (msg.includes('importerror')) {
+      return `Error de importación: un módulo o paquete requerido no pudo ser cargado.`;
+    }
+
+    // Mensaje por defecto si no se reconoce el error
+    return `Error inesperado: ${errorMsg}`;
+  };
+
+  // Función para limpiar la salida eliminando líneas internas de Pyodide
+  const cleanOutput = (rawOutput) => {
+    if (!rawOutput) return '';
+
+    const lines = rawOutput.split('\n');
+    const filteredLines = [];
+    let showNextLine = false;
+
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+
+      // Mostrar líneas con el código del usuario (File "<exec>")
+      if (/File "<exec>", line \d+/.test(line)) {
+        filteredLines.push(line);
+        showNextLine = true; // para mostrar la línea siguiente (normalmente la línea de error)
+        continue;
+      }
+
+      // Mostrar la línea siguiente a File "<exec>" (usualmente es la línea de código o mensaje)
+      if (showNextLine) {
+        filteredLines.push(line);
+        showNextLine = false;
+        continue;
+      }
+
+      // Mostrar líneas que indican el error (última línea con descripción)
+      if (/^(IndentationError|SyntaxError|NameError|TypeError|ValueError|IndexError|KeyError|ImportError|.*Error):/.test(line.trim())) {
+        filteredLines.push(line);
+        continue;
+      }
+
+      // Omitir líneas internas de Pyodide (e.g. /lib/python311.zip/_pyodide/_base.py, etc)
+      // No hacemos nada con esas líneas (las saltamos)
+    }
+
+    return filteredLines.join('\n');
+  };
+
   const onExecute = async () => {
     setIsExecuting(true);
     try {
@@ -59,7 +150,6 @@ const PythonEditor = ({ title = true, testCases = [], timeLimit = 120 }) => {
     }
   };
 
-  // Feedback visual (carga, éxito, error)
   const renderFeedback = () => {
     if (isExecuting) {
       return (
@@ -71,15 +161,17 @@ const PythonEditor = ({ title = true, testCases = [], timeLimit = 120 }) => {
     }
     if (output) {
       const isError = output.toLowerCase().includes('error');
+      if (isError) {
+        const friendlyMsg = explainPythonError(output);
+        return (
+          <div className="my-4 font-semibold px-4 py-2 rounded-lg border-l-4 text-red-300 bg-red-800/30 border-red-500">
+            ❌ {friendlyMsg}
+          </div>
+        );
+      }
       return (
-        <div
-          className={`my-4 font-semibold px-4 py-2 rounded-lg border-l-4 ${
-            isError
-              ? 'text-red-300 bg-red-800/30 border-red-500'
-              : 'text-green-300 bg-green-800/30 border-green-500'
-          }`}
-        >
-          {isError ? '❌ Error detectado' : '✔️ Ejecución exitosa'}
+        <div className="my-4 font-semibold px-4 py-2 rounded-lg border-l-4 text-green-300 bg-green-800/30 border-green-500">
+          ✔️ Ejecución exitosa
         </div>
       );
     }
@@ -160,15 +252,13 @@ const PythonEditor = ({ title = true, testCases = [], timeLimit = 120 }) => {
       </div>
 
       {/* Salida */}
-      <div className="p-6 rounded-2xl shadow-md border max-w-full
+      <div
+        className="p-6 rounded-2xl shadow-md border max-w-full
         bg-gray-100 border-gray-300 text-gray-900
         dark:bg-gray-900 dark:border-gray-700 dark:text-gray-100"
       >
         <h2 className="flex items-center gap-2 text-label-lg mb-4">
-          <TerminalSquare
-            size={20}
-            className="text-gray-700 dark:text-gray-300"
-          /> 
+          <TerminalSquare size={20} className="text-gray-700 dark:text-gray-300" />
           Salida
         </h2>
         <pre
@@ -182,7 +272,7 @@ const PythonEditor = ({ title = true, testCases = [], timeLimit = 120 }) => {
           `}
           style={{ whiteSpace: 'pre-wrap' }}
         >
-          {output}
+          {cleanOutput(output)}
         </pre>
       </div>
     </div>
