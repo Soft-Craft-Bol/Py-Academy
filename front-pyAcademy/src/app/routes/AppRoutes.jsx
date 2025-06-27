@@ -68,7 +68,7 @@ export function AppRoutes() {
           </Route>
         </Route>
 
-        {/* <Route element={<PrivateRoute />}> */}
+        <Route element={<PrivateRoute />}> 
         <Route path="/student" element={<StudentLayout />}>
           <Route path="learning-units" element={<LearningUnitsManager />} />
           <Route index element={<CoursesPage />} />
@@ -79,7 +79,7 @@ export function AppRoutes() {
           <Route path="certificates" element={<Certificates />} />
           <Route path="curso/:id" element={<CourseStudent />} />
         </Route>
-        {/* </Route> */}
+        </Route> 
       </Routes>
     </Suspense>
   );
