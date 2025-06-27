@@ -4,13 +4,7 @@ import React, { useEffect, useState } from 'react';
 
 // Components
 import Button from '../../shared/ui/atoms/Button';
-import {
-  LoaderCircle,
-  TimerReset,
-  TerminalSquare,
-  AlignLeft,
-  Code2,
-} from 'lucide-react';
+import { LoaderCircle, TimerReset, TerminalSquare, AlignLeft, Code2 } from 'lucide-react';
 
 // Hooks
 import { usePyodide } from '@/features/code/hooks/usePyodide';
@@ -18,16 +12,9 @@ import { useExecuteCode } from '@/features/code/hooks/useExecuteCode';
 import { useExecuteTestCases } from '@/features/code/hooks/useExecuteTestCases';
 
 const PythonEditor = ({ title = true, testCases = [], timeLimit = 120 }) => {
-  const { pyodide, isLoading } = usePyodide();
-  const {
-    code,
-    setCode,
-    output,
-    setOutput,
-    input,
-    setInput,
-    handleExecuteCode,
-  } = useExecuteCode(pyodide);
+  const { pyodide, error, isLoading } = usePyodide();
+  const { code, setCode, output, setOutput, input, setInput, handleExecuteCode, InfoOutput } =
+    useExecuteCode();
   const { handleExecuteTestCases } = useExecuteTestCases(pyodide, setOutput, testCases, code);
 
   const [timeLeft, setTimeLeft] = useState(timeLimit);
@@ -125,7 +112,11 @@ const PythonEditor = ({ title = true, testCases = [], timeLimit = 120 }) => {
       }
 
       // Mostrar líneas que indican el error (última línea con descripción)
-      if (/^(IndentationError|SyntaxError|NameError|TypeError|ValueError|IndexError|KeyError|ImportError|.*Error):/.test(line.trim())) {
+      if (
+        /^(IndentationError|SyntaxError|NameError|TypeError|ValueError|IndexError|KeyError|ImportError|.*Error):/.test(
+          line.trim()
+        )
+      ) {
         filteredLines.push(line);
         continue;
       }
@@ -139,6 +130,7 @@ const PythonEditor = ({ title = true, testCases = [], timeLimit = 120 }) => {
 
   const onExecute = async () => {
     setIsExecuting(true);
+    console.log('Hola mundo');
     try {
       if (testCases.length === 0) {
         await handleExecuteCode();
@@ -179,7 +171,7 @@ const PythonEditor = ({ title = true, testCases = [], timeLimit = 120 }) => {
   };
 
   return (
-    <div className="mt-6 mx-auto px-4 w-full max-w-7xl space-y-10">
+    <div className=" mx-auto px-4 w-full max-w-7xl space-y-10">
       {title && (
         <h1 className="p-2 text-center font-bold text-3xl text-transparent bg-gradient-to-r from-yellow-400 to-pink-500 bg-clip-text">
           Editor de código Python
@@ -189,8 +181,7 @@ const PythonEditor = ({ title = true, testCases = [], timeLimit = 120 }) => {
       {/* Temporizador */}
       <div className="flex items-center gap-2 text-white text-lg font-medium">
         <TimerReset className="text-yellow-400" size={20} />
-        Tiempo restante:{' '}
-        <span className="text-yellow-300">{timeLeft}s</span>
+        Tiempo restante: <span className="text-yellow-300">{timeLeft}s</span>
       </div>
 
       {/* Editor */}
@@ -272,7 +263,7 @@ const PythonEditor = ({ title = true, testCases = [], timeLimit = 120 }) => {
           `}
           style={{ whiteSpace: 'pre-wrap' }}
         >
-          {cleanOutput(output)}
+          {output}
         </pre>
       </div>
     </div>
