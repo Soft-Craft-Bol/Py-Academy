@@ -6,6 +6,7 @@ import Button from "@/shared/ui/atoms/Button";
 import Input from "@/shared/ui/atoms/Input";
 import Select from "@/shared/ui/atoms/Select";
 import { Trash2 } from "lucide-react";
+import axios from "axios";
 
 const QUESTION_TYPES = [
     { label: "Opción Múltiple", value: "multiple-choice" },
@@ -41,11 +42,17 @@ export default function AssessmentEditorPage() {
     const handleSave = async () => {
         const payload = { title, description, questions };
         try {
-        console.log("Guardando evaluación:", payload);
-        alert("Evaluación guardada correctamente");
+            // Enviamos los datos a JSON Server usando Axios
+            const response = await axios.post('http://localhost:3000/evaluations', payload);
+
+            if (response.status === 201) {
+                alert("Evaluación guardada correctamente");
+            } else {
+                alert("Error al guardar evaluación");
+            }
         } catch (error) {
-        console.error("Error al guardar evaluación:", error);
-        alert("Error al guardar evaluación");
+            console.error("Error al guardar evaluación:", error);
+            alert("Error al guardar evaluación");
         }
     };
 
