@@ -13,8 +13,8 @@ import { useExecuteTestCases } from '@/features/code/hooks/useExecuteTestCases';
 
 const PythonEditor = ({ title = true, testCases = [] }) => {
   const { pyodide, error, isLoading } = usePyodide();
-  const { code, setCode, output, setOutput, input, setInput, handleExecuteCode } =
-    useExecuteCode(pyodide);
+  const { code, setCode, output, setOutput, input, setInput, handleExecuteCode, InfoOutput } =
+    useExecuteCode();
   const { handleExecuteTestCases } = useExecuteTestCases(pyodide, setOutput, testCases, code);
 
   return (
