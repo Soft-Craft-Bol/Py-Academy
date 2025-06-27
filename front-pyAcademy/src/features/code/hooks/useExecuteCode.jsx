@@ -14,7 +14,7 @@ export const useExecuteCode = () => {
         code: code,
         inputs: input,
       });
-      console.log(res);
+      console.log('La respuesta es', res);
 
       setInfoOutput(res.data);
       setOutput(res.data.success ? res.data.output : res.data.error);
