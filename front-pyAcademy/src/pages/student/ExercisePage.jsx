@@ -27,15 +27,17 @@ function ExercisePage() {
       {testCases && testCases.length > 0 && (
         <div className="mt-5 space-y-5">
           {testCases.slice(0, 2).map((tc, idx) => (
-            <div
-              key={idx}
-              className="p-4 rounded-lg bg-primary-pri4 border border-primary-pri3"
-            >
+            <div key={idx} className="p-4 rounded-lg bg-primary-pri4 border border-primary-pri3">
               <p className="font-medium text-blue-600 dark:text-blue-400">
-                Entrada: <code className="bg-gray-200 dark:bg-gray-700 rounded px-1 py-0.5">{tc.inputData}</code>
+                Entrada:{' '}
+                <code className="bg-gray-200 dark:bg-gray-700 rounded px-1 py-0.5">
+                  {tc.inputData}
+                </code>
               </p>
               <p className="text-green-600 dark:text-green-400 font-medium mt-1">Salida:</p>
-              <pre className="whitespace-pre-wrap text-gray-900 dark:text-gray-100">{tc.expectedOutput}</pre>
+              <pre className="whitespace-pre-wrap text-gray-900 dark:text-gray-100">
+                {tc.expectedOutput}
+              </pre>
             </div>
           ))}
           {testCases.length > 2 && (
@@ -49,28 +51,20 @@ function ExercisePage() {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-tr from-primary-pri2 to-primary-pri4 text-gray-900 dark:text-gray-100">
+    <div className="-m-8 min-h-screen bg-gradient-to-tr from-primary-pri2 to-primary-pri4 text-gray-900 dark:text-gray-100">
       {/* Header */}
-      <header className="flex flex-wrap items-center justify-between border-b border-primary-pri3 py-5 px-6 sticky top-0 bg-primary-pri4 z-20">
-        <NavLink
-          to="/student/exercises"
-          className="flex items-center gap-2 text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition font-semibold"
-        >
-          <IoIosArrowRoundBack size={24} />
-          Volver a Ejercicios
-        </NavLink>
-
-        <div className="flex items-center gap-5 mt-3 sm:mt-0">
-          <h1
-            className="text-2xl font-bold truncate max-w-xs"
-            title={data.title}
+      <header className="flex justify-between items-center dark:bg-primary-pri4 py-5 px-4 border-t">
+        <div className="flex gap-7">
+          <NavLink
+            to={'/student/exercises'}
+            className={'flex gap-3 items-center hover:text-blue-400'}
           >
-            {data.title || 'Ejercicio'}
-          </h1>
-          <span className="bg-green-600 text-white rounded-md px-4 py-1 font-semibold select-none">
-            {data.difficultyLevel || 'N/A'}
-          </span>
+            {<IoIosArrowRoundBack className="text-title-lg" />}Volver a Ejercicios
+          </NavLink>
+          <p>|</p>
+          <h1 className="text-title-md font-semibold">{data.title}</h1>
         </div>
+        <p className="bg-green-500 p-1 rounded-md h-[90%]">{data.difficultyLevel}</p>
       </header>
 
       {/* Contenedor principal con ancho máximo y padding */}

@@ -4,7 +4,7 @@ import { FaStar, FaCheckCircle, FaRegCircle } from 'react-icons/fa';
 export function ExerciseAchievements({ achievements = [] }) {
   if (!achievements.length) return null;
   return (
-    <div className="px-6 py-4 bg-white dark:bg-primary-pri4 shadow-lg border border-blue-100 dark:border-primary-pri2">
+    <div className="px-6 py-4 mb-5 bg-white dark:bg-primary-pri4 shadow-lg border border-blue-100 dark:border-primary-pri2">
       <div className="flex items-center gap-2 mb-3">
         <FaStar className="text-yellow-400 text-xl" />
         <span className="text-base font-bold text-blue-700 dark:text-blue-200 tracking-wide uppercase">
