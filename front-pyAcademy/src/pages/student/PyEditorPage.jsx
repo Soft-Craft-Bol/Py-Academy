@@ -11,7 +11,7 @@ import { usePyodide } from '@/features/code/hooks/usePyodide';
 import { useExecuteCode } from '@/features/code/hooks/useExecuteCode';
 import { useExecuteTestCases } from '@/features/code/hooks/useExecuteTestCases';
 
-const PythonEditor = ({ title = true, testCases = [], timeLimit = 120 }) => {
+const PythonEditor = ({ title = true, testCases = [], timeLimit }) => {
   const { pyodide, error, isLoading } = usePyodide();
   const { code, setCode, output, setOutput, input, setInput, handleExecuteCode, InfoOutput } =
     useExecuteCode();
@@ -31,11 +31,8 @@ const PythonEditor = ({ title = true, testCases = [], timeLimit = 120 }) => {
     return () => clearInterval(interval);
   }, [timerStarted, timeLeft]);
 
-  // Función que interpreta el mensaje de error y devuelve explicación amigable
   const explainPythonError = (errorMsg) => {
     const msg = errorMsg.toLowerCase();
-
-    // Buscar la línea correcta en File "<exec>"
     const execLineMatch = errorMsg.match(/File "<exec>", line (\d+)/i);
     const line = execLineMatch ? execLineMatch[1] : '?';
 
@@ -82,11 +79,9 @@ const PythonEditor = ({ title = true, testCases = [], timeLimit = 120 }) => {
       return `Error de importación: un módulo o paquete requerido no pudo ser cargado.`;
     }
 
-    // Mensaje por defecto si no se reconoce el error
     return `Error inesperado: ${errorMsg}`;
   };
 
-  // Función para limpiar la salida eliminando líneas internas de Pyodide
   const cleanOutput = (rawOutput) => {
     if (!rawOutput) return '';
 
@@ -97,21 +92,18 @@ const PythonEditor = ({ title = true, testCases = [], timeLimit = 120 }) => {
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i];
 
-      // Mostrar líneas con el código del usuario (File "<exec>")
       if (/File "<exec>", line \d+/.test(line)) {
         filteredLines.push(line);
         showNextLine = true; // para mostrar la línea siguiente (normalmente la línea de error)
         continue;
       }
 
-      // Mostrar la línea siguiente a File "<exec>" (usualmente es la línea de código o mensaje)
       if (showNextLine) {
         filteredLines.push(line);
         showNextLine = false;
         continue;
       }
 
-      // Mostrar líneas que indican el error (última línea con descripción)
       if (
         /^(IndentationError|SyntaxError|NameError|TypeError|ValueError|IndexError|KeyError|ImportError|.*Error):/.test(
           line.trim()
@@ -120,9 +112,6 @@ const PythonEditor = ({ title = true, testCases = [], timeLimit = 120 }) => {
         filteredLines.push(line);
         continue;
       }
-
-      // Omitir líneas internas de Pyodide (e.g. /lib/python311.zip/_pyodide/_base.py, etc)
-      // No hacemos nada con esas líneas (las saltamos)
     }
 
     return filteredLines.join('\n');
@@ -130,7 +119,6 @@ const PythonEditor = ({ title = true, testCases = [], timeLimit = 120 }) => {
 
   const onExecute = async () => {
     setIsExecuting(true);
-    console.log('Hola mundo');
     try {
       if (testCases.length === 0) {
         await handleExecuteCode();
@@ -173,20 +161,21 @@ const PythonEditor = ({ title = true, testCases = [], timeLimit = 120 }) => {
   return (
     <div className=" mx-auto px-4 w-full max-w-7xl space-y-10">
       {title && (
-        <h1 className="p-2 text-center font-bold text-3xl text-transparent bg-gradient-to-r from-yellow-400 to-pink-500 bg-clip-text">
-          Editor de código Python
+        <h1 className="p-1 rounded-lg text-center font-bold text-title-lg dark:text-white mb-5">
+          Editor de codigo Python
         </h1>
       )}
 
       {/* Temporizador */}
-      <div className="flex items-center gap-2 text-white text-lg font-medium">
-        <TimerReset className="text-yellow-400" size={20} />
-        Tiempo restante: <span className="text-yellow-300">{timeLeft}s</span>
-      </div>
+      {timeLimit && (
+        <div className="flex items-center gap-2 text-white text-lg font-medium">
+          <TimerReset className="text-yellow-400" size={20} />
+          Tiempo restante: <span className="text-yellow-300">{timeLeft}s</span>
+        </div>
+      )}
 
-      {/* Editor */}
-      <div className="bg-gradient-to-tr from-primary-pri2 to-primary-pri4 p-6 rounded-2xl shadow-lg shadow-blue-800/30">
-        <h2 className="flex items-center gap-2 text-label-lg text-white mb-3">
+      <div className="bg-primary-pri4 p-6 rounded-2xl shadow-lg shadow-blue-800/30">
+        <h2 className="flex items-center gap-2 text-label-md text-white mb-3">
           <Code2 size={20} /> Código Python
         </h2>
         <div className="overflow-hidden rounded-xl shadow-inner border border-white/10 bg-[#1e1e1e]">
@@ -216,7 +205,7 @@ const PythonEditor = ({ title = true, testCases = [], timeLimit = 120 }) => {
           />
         </div>
 
-        <h2 className="flex items-center gap-2 text-label-lg text-white mt-6 mb-2">
+        <h2 className="flex items-center gap-2 text-label-md text-white mt-6 mb-2">
           <AlignLeft size={20} /> Entradas para <code>input()</code>
         </h2>
         <textarea
@@ -224,36 +213,38 @@ const PythonEditor = ({ title = true, testCases = [], timeLimit = 120 }) => {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Una línea por input()"
-          className="w-full text-white bg-black/30 border border-white/10 rounded-xl p-3 outline-none placeholder:text-white/60"
+          className="w-full text-white bg-[#282c34] border border-white/10 rounded-xl p-3 outline-none placeholder:text-white/60 resize-none"
         />
 
-        {/* Feedback visual */}
         {renderFeedback()}
 
-        {/* Botón de ejecución */}
         <Button
           variant="primary"
           size="large"
           onClick={onExecute}
-          className="bg-gradient-to-r from-green-500 to-emerald-500 text-white px-6 py-2 mt-6 rounded-xl hover:brightness-110 transition"
+          className="bg-primary-pri1 text-white px-6 py-2 mt-6 rounded-xl hover:brightness-110 transition"
           disabled={timeLeft <= 0 || isExecuting || isLoading}
         >
           Ejecutar
         </Button>
       </div>
 
-      {/* Salida */}
       <div
-        className="p-6 rounded-2xl shadow-md border max-w-full
-        bg-gray-100 border-gray-300 text-gray-900
-        dark:bg-gray-900 dark:border-gray-700 dark:text-gray-100"
+        className="p-6 rounded-2xl border max-w-full
+        bg-gray-100 border-gray-300 text-gray-900 shadow-lg shadow-blue-800/30
+        dark:bg-primary-pri4 dark:border-gray-700 dark:text-gray-100"
       >
-        <h2 className="flex items-center gap-2 text-label-lg mb-4">
-          <TerminalSquare size={20} className="text-gray-700 dark:text-gray-300" />
-          Salida
-        </h2>
+        <div className="flex justify-between">
+          <h2 className="flex items-center gap-2 text-label- mb-4">
+            <TerminalSquare size={20} className="text-gray-700 dark:text-gray-300" />
+            Salida
+          </h2>
+          <p className="text-yellow-300">
+            Tiempo de Ejecución: {InfoOutput?.metrics?.executionTimeMs}ms
+          </p>
+        </div>
         <pre
-          className={`p-5 rounded-md overflow-auto max-h-96 whitespace-pre-wrap
+          className={`dark:bg-[#282c34] p-5 rounded-md overflow-auto max-h-96 whitespace-pre-wrap
             font-mono text-base leading-relaxed border
             ${
               output.toLowerCase().includes('error')
