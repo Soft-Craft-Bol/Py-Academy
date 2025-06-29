@@ -22,7 +22,7 @@ const levels = ["Básico", "Intermedio", "Avanzado"];
 
 const validationSchema = Yup.object({
   name: Yup.string().required("El nombre es obligatorio"),
-  description: Yup.string().required("La descripción es obligatoria"),
+  description: Yup.string().required("La descripción es obligatoria").max(250, "La descripción no puede exceder los 250 caracteres"),
   durationInHours: Yup.number().min(1, "Mínimo 1 hora").required("La duración es obligatoria"),
   level: Yup.string().required("El nivel es obligatorio"),
   price: Yup.number().min(0.01, "El precio debe ser mayor a 0").required("El precio es obligatorio"),
