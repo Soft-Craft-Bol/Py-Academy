@@ -45,8 +45,10 @@ public class CourseController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<Map<String,Object>> getAllCourses() {
-        Map<String, Object> response = courseService.getAllCourses();
+    public ResponseEntity<Map<String, Object>> getAllCourses(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        Map<String, Object> response = courseService.getAllCourses(page, size);
         return ResponseEntity.ok(response);
     }
 }

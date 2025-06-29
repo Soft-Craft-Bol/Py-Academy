@@ -8,6 +8,9 @@ import com.pyAcademy.pyAcademy.features.course.domain.models.CourseEntity;
 import com.pyAcademy.pyAcademy.features.course.domain.models.CourseTeacherEntity;
 import com.pyAcademy.pyAcademy.features.education.domain.models.TeacherEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -83,15 +86,19 @@ public class CourseService {
         }
     }
 
-    public Map<String, Object> getAllCourses() {
+    public Map<String, Object> getAllCourses(int page, int size) {
         Map<String, Object> response = new HashMap<>();
         try {
-            List<CourseEntity> courses = courseRepository.findAll();
-            List<CourseWithTeacherDetailsDTO> coursesWithTeachers = courses.stream().map(course -> {
+            // Obtener la página de cursos
+            Pageable pageable = PageRequest.of(page, size);
+            Page<CourseEntity> coursePage = courseRepository.findAll(pageable);
+
+            List<CourseWithTeacherDetailsDTO> coursesWithTeachers = coursePage.getContent().stream().map(course -> {
                 Optional<CourseTeacherEntity> courseTeacher = courseTeacherService.getCourseTeacherRepository()
                         .stream()
                         .filter(ct -> ct.getCourse().getId().equals(course.getId()))
                         .findFirst();
+
                 CourseDetailsDTO courseDetails = new CourseDetailsDTO(
                         course.getName(),
                         course.getDescription(),
@@ -104,6 +111,7 @@ public class CourseService {
                         course.isActive(),
                         course.getImageUrl()
                 );
+
                 TeacherDetailsDTO teacherDetails = courseTeacher.map(ct -> new TeacherDetailsDTO(
                         ct.getTeacher().getFirstName(),
                         ct.getTeacher().getLastName(),
@@ -111,10 +119,17 @@ public class CourseService {
                         ct.getTeacher().getTelefono(),
                         ct.getTeacher().getPhoto()
                 )).orElse(null);
+
                 return new CourseWithTeacherDetailsDTO(courseDetails, teacherDetails);
             }).toList();
 
+            // Agregar metadatos de paginación a la respuesta
             response.put("cursosConProfesor", coursesWithTeachers);
+            response.put("currentPage", coursePage.getNumber());
+            response.put("totalItems", coursePage.getTotalElements());
+            response.put("totalPages", coursePage.getTotalPages());
+            response.put("hasNext", coursePage.hasNext());
+
         } catch (Exception e) {
             throw new RuntimeException("Error al obtener los cursos", e);
         }
