@@ -45,12 +45,12 @@ export function AuthProvider({ children }) {
     const res = await loginUser(credentials);
     console.log('Login response:', res.data);
 
-    const { jwt: token, username, photo } = res.data;
+    const { jwt: token, username, photo, id } = res.data;
 
     const decoded = jwtDecode(token);
     const role = decoded.authorities?.replace('ROLE_', ''); // MAESTRO o ESTUDIANTE
 
-    const userData = { username, photo, role };
+    const userData = { username, photo, role, id };
 
     saveToken(token);
     saveUser(userData);
