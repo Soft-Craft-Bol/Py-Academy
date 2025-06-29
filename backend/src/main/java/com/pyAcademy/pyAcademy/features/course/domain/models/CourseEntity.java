@@ -44,6 +44,9 @@ public class CourseEntity {
     @Column(nullable = false)
     private Double price;
 
+    @Column(name = "image_url")
+    private String imageUrl;
+
 //    @NotBlank(message = "El instructor es obligatorio")
 //    @Column(nullable = false)
 //    private String instructor;

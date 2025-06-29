@@ -9,7 +9,9 @@ import com.pyAcademy.pyAcademy.features.course.domain.models.CourseTeacherEntity
 import com.pyAcademy.pyAcademy.features.education.domain.models.TeacherEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
@@ -21,22 +23,27 @@ public class CourseService {
 
     private final CourseRepository courseRepository;
     private final CourseTeacherService courseTeacherService;
+    private final CourseCloudinaryService courseCloudinaryService;
 
     @Autowired
     private CourseService(
             CourseRepository courseRepository,
-            CourseTeacherService courseTeacherService
+            CourseTeacherService courseTeacherService, CourseCloudinaryService courseCloudinaryService
     ){
         this.courseRepository = courseRepository;
         this.courseTeacherService = courseTeacherService;
+        this.courseCloudinaryService = courseCloudinaryService;
     }
 
-    public CourseEntity createCourse(CourseEntity course, Long teacherId) {
+    public CourseEntity createCourse(CourseEntity course, Long teacherId, MultipartFile imageFile) throws IOException {
+        String imageUrl = courseCloudinaryService.uploadCourseImage(imageFile);
+        course.setImageUrl(imageUrl);
         Optional<TeacherEntity> teacherOptional = courseTeacherService.getTeacherById(teacherId);
         if (teacherOptional.isEmpty()) {
             throw new RuntimeException("El maestro con ID " + teacherId + " no existe");
         }
         CourseEntity savedCourse = courseRepository.save(course);
+
         CourseTeacherEntity courseTeacher = new CourseTeacherEntity();
         courseTeacher.setCourse(savedCourse);
         courseTeacher.setTeacher(teacherOptional.get());
@@ -46,9 +53,22 @@ public class CourseService {
         return savedCourse;
     }
 
-    public CourseEntity updateCourse(Long id, CourseEntity course) {
+    public CourseEntity updateCourse(Long id, CourseEntity course, MultipartFile imageFile) throws IOException {
         Optional<CourseEntity> existingCourse = courseRepository.findById(id);
         if (existingCourse.isPresent()) {
+            // Si se proporciona una nueva imagen, subirla y actualizar la URL
+            if (imageFile != null && !imageFile.isEmpty()) {
+                // Eliminar la imagen anterior si existe
+                if (existingCourse.get().getImageUrl() != null) {
+                    courseCloudinaryService.deleteCourseImage(existingCourse.get().getImageUrl());
+                }
+                String newImageUrl = courseCloudinaryService.uploadCourseImage(imageFile);
+                course.setImageUrl(newImageUrl);
+            } else {
+                // Mantener la imagen existente si no se proporciona una nueva
+                course.setImageUrl(existingCourse.get().getImageUrl());
+            }
+
             course.setId(id);
             return courseRepository.save(course);
         }
@@ -62,6 +82,7 @@ public class CourseService {
             throw new RuntimeException("Curso no encontrado");
         }
     }
+
     public Map<String, Object> getAllCourses() {
         Map<String, Object> response = new HashMap<>();
         try {
@@ -80,7 +101,8 @@ public class CourseService {
                         course.getStartDate(),
                         course.getEndDate(),
                         course.getMaxStudents(),
-                        course.isActive()
+                        course.isActive(),
+                        course.getImageUrl()
                 );
                 TeacherDetailsDTO teacherDetails = courseTeacher.map(ct -> new TeacherDetailsDTO(
                         ct.getTeacher().getFirstName(),

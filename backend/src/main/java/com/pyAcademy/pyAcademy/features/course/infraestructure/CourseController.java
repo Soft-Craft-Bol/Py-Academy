@@ -2,11 +2,12 @@ package com.pyAcademy.pyAcademy.features.course.infraestructure;
 
 import com.pyAcademy.pyAcademy.features.course.application.CourseService;
 import com.pyAcademy.pyAcademy.features.course.domain.models.CourseEntity;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Map;
 
 @RestController
@@ -18,15 +19,22 @@ public class CourseController {
 
     @PostMapping
     public ResponseEntity<CourseEntity> createCourse(
-            @Valid @RequestBody CourseEntity course,
-            @RequestParam Long teacherId) {
-        CourseEntity createdCourse = courseService.createCourse(course, teacherId);
+            @RequestPart("course") CourseEntity course,
+            @RequestParam("teacherId") Long teacherId,
+            @RequestPart(value = "image", required = false) MultipartFile imageFile) throws IOException {
+
+        CourseEntity createdCourse;
+            createdCourse = courseService.createCourse(course, teacherId, imageFile);
         return ResponseEntity.ok(createdCourse);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CourseEntity> updateCourse(@PathVariable Long id, @RequestBody CourseEntity course) {
-        CourseEntity updatedCourse = courseService.updateCourse(id, course);
+    public ResponseEntity<CourseEntity> updateCourse(
+            @PathVariable Long id,
+            @RequestPart("course") CourseEntity course,
+            @RequestPart(value = "image", required = false) MultipartFile imageFile) throws IOException {
+
+        CourseEntity updatedCourse = courseService.updateCourse(id, course, imageFile);
         return ResponseEntity.ok(updatedCourse);
     }
 
