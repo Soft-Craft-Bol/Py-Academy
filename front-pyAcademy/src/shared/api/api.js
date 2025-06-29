@@ -41,3 +41,7 @@ export const saludo = (nombre = 'Usuario') =>
 export const executeCode = (data) => api.post('/execute', data);
 
 export const createExercises = (data) => api.post('/exercises', data);
+
+
+//course
+export const inscribirseCurso = (data) => api.post('/courses/enrollments', data);
