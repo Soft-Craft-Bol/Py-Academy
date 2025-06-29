@@ -40,6 +40,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-oauth2-authorization-server</artifactId>
 		</dependency>
+		<!-- Spring Boot Actuator -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-websocket</artifactId>
+		</dependency>
 
 		<!-- Bean Validation -->
 		<dependency>
@@ -113,6 +118,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>pyAcademic</finalName>
 		<plugins>
 			<!-- Maven Compiler Plugin -->
 			<plugin>
