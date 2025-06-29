@@ -22,7 +22,7 @@ const levels = ["Básico", "Intermedio", "Avanzado"];
 
 const validationSchema = Yup.object({
   name: Yup.string().required("El nombre es obligatorio"),
-  description: Yup.string().required("La descripción es obligatoria").max(250, "La descripción no puede exceder los 250 caracteres"),
+  description: Yup.string().required("La descripción es obligatoria"),
   durationInHours: Yup.number().min(1, "Mínimo 1 hora").required("La duración es obligatoria"),
   level: Yup.string().required("El nivel es obligatorio"),
   price: Yup.number().min(0.01, "El precio debe ser mayor a 0").required("El precio es obligatorio"),
@@ -184,7 +184,7 @@ const CourseManangement = () => {
               </div>
             </div>
 
-            <div className="flex flex-col gap-2 md:col-span-2">
+              <div className="flex flex-col gap-2 md:col-span-2">
               <label className="font-semibold text-[var(--color-text)] dark:text-white">
                 Imagen del Curso <span className="text-[var(--color-danger)]">*</span>
               </label>
