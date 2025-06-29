@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import { useCreateCourse } from "../hooks/useCreateCourse";
 
 const initialState = {
   name: "",
@@ -32,11 +33,23 @@ const validationSchema = Yup.object({
   ).required("La fecha de fin es obligatoria"),
   maxStudents: Yup.number().min(1, "Debe haber al menos 1 estudiante").required("El número máximo de estudiantes es obligatorio"),
   isActive: Yup.boolean(),
-  image: Yup.mixed().nullable(),
+   image: Yup.mixed()
+      .required("La imagen del curso es obligatoria")
+      .test(
+        "fileType",
+        "Solo se permiten imágenes (JPEG, PNG, JPG)",
+        (value) => value && ["image/jpeg", "image/png", "image/jpg"].includes(value.type)
+      )
+      .test(
+        "fileSize",
+        "La imagen es demasiado grande (máx. 5MB)",
+        (value) => value && value.size <= 5 * 1024 * 1024
+      ),
 });
 
 const CourseManangement = () => {
   const [imagePreview, setImagePreview] = useState(null);
+  const { mutate: createCourse, isPending } = useCreateCourse();
   const navigate = useNavigate();
 
   return (
@@ -52,12 +65,23 @@ const CourseManangement = () => {
         initialValues={initialState}
         validationSchema={validationSchema}
         onSubmit={(values, { resetForm }) => {
-          toast.success("Curso creado correctamente");
+          createCourse({
+            courseData: {
+              name: values.name,
+              description: values.description,
+              durationInHours: values.durationInHours,
+              level: values.level,
+              price: values.price,
+              startDate: values.startDate,
+              endDate: values.endDate,
+              maxStudents: values.maxStudents,
+              isActive: values.isActive,
+            },
+            teacherId: 1, // Cambia esto por el ID real del profesor
+            imageFile: values.image
+          });
           resetForm();
           setImagePreview(null);
-          setTimeout(() => {
-            navigate("/student/learning-units");
-          }, 800);
         }}
       >
         {({ setFieldValue, values }) => (
@@ -159,34 +183,48 @@ const CourseManangement = () => {
                 <span className="text-[var(--color-text-light)] dark:text-primary-pri1">Curso Activo</span>
               </div>
             </div>
+
             <div className="flex flex-col gap-2 md:col-span-2">
-              <label className="font-semibold text-[var(--color-text)] dark:text-white">Imagen del Curso</label>
+              <label className="font-semibold text-[var(--color-text)] dark:text-white">
+                Imagen del Curso <span className="text-[var(--color-danger)]">*</span>
+              </label>
               <div className="flex items-center gap-6">
                 <input
                   type="file"
                   name="image"
-                  accept="image/*"
-                  onChange={e => {
-                    setFieldValue("image", e.target.files[0]);
-                    if (e.target.files[0]) {
-                      setImagePreview(URL.createObjectURL(e.target.files[0]));
+                  accept="image/jpeg, image/png, image/jpg"
+                  onChange={(e) => {
+                    const file = e.target.files[0];
+                    setFieldValue("image", file);
+                    if (file) {
+                      setImagePreview(URL.createObjectURL(file));
                     } else {
                       setImagePreview(null);
                     }
                   }}
                   className="w-full"
+                  required
                 />
                 {imagePreview && (
-                  <img src={imagePreview} alt="Preview" className="h-16 w-16 rounded-lg object-cover border border-[var(--color-border)] dark:border-primary-pri3 shadow" />
+                  <img
+                    src={imagePreview}
+                    alt="Preview"
+                    className="h-16 w-16 rounded-lg object-cover border border-[var(--color-border)] dark:border-primary-pri3 shadow"
+                  />
                 )}
               </div>
+              <ErrorMessage name="image" component="div" className="text-[var(--color-danger)] text-xs" />
             </div>
+
             <div className="md:col-span-2 flex justify-end mt-4">
               <button
                 type="submit"
-                className="bg-[var(--color-primary)] dark:bg-primary-pri2 hover:bg-[var(--color-primary-dark)] dark:hover:bg-primary-pri1 text-white px-10 py-3 rounded-lg font-bold shadow transition-all duration-200 text-lg"
+                disabled={isPending}
+                className={`bg-[var(--color-primary)] dark:bg-primary-pri2 hover:bg-[var(--color-primary-dark)] dark:hover:bg-primary-pri1 text-white px-10 py-3 rounded-lg font-bold shadow transition-all duration-200 text-lg ${
+                  isPending ? 'opacity-50 cursor-not-allowed' : ''
+                }`}
               >
-                Crear Curso
+                {isPending ? 'Creando...' : 'Crear Curso'}
               </button>
             </div>
           </Form>

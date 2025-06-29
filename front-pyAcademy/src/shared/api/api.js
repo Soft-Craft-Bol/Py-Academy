@@ -45,3 +45,22 @@ export const createExercises = (data) => api.post('/exercises', data);
 
 //course
 export const inscribirseCurso = (data) => api.post('/courses/enrollments', data);
+
+//create course
+//http://localhost:8888/api/v1/courses?teacherId=1
+export const createCourse = (formData) => {return api.post('/courses', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+};
+//con paginacion
+
+export const getAllCourses = (page = 0, size = 10) => {
+  return api.get('/courses/all', {
+    params: {
+      page: page,
+      size: size,
+    },
+  });
+}
