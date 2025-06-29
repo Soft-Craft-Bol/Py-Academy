@@ -184,7 +184,7 @@ const CourseManangement = () => {
               </div>
             </div>
 
-            <div className="flex flex-col gap-2 md:col-span-2">
+              <div className="flex flex-col gap-2 md:col-span-2">
               <label className="font-semibold text-[var(--color-text)] dark:text-white">
                 Imagen del Curso <span className="text-[var(--color-danger)]">*</span>
               </label>
