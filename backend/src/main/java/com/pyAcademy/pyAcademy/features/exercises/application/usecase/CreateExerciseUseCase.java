@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 public class CreateExerciseUseCase {
 
     private final SaveExercisePort saveExercisePort;
-
+//jaja
     public CreateExerciseUseCase(SaveExercisePort saveExercisePort) {
         this.saveExercisePort = saveExercisePort;
     }
