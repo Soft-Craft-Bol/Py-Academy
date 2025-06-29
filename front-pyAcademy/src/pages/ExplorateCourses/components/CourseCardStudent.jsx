@@ -3,25 +3,43 @@ import { useNavigate } from 'react-router-dom';
 function CourseCardStudent({ course }) {
   const navigate = useNavigate();
 
+  const { course: courseDetails, teacher } = course;
+
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-md overflow-hidden">
-      <img src={course.imageUrl} alt={course.title} className="w-full h-80 object-cover" />
+    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-md overflow-hidden transition-transform duration-300 hover:scale-[1.02]">
+      <img
+        src={courseDetails.imageUrl}
+        alt={courseDetails.name}
+        className="w-full h-80 object-cover"
+      />
 
       <div className="p-4 text-gray-800 dark:text-white">
-        <h3 className="text-lg font-semibold mb-1">{course.title}</h3>
-        <p className="text-sm mb-1">Docente: {course.teacher}</p>
+        <h3 className="text-lg font-semibold mb-1">{courseDetails.name}</h3>
+
+        {/* Mostramos el nombre del profesor */}
         <p className="text-sm mb-1">
-          Inicio: {course.startDate} | Fin: {course.endDate}
+          Docente: {teacher ? `${teacher.firstName} ${teacher.lastName}` : 'No asignado'}
         </p>
-        <p className="text-sm mb-1">Duración: {course.duration}</p>
-        <p className="text-sm mb-1">Nivel: {course.level}</p>
-        <p className="text-sm mb-1">Precio: ${course.price}</p>
+
         <p className="text-sm mb-1">
-          Estudiantes: {course.enrolled}/{course.maxStudents}
+          Inicio: {courseDetails.startDate} | Fin: {courseDetails.endDate}
         </p>
+
+        <p className="text-sm mb-1">
+          Duración: {courseDetails.durationInHours} horas
+        </p>
+
+        <p className="text-sm mb-1">Nivel: {courseDetails.level}</p>
+
+        <p className="text-sm mb-1">Precio: ${courseDetails.price}</p>
+
+        <p className="text-sm mb-1">
+          Estudiantes: 0/{courseDetails.maxStudents} {/* Asumo que enrolled vendrá del backend */}
+        </p>
+
         <button
-          onClick={() => navigate(`/curso/${course.id}`)}
-          className="mt-4 w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg text-sm font-medium"
+          onClick={() => navigate(`/curso/${courseDetails.id}`)} // Usamos courseDetails.id
+          className="mt-4 w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg text-sm font-medium transition-colors"
         >
           Ver más
         </button>
