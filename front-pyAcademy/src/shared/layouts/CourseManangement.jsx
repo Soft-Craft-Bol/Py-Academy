@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { useCreateCourse } from "../hooks/useCreateCourse";
+import { getUser } from "@/features/auth/utils/authCookies";
 
 const initialState = {
   name: "",
@@ -51,6 +52,8 @@ const CourseManangement = () => {
   const [imagePreview, setImagePreview] = useState(null);
   const { mutate: createCourse, isPending } = useCreateCourse();
   const navigate = useNavigate();
+  const currentUser = getUser();
+
 
   return (
     <div className="max-w-3xl mx-auto mt-10 bg-[var(--color-background)] dark:bg-primary-pri4 rounded-2xl shadow-lg border border-[var(--color-border)] dark:border-primary-pri3 p-0 md:p-0 overflow-hidden transition-colors duration-300">
@@ -77,7 +80,7 @@ const CourseManangement = () => {
               maxStudents: values.maxStudents,
               isActive: values.isActive,
             },
-            teacherId: 1, // Cambia esto por el ID real del profesor
+            teacherId: Number(currentUser?.id), // Cambia esto por el ID real del profesor
             imageFile: values.image
           });
           resetForm();
