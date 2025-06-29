@@ -17,8 +17,9 @@ public class CourseDetailsDTO {
     private LocalDate endDate;
     private Integer maxStudents;
     private boolean isActive;
+    private String imageUrl;
 
-    public CourseDetailsDTO(String name, String description, Integer durationInHours, String level, Double price, LocalDate startDate, LocalDate endDate, Integer maxStudents, boolean isActive) {
+    public CourseDetailsDTO(String name, String description, Integer durationInHours, String level, Double price, LocalDate startDate, LocalDate endDate, Integer maxStudents, boolean isActive, String imageUrl) {
         this.name = name;
         this.description = description;
         this.durationInHours = durationInHours;
@@ -28,5 +29,6 @@ public class CourseDetailsDTO {
         this.endDate = endDate;
         this.maxStudents = maxStudents;
         this.isActive = isActive;
+        this.imageUrl = imageUrl;
     }
 }

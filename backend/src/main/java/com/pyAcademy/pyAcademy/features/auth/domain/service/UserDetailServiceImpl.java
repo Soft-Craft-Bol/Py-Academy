@@ -87,7 +87,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
         Authentication authentication = new UsernamePasswordAuthenticationToken(savedUser, null, authorities);
         String token = jwtUtils.createToken(authentication);
 
-        return new AuthResponse(savedUser.getUsername(), "User created successfully", token, true, savedUser.getPhoto());
+        return new AuthResponse(savedUser.getUsername(), savedUser.getId(), "User created successfully", token, true, savedUser.getPhoto());
     }
 
     private void fillUserData(UserEntity entity, AuthCreateUserRequest req, String photoUrl, Set<RoleEntity> roles) {
@@ -151,7 +151,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
         UserEntity user = userRepository.findUserEntityByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("El usuario con email " + email + " no existe."));
 
-        return new AuthResponse(user.getUsername(), "User logged in successfully", jwtUtils.createToken(authentication), true, user.getPhoto());
+        return new AuthResponse(user.getUsername(),  user.getId(),  "User logged in successfully", jwtUtils.createToken(authentication), true, user.getPhoto());
     }
 
     public Authentication authenticate(String email, String password) {

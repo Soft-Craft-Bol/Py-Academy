@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 
+
 @RestController
 @RequestMapping("/auth")
 public class AuthenticationController {
@@ -47,14 +48,14 @@ public class AuthenticationController {
                     : null;
 
             AuthCreateUserRequest userRequest = new AuthCreateUserRequest(
-                    username, password, email, telefono,
+                    username,  password, email, telefono,
                     nombre, apellido, photo, roleRequest,
                     studentData, teacherData
             );
 
             return new ResponseEntity<>(userDetailService.createUser(userRequest), HttpStatus.CREATED);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new AuthResponse(username, "Error: " + e.getMessage(), null, false, null));
+            return ResponseEntity.badRequest().body(new AuthResponse(username, null,"Error: " + e.getMessage(), null, false, null));
         }
     }
 
