@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Plus, X, Eye, EyeOff, ArrowUp, ArrowDown, Image as ImageIcon, Type, Save, BookOpen, FileText, Layers } from 'lucide-react';
 
 const LearningUnitsManager = () => {
