@@ -47,7 +47,7 @@ export const inscribirseCurso = (data) => api.post('/courses/enrollments', data)
 export const getCourseByStudent = (studentId) => api.get(`/courses/enrollments/student/${studentId}`);
 export const getCoursesByTeacher = (teacherId) => api.get(`/courses/enrollments/teacher/${teacherId}`);
 export const getStudentByCourse = (courseId) => api.get(`/courses/enrollments/${courseId}/students`);
-export const getDetallesUser = (userId) => api.get(`/users/${userId}`);
+export const getUserDetails = (userId) => api.get(`/users/${userId}`);
 
 export const createCourse = (formData) => {
   return api.post('/courses', formData, {
