@@ -27,7 +27,7 @@ export const useCreateCourse = () => {
     },
     onSuccess: () => {
       toast.success('Curso creado exitosamente');
-      navigate('/student/learning-units');
+      navigate('/teacher/learning-units');
     },
     onError: (error) => {
       toast.error(`Error al crear curso: ${error.message}`);
