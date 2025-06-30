@@ -10,6 +10,7 @@ public record EnrolledCourseResponse(
         String level,
         Double price,
         LocalDate startDate,
-        LocalDate endDate
+        LocalDate endDate,
+        String image
 ) {
 }

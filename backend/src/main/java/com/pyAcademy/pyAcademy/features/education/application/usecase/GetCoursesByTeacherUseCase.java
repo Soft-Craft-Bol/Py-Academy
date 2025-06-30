@@ -29,7 +29,8 @@ public class GetCoursesByTeacherUseCase {
                         course.getPrice(),
                         course.getStartDate(),
                         course.getEndDate(),
-                        course.isActive()
+                        course.isActive(),
+                        course.getImageUrl()
                 ))
                 .collect(Collectors.toList());
     }

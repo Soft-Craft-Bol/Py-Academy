@@ -51,4 +51,5 @@ public class CourseController {
         Map<String, Object> response = courseService.getAllCourses(page, size);
         return ResponseEntity.ok(response);
     }
+
 }

@@ -30,7 +30,8 @@ public class GetStudentEnrolledCoursesUseCase {
                             course.getLevel(),
                             course.getPrice(),
                             course.getStartDate(),
-                            course.getEndDate()
+                            course.getEndDate(),
+                            course.getImageUrl()
                     );   }
                 )
                 .collect(Collectors.toList());
