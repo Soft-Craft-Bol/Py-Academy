@@ -1,11 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import { executeCode } from '@/shared/api/api';
 
-export const useExecuteCode = (pyodide) => {
-  const [code, setCode] = useState('');
-  const [input, setInput] = useState('');
-  const [output, setOutput] = useState('');
-
+export const useExecuteCode = (code, input, setOutput, setInfoOutput) => {
   const handleExecuteCode = async () => {
+    try {
+      const res = await executeCode({
+        code: code,
+        inputs: input,
+      });
+      setInfoOutput(res.data);
+      setOutput(res.data.success ? res.data.output : res.data.error);
+    } catch (error) {
+      setOutput(`Error: ${error.message}`);
+    }
+  };
+
+  const handleExecuteCodeWithPyodide = async (pyodide) => {
     if (!pyodide) {
       setOutput('Pyodide aún no está listo');
       return;
@@ -29,5 +38,9 @@ export const useExecuteCode = (pyodide) => {
       setOutput(`Error: ${error.message}`);
     }
   };
-  return { code, setCode, output, setOutput, input, setInput, handleExecuteCode };
+
+  return {
+    handleExecuteCodeWithPyodide,
+    handleExecuteCode,
+  };
 };
