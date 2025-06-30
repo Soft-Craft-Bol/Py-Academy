@@ -137,11 +137,6 @@ public class ExercisesController {
         return ResponseEntity.ok(testCases);
     }
     
-    @GetMapping("/{exerciseId}/test-cases/hidden")
-    public ResponseEntity<List<ExercisesDTO.TestCaseDTO>> getHiddenTestCasesByExercise(@PathVariable Long exerciseId) {
-        List<ExercisesDTO.TestCaseDTO> testCases = exercisesService.getHiddenTestCasesByExercise(exerciseId);
-        return ResponseEntity.ok(testCases);
-    }
     
     // === TEACHER FEEDBACKS ENDPOINTS ===
     

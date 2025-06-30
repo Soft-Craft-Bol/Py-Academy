@@ -18,4 +18,5 @@ public class CourseEnrollmentController {
         enrollStudentToCourseUseCase.execute(request);
         return ResponseEntity.ok("Inscripción realizada correctamente");
     }
+
 }

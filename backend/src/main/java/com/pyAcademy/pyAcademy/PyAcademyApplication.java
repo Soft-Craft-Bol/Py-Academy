@@ -9,5 +9,4 @@ public class PyAcademyApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(PyAcademyApplication.class, args);
 	}
-
 }
