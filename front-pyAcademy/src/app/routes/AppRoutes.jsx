@@ -36,7 +36,7 @@ const CourseStudent = lazy(() => import('@/pages/student/CourseStudent'));
 const AssessmentsListPage = lazy(() => import('@/pages/teacher/AssessmentsListPage'));
 const AssessmentEditorPage = lazy(() => import('@/pages/teacher/AssessmentEditorPage'));
 const CreatePracticePage = lazy(() => import('@/pages/teacher/CreatePracticePage'));
-const StudentListPage = lazy(() => import('@/pages/teacher/StudentListPage'));
+const CourseDetailsPage = lazy(() => import('@/pages/teacher/CourseDetailsPage'));
 const TeacherCoursesPage = lazy(() => import('@/pages/teacher/components/TeacherCoursesPage'));
 const EditCoursePage = lazy(() => import('../../shared/layouts/EditCoursePage'));
 
@@ -47,7 +47,6 @@ export function AppRoutes() {
         <Route element={<PublicLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/explorar-cursos" element={<ExplorateCourses />} />
-          <Route path="/Recursos-OER" element={<ResourceManager />} />
           <Route path="/ia-tutor" element={<Home />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
@@ -59,19 +58,19 @@ export function AppRoutes() {
           <Route path="/teacher" element={<TeacherLayout />}>
             <Route index element={<TeacherCoursesPage />} />
             <Route path="assessmentsList" element={<AssessmentsListPage />} />
-            <Route path="studentList/:id" element={<StudentListPage />} />
+            <Route path="course/:id" element={<CourseDetailsPage />} />
             <Route path="newAssessments" element={<AssessmentEditorPage />} />
             <Route path="create-practice" element={<CreatePracticePage />} />
             <Route path="gestionar-cursos" element={<ManageCourses />} />
             <Route path="create-course" element={<CourseManangement />} />
-             <Route path="learning-units" element={<LearningUnitsManager />} />
+            <Route path="learning-units" element={<LearningUnitsManager />} />
             <Route path="gestionar-cursos/edit/:id" element={<EditCoursePage />} />
+            <Route path="manage-resources" element={<ResourceManager />} />
           </Route>
         </Route>
 
         <Route element={<PrivateRoute />}>
           <Route path="/student" element={<StudentLayout />}>
-
             <Route index element={<CoursesPage />} />
             <Route path="editor" element={<PyEditor />} />
             <Route path="chatIA" element={<ChatIA />} />

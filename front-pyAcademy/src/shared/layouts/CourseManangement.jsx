@@ -1,7 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
-import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { useCreateCourse } from "../hooks/useCreateCourse";
 import { getUser } from "@/features/auth/utils/authCookies";
