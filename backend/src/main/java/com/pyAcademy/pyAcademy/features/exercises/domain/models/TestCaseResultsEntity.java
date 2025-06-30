@@ -1,8 +1,16 @@
 package com.pyAcademy.pyAcademy.features.exercises.domain.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "test_case_results")
 public class TestCaseResultsEntity {
 
@@ -30,26 +38,5 @@ public class TestCaseResultsEntity {
     @JoinColumn(name = "submission_id", nullable = false)
     private ExerciseSubmissionsEntity submission;
 
-    public TestCaseResultsEntity() {}
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
-    public String getActualOutput() { return actualOutput; }
-    public void setActualOutput(String actualOutput) { this.actualOutput = actualOutput; }
-
-    public Boolean getIsPassed() { return isPassed; }
-    public void setIsPassed(Boolean isPassed) { this.isPassed = isPassed; }
-
-    public Integer getExecutionTimeMs() { return executionTimeMs; }
-    public void setExecutionTimeMs(Integer executionTimeMs) { this.executionTimeMs = executionTimeMs; }
-
-    public String getErrorMessage() { return errorMessage; }
-    public void setErrorMessage(String errorMessage) { this.errorMessage = errorMessage; }
-
-    public TestCasesEntity getTestCase() { return testCase; }
-    public void setTestCase(TestCasesEntity testCase) { this.testCase = testCase; }
-
-    public ExerciseSubmissionsEntity getSubmission() { return submission; }
-    public void setSubmission(ExerciseSubmissionsEntity submission) { this.submission = submission; }
 }

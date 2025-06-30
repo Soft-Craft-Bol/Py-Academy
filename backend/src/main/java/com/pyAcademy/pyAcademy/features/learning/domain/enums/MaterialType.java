@@ -4,7 +4,6 @@ public enum MaterialType {
     VIDEO("Video", ".mp4"),
     ARTICLE("Article", ".html"),
     QUIZ("Quiz", ".quiz"),
-    EXERCISE("Exercise", ".exe"),
     DOCUMENT("Document", ".docx"),
     PDF("PDF", ".pdf"),
     PRESENTATION("Presentation", ".pptx"),

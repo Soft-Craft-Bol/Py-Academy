@@ -43,6 +43,7 @@ public class LearningUnitsEntity {
     private CourseEntity course;
 
     @OneToMany(mappedBy = "unit", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private Set<LearningMaterialsEntity> materials = new HashSet<>();
 
     @ManyToMany
@@ -51,9 +52,11 @@ public class LearningUnitsEntity {
             joinColumns = @JoinColumn(name = "unit_id"),
             inverseJoinColumns = @JoinColumn(name = "prerequisite_id")
     )
+    @Builder.Default
     private Set<LearningUnitsEntity> prerequisites = new HashSet<>();
 
     @ManyToMany(mappedBy = "prerequisites")
+    @Builder.Default
     private Set<LearningUnitsEntity> dependentUnits = new HashSet<>();
 
     public Long getCourseId() {
