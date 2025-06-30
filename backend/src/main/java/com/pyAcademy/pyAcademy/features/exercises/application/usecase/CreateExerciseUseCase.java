@@ -21,7 +21,7 @@ public class CreateExerciseUseCase {
         entity.setTitle(request.title());
         entity.setDescription(request.description());
         entity.setStarterCode(request.starterCode());
-        entity.setSolutionCode(request.solutionCod());
+        entity.setSolutionCode(request.solutionCode());
         entity.setLanguage(request.language());
         entity.setDifficultyLevel(request.difficultyLevel());
         entity.setSequenceNumber(request.sequenceNumber());

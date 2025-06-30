@@ -4,7 +4,7 @@ public record CreateExerciseRequest(
     String title,
     String description,
     String starterCode,
-    String solutionCod,
+    String solutionCode,
     String language,
     String difficultyLevel,
     Integer sequenceNumber

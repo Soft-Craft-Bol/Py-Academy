@@ -14,6 +14,7 @@ import java.util.Optional;
 public class CourseTeacherService {
     private final CourseTeacherRepository courseTeacherRepository;
     private final TeacherRepository teacherRepository;
+    
     @Autowired
     public CourseTeacherService(
             CourseTeacherRepository courseTeacherRepository,
@@ -30,6 +31,7 @@ public class CourseTeacherService {
             throw new RuntimeException("Error al obtener el repositorio de CourseTeacher", e);
         }
     }
+    
     public Optional<TeacherEntity> getTeacherById(Long teacherId) {
         return teacherRepository.findById(teacherId);
     }
@@ -38,6 +40,30 @@ public class CourseTeacherService {
         courseTeacherRepository.save(courseTeacher);
     }
 
-
-
+    // Nuevos métodos para obtener cursos por profesor
+    public List<CourseTeacherEntity> getCoursesByTeacherId(Long teacherId) {
+        try {
+            // Verificar que el profesor existe
+            if (!teacherRepository.existsById(teacherId)) {
+                throw new RuntimeException("Profesor no encontrado con ID: " + teacherId);
+            }
+            
+            return courseTeacherRepository.findByTeacherId(teacherId);
+        } catch (Exception e) {
+            throw new RuntimeException("Error al obtener cursos del profesor con ID: " + teacherId, e);
+        }
+    }
+    
+    public List<CourseTeacherEntity> getActiveCoursesByTeacherId(Long teacherId) {
+        try {
+            // Verificar que el profesor existe
+            if (!teacherRepository.existsById(teacherId)) {
+                throw new RuntimeException("Profesor no encontrado con ID: " + teacherId);
+            }
+            
+            return courseTeacherRepository.findActiveCoursesByTeacherId(teacherId);
+        } catch (Exception e) {
+            throw new RuntimeException("Error al obtener cursos activos del profesor con ID: " + teacherId, e);
+        }
+    }
 }
