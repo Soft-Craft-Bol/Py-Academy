@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public record EnrolledCourseResponse(
         Long id,
-        String name,
+        String name,//coment
         String description,
         Integer durationInHours,
         String level,
