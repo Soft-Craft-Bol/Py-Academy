@@ -57,6 +57,8 @@ export default function CreatePracticePage() {
       testCases: testCases.map((tc) => ({
         inputData: tc.inputData,
         expectedOutput: tc.expectedOutput,
+        weight: 10,
+        isHidden: 10.0,
       })),
     };
 

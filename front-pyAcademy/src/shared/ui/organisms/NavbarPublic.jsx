@@ -24,10 +24,6 @@ export function NavbarPublic() {
   const options = [
     { title: 'Inicio', to: '/' },
     { title: 'Explorar Cursos', to: '/explorar-cursos' },
-    {
-      title: 'Recursos OER',
-      to: '/recursos-OER',
-    }
   ];
 
   useEffect(() => {
