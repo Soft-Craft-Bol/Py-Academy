@@ -1,52 +1,69 @@
 import { useEffect, useState } from 'react';
 import CertificateLogo from '@/assets/CertificateLogo.png';
-import estDatPy from '@/assets/ManageCourses/estDatPy.jpg';
-import python_basico from '@/assets/ManageCourses/python_basico.jpg';
 import EjemploFirma from '@/assets/img/EjemploFirma.png';
-
 import { useLocation, useNavigate } from 'react-router-dom';
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
-
-const mockCompletedCourses = [
-  {
-    id: 'cert-001',
-    courseName: 'Python desde cero',
-    description: 'Aprende los fundamentos del lenguaje de programación Python.',
-    hours: 8,
-    date: '15 de junio de 2025',
-    certificateId: 'c001-a1b2-c3d4',
-    imageUrl: python_basico,
-  },
-  {
-    id: 'cert-002',
-    courseName: 'Estructuras de Datos',
-    description: 'Domina listas, pilas y árboles con Python.',
-    hours: 6,
-    date: '12 de junio de 2025',
-    certificateId: 'c002-x9y8-z7w6',
-    imageUrl: estDatPy,
-  },
-];
+import { getUserDetails, getCourseByStudent } from '@/shared/api/api';
+import { getUser } from '@/features/auth/utils/authCookies';
 
 const Certificates = () => {
   const [certificates, setCertificates] = useState([]);
   const [selected, setSelected] = useState(null);
-  const userName = 'Rodrigo Mauricio Cespedes Paredes'; // ← Simulado desde AuthContext
+  const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
+  const currentUser = getUser();
+  const user = currentUser?.id;
 
   useEffect(() => {
-    setTimeout(() => {
-      setCertificates(mockCompletedCourses);
-      const params = new URLSearchParams(location.search);
-      const certId = params.get('cert');
-      if (certId) {
-        const cert = mockCompletedCourses.find((c) => c.id === certId);
-        if (cert) setSelected(cert);
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+
+        // Obtener datos del usuario
+        const userResponse = await getUserDetails(user);
+        setUserData(userResponse.data);
+
+        // Obtener cursos del estudiante
+        const coursesResponse = await getCourseByStudent(user);
+
+        // Transformar los cursos al formato de certificados
+        const transformedCertificates = coursesResponse.data.map(course => ({
+          id: `cert-${course.id}`,
+          courseName: course.name,
+          description: course.description,
+          hours: course.durationInHours,
+          date: new Date(course.endDate).toLocaleDateString('es-ES', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+          }),
+          certificateId: `cert-${course.id}-${Math.random().toString(36).substring(2, 10)}`,
+          imageUrl: course.image
+        }));
+
+        setCertificates(transformedCertificates);
+
+        // Verificar si hay un certificado en la URL
+        const params = new URLSearchParams(location.search);
+        const certId = params.get('cert');
+        if (certId) {
+          const cert = transformedCertificates.find((c) => c.id === certId);
+          if (cert) setSelected(cert);
+        }
+      } catch (err) {
+        setError('Error al cargar los certificados. Por favor intenta nuevamente.');
+        console.error(err);
+      } finally {
+        setLoading(false);
       }
-    }, 500);
-  }, [location.search]);
+    };
+
+    fetchData();
+  }, [location.search, user.id]);
 
   const handleDownloadPDF = async () => {
     const element = document.getElementById('certificate-view');
@@ -68,6 +85,22 @@ const Certificates = () => {
     navigator.clipboard.writeText(shareURL).then(() => alert('Enlace copiado al portapapeles'));
   };
 
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-64">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+        {error}
+      </div>
+    );
+  }
+
   if (selected) {
     return (
       <div className="flex flex-col items-center py-10 px-4 gap-4 bg-white text-black">
@@ -82,7 +115,9 @@ const Certificates = () => {
 
           <h2 className="text-xl text-gray-600 font-semibold mb-2 tracking-widest">CERTIFICADO</h2>
           <p className="text-gray-700 mb-6 text-base">El presente documento se entrega a:</p>
-          <h1 className="text-2xl sm:text-3xl font-bold text-blue-800 mb-4">{userName}</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-blue-800 mb-4">
+            {userData ? `${userData.firstName} ${userData.lastName}` : 'Nombre del Estudiante'}
+          </h1>
           <p className="text-gray-700 mb-2 text-base">Por completar con éxito el curso:</p>
 
           <div className="border border-blue-200 rounded-md p-4 bg-blue-50 mb-4">
@@ -153,26 +188,35 @@ const Certificates = () => {
   return (
     <div className="p-4 sm:p-8">
       <h2 className="text-2xl font-bold mb-6">Certificados disponibles</h2>
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {certificates.map((course) => (
-          <div
-            key={course.id}
-            onClick={() => navigate(`/student/certificates?cert=${course.id}`)}
-            className="cursor-pointer bg-white shadow-md hover:shadow-lg rounded-lg border border-gray-200 hover:border-blue-500 transition"
-          >
-            <img
-              src={course.imageUrl}
-              alt={course.courseName}
-              className="w-full h-40 object-cover rounded-t-lg"
-            />
-            <div className="p-4">
-              <h3 className="text-lg font-semibold text-gray-800">{course.courseName}</h3>
-              <p className="text-sm text-gray-600">{course.date}</p>
-              <p className="text-xs text-gray-400 mt-2">ID: {course.certificateId}</p>
+      {certificates.length === 0 ? (
+        <div className="text-center py-10">
+          <p className="text-gray-600">No tienes certificados disponibles todavía.</p>
+        </div>
+      ) : (
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {certificates.map((course) => (
+            <div
+              key={course.id}
+              onClick={() => navigate(`/student/certificates?cert=${course.id}`)}
+              className="cursor-pointer bg-white shadow-md hover:shadow-lg rounded-lg border border-gray-200 hover:border-blue-500 transition"
+            >
+              <img
+                src={course.imageUrl}
+                alt={course.courseName}
+                className="w-full h-40 object-cover rounded-t-lg"
+                onError={(e) => {
+                  e.target.src = 'https://via.placeholder.com/300x200?text=Curso+sin+imagen';
+                }}
+              />
+              <div className="p-4">
+                <h3 className="text-lg font-semibold text-gray-800">{course.courseName}</h3>
+                <p className="text-sm text-gray-600">{course.date}</p>
+                <p className="text-xs text-gray-400 mt-2">ID: {course.certificateId}</p>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
