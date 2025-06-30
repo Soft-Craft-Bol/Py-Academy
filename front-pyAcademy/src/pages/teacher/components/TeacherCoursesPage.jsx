@@ -22,7 +22,7 @@ function TeacherCoursesPage() {
   }, []);
 
   const handleCardClick = (id) => {
-    navigate(`/teacher/course/${id}/`);
+    navigate(`/teacher/course/${id}`);
   };
 
   return (
