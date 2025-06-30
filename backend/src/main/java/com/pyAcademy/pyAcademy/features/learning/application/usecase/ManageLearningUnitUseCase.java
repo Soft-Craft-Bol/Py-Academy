@@ -22,6 +22,7 @@ public class ManageLearningUnitUseCase implements LearningUnitInputPort {
         validateUnit(unit);
         unit.setCreatedAt(LocalDateTime.now());
         unit.setUpdatedAt(LocalDateTime.now());
+        unit.setIsActive(true);
         return learningUnitOutputPort.save(unit);
     }
 
