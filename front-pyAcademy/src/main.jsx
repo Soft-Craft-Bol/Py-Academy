@@ -5,6 +5,7 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 
 import { AuthProvider } from './app/context/AuthContext';
+import { ThemeProvider } from './app/context/ThemeContext';
 import App from './App.jsx';
 import './index.css';
 
@@ -15,9 +16,11 @@ createRoot(document.getElementById('root')).render(
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools />
       <BrowserRouter>
-        <AuthProvider>
-          <App />
-        </AuthProvider>
+        <ThemeProvider>
+          <AuthProvider>
+            <App />
+          </AuthProvider>
+        </ThemeProvider>
       </BrowserRouter>
     </QueryClientProvider>
   </StrictMode>
