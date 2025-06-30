@@ -1,29 +1,27 @@
-import { useState } from "react";
-import { v4 as uuidv4 } from "uuid";
-import Input from "@/shared/ui/atoms/Input";
-import { Textarea } from "@/shared/ui/atoms/Textarea";
-import Select from "@/shared/ui/atoms/Select";
-import Button from "@/shared/ui/atoms/Button";
-import { Trash2 } from "lucide-react";
-import { useCreateExercise } from "@/shared/hooks/useCreateExercise";
+import { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import Input from '@/shared/ui/atoms/Input';
+import { Textarea } from '@/shared/ui/atoms/Textarea';
+import Select from '@/shared/ui/atoms/Select';
+import Button from '@/shared/ui/atoms/Button';
+import { Trash2 } from 'lucide-react';
+import { useCreateExercise } from '@/shared/hooks/useCreateExercise';
 
 const DIFFICULTIES = [
-  { label: "Principiante", value: "Principiante" },
-  { label: "Intermedio", value: "Intermedio" },
-  { label: "Avanzado", value: "Avanzado" }
+  { label: 'Principiante', value: 'Principiante' },
+  { label: 'Intermedio', value: 'Intermedio' },
+  { label: 'Avanzado', value: 'Avanzado' },
 ];
 
-const LANGUAGES = [
-  { label: "Python", value: "python" }
-];
+const LANGUAGES = [{ label: 'Python', value: 'python' }];
 
 export default function CreatePracticePage() {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [starterCode, setStarterCode] = useState("");
-  const [solutionCode, setSolutionCode] = useState("");
-  const [difficulty, setDifficulty] = useState("Principiante");
-  const [language, setLanguage] = useState("python");
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [starterCode, setStarterCode] = useState('');
+  const [solutionCode, setSolutionCode] = useState('');
+  const [difficulty, setDifficulty] = useState('Principiante');
+  const [language, setLanguage] = useState('python');
   const [testCases, setTestCases] = useState([]);
 
   const { mutate: createExercise, isPending, isSuccess, isError } = useCreateExercise();
@@ -33,20 +31,18 @@ export default function CreatePracticePage() {
       ...testCases,
       {
         id: uuidv4(),
-        inputData: "",
-        expectedOutput: "",
-        isHidden: false,
-        weight: 10
-      }
+        inputData: '',
+        expectedOutput: '',
+      },
     ]);
   };
 
   const updateTestCase = (id, changes) => {
-    setTestCases(testCases.map(tc => (tc.id === id ? { ...tc, ...changes } : tc)));
+    setTestCases(testCases.map((tc) => (tc.id === id ? { ...tc, ...changes } : tc)));
   };
 
-  const removeTestCase = id => {
-    setTestCases(testCases.filter(tc => tc.id !== id));
+  const removeTestCase = (id) => {
+    setTestCases(testCases.filter((tc) => tc.id !== id));
   };
 
   const handleSave = () => {
@@ -58,28 +54,27 @@ export default function CreatePracticePage() {
       difficultyLevel: difficulty,
       language,
       sequenceNumber: 1,
-      testCases: testCases.map(tc => ({
+      testCases: testCases.map((tc) => ({
         inputData: tc.inputData,
         expectedOutput: tc.expectedOutput,
-        isHidden: tc.isHidden ? 1 : 0,
-        weight: tc.weight
-      }))
+      })),
     };
+
+    console.log('La new practice es', newPractice);
 
     createExercise(newPractice, {
       onSuccess: () => {
-        alert("Ejercicio creado correctamente");
-        // Opcional: resetear campos
-        setTitle("");
-        setDescription("");
-        setStarterCode("");
-        solutionCode("");
+        alert('Ejercicio creado correctamente');
+        setTitle('');
+        setDescription('');
+        setStarterCode('');
+        solutionCode('');
         setTestCases([]);
       },
       onError: (err) => {
-        console.error("Error creando el ejercicio:", err);
-        alert("Error al crear el ejercicio");
-      }
+        console.error('Error creando el ejercicio:', err);
+        alert('Error al crear el ejercicio');
+      },
     });
   };
 
@@ -89,8 +84,7 @@ export default function CreatePracticePage() {
         Crear Práctica de Programación
       </h1>
 
-      <div className="space-y-6 bg-white dark:bg-zinc-800 p-6 rounded-lg shadow-md">
-
+      <div className="space-y-6 bg-white dark:bg-primary-pri4 p-6 rounded-lg shadow-md">
         {/* Título */}
         <div>
           <label className="block mb-1 text-gray-700 dark:text-gray-300 font-medium">
@@ -98,9 +92,9 @@ export default function CreatePracticePage() {
           </label>
           <Input
             value={title}
-            onChange={e => setTitle(e.target.value)}
+            onChange={(e) => setTitle(e.target.value)}
             placeholder="Título del ejercicio"
-            className="bg-white dark:bg-zinc-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+            className="text-gray-900 placeholder-gray-500 dark:placeholder-gray-400"
           />
         </div>
 
@@ -112,9 +106,9 @@ export default function CreatePracticePage() {
           <Textarea
             rows={5}
             value={description}
-            onChange={e => setDescription(e.target.value)}
+            onChange={(e) => setDescription(e.target.value)}
             placeholder="Describe el problema que debe resolverse"
-            className="bg-white dark:bg-zinc-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+            className="placeholder-gray-500 dark:placeholder-gray-400"
           />
         </div>
 
@@ -126,9 +120,9 @@ export default function CreatePracticePage() {
           <Textarea
             rows={6}
             value={starterCode}
-            onChange={e => setStarterCode(e.target.value)}
+            onChange={(e) => setStarterCode(e.target.value)}
             placeholder="Código base que el estudiante verá"
-            className="bg-white dark:bg-zinc-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 font-mono"
+            className="placeholder-gray-500 dark:placeholder-gray-400"
           />
         </div>
 
@@ -139,9 +133,9 @@ export default function CreatePracticePage() {
           <Textarea
             rows={6}
             value={solutionCode}
-            onChange={e => setSolutionCode(e.target.value)}
+            onChange={(e) => setSolutionCode(e.target.value)}
             placeholder="Código de solución que se usará para validar"
-            className="bg-white dark:bg-zinc-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 font-mono"
+            className="placeholder-gray-500 dark:placeholder-gray-400"
           />
         </div>
 
@@ -154,8 +148,8 @@ export default function CreatePracticePage() {
             <Select
               options={DIFFICULTIES}
               value={difficulty}
-              onChange={e => setDifficulty(e.target.value)}
-              className="bg-white dark:bg-zinc-800 text-gray-900 dark:text-white"
+              onChange={(e) => setDifficulty(e.target.value)}
+              className="text-gray-900 dark:text-white"
             />
           </div>
           <div className="flex-1">
@@ -165,7 +159,7 @@ export default function CreatePracticePage() {
             <Select
               options={LANGUAGES}
               value={language}
-              onChange={e => setLanguage(e.target.value)}
+              onChange={(e) => setLanguage(e.target.value)}
               className="bg-white dark:bg-zinc-800 text-gray-900 dark:text-white"
             />
           </div>
@@ -185,9 +179,7 @@ export default function CreatePracticePage() {
               className="p-4 bg-gray-50 dark:bg-zinc-900 border border-gray-200 dark:border-zinc-700 rounded-md shadow-sm space-y-4"
             >
               <div className="flex justify-between items-center">
-                <h3 className="font-medium text-gray-800 dark:text-white">
-                  Caso #{i + 1}
-                </h3>
+                <h3 className="font-medium text-gray-800 dark:text-white">Caso #{i + 1}</h3>
                 <Button variant="danger" onClick={() => removeTestCase(tc.id)}>
                   <Trash2 className="h-4 w-4" />
                 </Button>
@@ -200,9 +192,7 @@ export default function CreatePracticePage() {
                 </label>
                 <Input
                   value={tc.inputData}
-                  onChange={e =>
-                    updateTestCase(tc.id, { inputData: e.target.value })
-                  }
+                  onChange={(e) => updateTestCase(tc.id, { inputData: e.target.value })}
                   placeholder="Ej: 2 3"
                   className="bg-white dark:bg-zinc-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                 />
@@ -215,44 +205,10 @@ export default function CreatePracticePage() {
                 </label>
                 <Input
                   value={tc.expectedOutput}
-                  onChange={e =>
-                    updateTestCase(tc.id, { expectedOutput: e.target.value })
-                  }
+                  onChange={(e) => updateTestCase(tc.id, { expectedOutput: e.target.value })}
                   placeholder="Ej: 5"
                   className="bg-white dark:bg-zinc-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                 />
-              </div>
-
-              {/* Puntaje y oculto */}
-              <div className="flex gap-4 items-center">
-                <div className="flex-1">
-                  <label className="block mb-1 text-gray-700 dark:text-gray-300 font-medium">
-                    Puntaje (%)
-                  </label>
-                  <Input
-                    type="number"
-                    value={tc.weight}
-                    onChange={e =>
-                      updateTestCase(tc.id, {
-                        weight: Number(e.target.value)
-                      })
-                    }
-                    placeholder="Ej: 20"
-                    className="bg-white dark:bg-zinc-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
-                  />
-                </div>
-
-                <label className="flex items-center gap-2 text-gray-700 dark:text-gray-300 mt-6">
-                  <input
-                    type="checkbox"
-                    checked={tc.isHidden}
-                    onChange={e =>
-                      updateTestCase(tc.id, { isHidden: e.target.checked })
-                    }
-                    className="accent-blue-600"
-                  />
-                  Oculto
-                </label>
               </div>
             </div>
           ))}
@@ -266,7 +222,7 @@ export default function CreatePracticePage() {
       {/* Guardar */}
       <div className="mt-8">
         <Button variant="primary" onClick={handleSave} disabled={isPending}>
-          {isPending ? "Guardando..." : "Guardar práctica"}
+          {isPending ? 'Guardando...' : 'Guardar práctica'}
         </Button>
       </div>
     </div>
