@@ -3,7 +3,7 @@ function Select({ className, name, id, onChange, options, placeholder, errors = 
     <div>
       <select
         id={id}
-        className="p-2 rounded-lg  dark:bg-primary-pri4"
+        className="p-2 rounded-lg bg-primary-pri2 text-white"
         name={name}
         onChange={onChange}
       >
