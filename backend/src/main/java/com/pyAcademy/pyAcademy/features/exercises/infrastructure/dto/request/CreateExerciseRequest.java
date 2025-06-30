@@ -1,5 +1,6 @@
 package com.pyAcademy.pyAcademy.features.exercises.infrastructure.dto.request;
 
+import java.util.List;
 public record CreateExerciseRequest(
     String title,
     String description,
@@ -7,7 +8,8 @@ public record CreateExerciseRequest(
     String solutionCode,
     String language,
     String difficultyLevel,
-    Integer sequenceNumber
+    Integer sequenceNumber,
+    List<TestCaseRequest> testCases
 ) {
     
 }

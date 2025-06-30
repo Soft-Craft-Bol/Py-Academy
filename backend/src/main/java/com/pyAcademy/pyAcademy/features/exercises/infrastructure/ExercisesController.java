@@ -29,6 +29,7 @@ public class ExercisesController {
 
     
     // === CODING EXERCISES ENDPOINTS ===
+
     
     @GetMapping
     public ResponseEntity<List<ExercisesDTO.CodingExerciseDTO>> getAllActiveExercises() {
