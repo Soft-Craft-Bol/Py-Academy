@@ -39,6 +39,9 @@ const CreatePracticePage = lazy(() => import('@/pages/teacher/CreatePracticePage
 const CourseDetailsPage = lazy(() => import('@/pages/teacher/CourseDetailsPage'));
 const TeacherCoursesPage = lazy(() => import('@/pages/teacher/components/TeacherCoursesPage'));
 const EditCoursePage = lazy(() => import('../../shared/layouts/EditCoursePage'));
+const CourseStudentsPage = lazy(() => import('../../pages/teacher/CourseDetailsPage'));
+const UserProfilePage = lazy(() => import('../../pages/profile/UserProfilePage'));
+const MasCursos = lazy(() => import('../../pages/student/MasCursos'));
 
 export function AppRoutes() {
   return (
@@ -66,6 +69,8 @@ export function AppRoutes() {
             <Route path="learning-units" element={<LearningUnitsManager />} />
             <Route path="gestionar-cursos/edit/:id" element={<EditCoursePage />} />
             <Route path="manage-resources" element={<ResourceManager />} />
+            <Route path="studentList/:id/" element={<CourseStudentsPage />} />
+            <Route path="profile/:userId" element={<UserProfilePage />} />
           </Route>
         </Route>
 
@@ -78,6 +83,8 @@ export function AppRoutes() {
             <Route path="exercise" element={<ExercisePage />} />
             <Route path="certificates" element={<Certificates />} />
             <Route path="curso/:id" element={<CourseStudent />} />
+            <Route path="profile/:userId" element={<UserProfilePage />} />
+            <Route path="explorar-cursos" element={<ExplorateCourses />} />
           </Route>
         </Route>
       </Routes>

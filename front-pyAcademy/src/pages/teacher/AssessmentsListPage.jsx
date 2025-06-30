@@ -5,16 +5,15 @@ import axios from "axios";
 
 export default function AssessmentsListPage() {
     const [selected, setSelected] = useState(null);
-    const [assessments, setAssessments] = useState([]); // Estado para almacenar las evaluaciones
-    const [loading, setLoading] = useState(true); // Estado de carga
-    const [error, setError] = useState(null); // Estado para manejar errores
+    const [assessments, setAssessments] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-    // Cargar evaluaciones desde la API
     useEffect(() => {
         const fetchAssessments = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/evaluations');
-                setAssessments(response.data); // Almacenamos las evaluaciones en el estado
+                const response = await axios.get('http://localhost:8888/evaluations');
+                setAssessments(response.data); 
             } catch (err) {
                 setError('Error al cargar las evaluaciones');
                 console.error('Error al cargar las evaluaciones:', err);
