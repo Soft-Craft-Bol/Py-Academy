@@ -19,7 +19,7 @@ function ExercisePage() {
       </h3>
 
       {descripcion && (
-        <p className="p-5 rounded-lg bg-primary-pri4 border border-primary-pri3 text-gray-900 dark:text-gray-100 leading-relaxed">
+        <p className="bg-white p-5 rounded-lg dark:bg-primary-pri4 border dark:border-primary-pri3 text-gray-900 dark:text-gray-100 leading-relaxed">
           {descripcion}
         </p>
       )}
@@ -27,17 +27,23 @@ function ExercisePage() {
       {testCases && testCases.length > 0 && (
         <div className="mt-5 space-y-5">
           {testCases.slice(0, 2).map((tc, idx) => (
-            <div key={idx} className="p-4 rounded-lg bg-primary-pri4 border border-primary-pri3">
+            <div
+              key={idx}
+              className="bg-white p-4 rounded-lg dark:bg-primary-pri4 border dark:border-primary-pri3"
+            >
               <p className="font-medium text-blue-600 dark:text-blue-400">
                 Entrada:{' '}
                 <code className="bg-gray-200 dark:bg-gray-700 rounded px-1 py-0.5">
                   {tc.inputData}
                 </code>
               </p>
-              <p className="text-green-600 dark:text-green-400 font-medium mt-1">Salida:</p>
-              <pre className="whitespace-pre-wrap text-gray-900 dark:text-gray-100">
-                {tc.expectedOutput}
-              </pre>
+
+              <p className="text-green-600 dark:text-green-400 font-medium mt-1">
+                Salida:{' '}
+                <code className="bg-gray-200 dark:bg-gray-700 rounded px-1 py-0.5">
+                  {tc.expectedOutput}
+                </code>
+              </p>
             </div>
           ))}
           {testCases.length > 2 && (
@@ -51,9 +57,8 @@ function ExercisePage() {
   );
 
   return (
-    <div className="-m-8 min-h-screen bg-gradient-to-tr from-primary-pri2 to-primary-pri4 text-gray-900 dark:text-gray-100">
-      {/* Header */}
-      <header className="flex justify-between items-center dark:bg-primary-pri4 py-5 px-4 border-t">
+    <div className="-m-8 min-h-screen">
+      <header className="bg-white flex justify-between items-center dark:bg-primary-pri4 py-5 px-4 border-y">
         <div className="flex gap-7">
           <NavLink
             to={'/student/exercises'}
@@ -67,12 +72,9 @@ function ExercisePage() {
         <p className="bg-green-500 p-1 rounded-md h-[90%]">{data.difficultyLevel}</p>
       </header>
 
-      {/* Contenedor principal con ancho máximo y padding */}
       <main className="max-w-6xl mx-auto px-6 py-10">
-        {/* Logros */}
         <ExerciseAchievements achievements={exerciseAchievements} />
 
-        {/* Descripción y casos */}
         <DescriptorElement
           title="Descripción"
           descripcion={data.description}
@@ -84,10 +86,7 @@ function ExercisePage() {
           icon={<GiEvilBook size={24} />}
         />
 
-        {/* Editor abajo */}
-        <section className="mt-12 shadow-lg rounded-xl overflow-hidden border border-primary-pri3">
-          <PythonEditor title={false} testCases={data.testCases} />
-        </section>
+        <PythonEditor title={false} testCases={data.testCases} />
       </main>
     </div>
   );

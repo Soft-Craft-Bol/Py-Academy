@@ -70,8 +70,8 @@ export function AppRoutes() {
 
         <Route element={<PrivateRoute />}>
           <Route path="/student" element={<StudentLayout />}>
-            <Route path="learning-units" element={<LearningUnitsManager />} />
             <Route index element={<CoursesPage />} />
+            <Route path="learning-units" element={<LearningUnitsManager />} />
             <Route path="editor" element={<PyEditor />} />
             <Route path="chatIA" element={<ChatIA />} />
             <Route path="exercises" element={<ExercisesPage />} />

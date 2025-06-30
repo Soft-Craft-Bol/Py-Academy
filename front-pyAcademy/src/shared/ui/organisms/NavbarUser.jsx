@@ -1,37 +1,25 @@
-// assets
 //React
-import { useEffect, useState } from 'react';
-import { FaUserCircle } from 'react-icons/fa';
+import { useContext, useState } from 'react';
 
 import logo from '../../../assets/img/logo-python.webp';
 import { ButtonTheme } from '../atoms/ButtonTheme';
 import { LogoNavbar } from '../atoms/LogoNavbar';
 import { getUser } from '@/features/auth/utils/authCookies';
-// components
+
+//Components
 import { MobileMenu } from '../molecules/navbar/MobileMenu';
+
+//Context
+import { ThemeContext } from '@/app/context/ThemeContext';
 
 export function NavbarUser() {
   const currentUser = getUser();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [theme, setTheme] = useState(() => {
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      return 'dark';
-    }
-    return 'light';
-  });
+  const { theme, setTheme, onChangeTheme } = useContext(ThemeContext);
 
-  useEffect(() => {
-    if (theme === 'dark') {
-      document.querySelector('html').classList.add('dark');
-    } else {
-      document.querySelector('html').classList.remove('dark');
-    }
-  }, [theme]);
-
-  const onChangeTheme = () => {
-    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
-  };
-  const foto = currentUser?.photo || 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
+  const foto =
+    currentUser?.photo ||
+    'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
   return (
     <header
       className="sticky top-0 z-50 bg-white shadow-sm w-full dark:bg-primary-pri4 dark:text-white
@@ -44,8 +32,11 @@ export function NavbarUser() {
             <ButtonTheme theme={theme} onChangeTheme={onChangeTheme} />
             {/* <FaUserCircle className="rounded text-4xl" /> */}
             <img
-              src={foto} alt='Foto de perfil' className='rounded-full w-10 h-10 object-cover border-2 border-gray-300 dark:border-gray-600'/>
-            <span className='flex items-center'>{currentUser.username}</span>
+              src={foto}
+              alt="Foto de perfil"
+              className="rounded-full w-10 h-10 object-cover border-2 border-gray-300 dark:border-gray-600"
+            />
+            <span className="flex items-center">{currentUser.username}</span>
           </div>
         </div>
       </div>

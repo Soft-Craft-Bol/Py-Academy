@@ -1,21 +1,12 @@
-import { useState } from 'react';
-//
 import { executeCode } from '@/shared/api/api';
 
-export const useExecuteCode = () => {
-  const [code, setCode] = useState('');
-  const [input, setInput] = useState('');
-  const [output, setOutput] = useState('');
-  const [InfoOutput, setInfoOutput] = useState({});
-
+export const useExecuteCode = (code, input, setOutput, setInfoOutput) => {
   const handleExecuteCode = async () => {
     try {
       const res = await executeCode({
         code: code,
         inputs: input,
       });
-      console.log('La respuesta es', res);
-
       setInfoOutput(res.data);
       setOutput(res.data.success ? res.data.output : res.data.error);
     } catch (error) {
@@ -49,14 +40,7 @@ export const useExecuteCode = () => {
   };
 
   return {
-    code,
-    setCode,
-    output,
-    setOutput,
     handleExecuteCodeWithPyodide,
-    input,
-    setInput,
     handleExecuteCode,
-    InfoOutput,
   };
 };
