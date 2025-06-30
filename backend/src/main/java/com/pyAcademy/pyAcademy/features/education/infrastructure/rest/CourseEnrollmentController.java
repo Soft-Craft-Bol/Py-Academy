@@ -31,7 +31,6 @@ public class CourseEnrollmentController {
         return ResponseEntity.ok("Inscripción realizada correctamente");
     }
 
-<<<<<<< HEAD
     @GetMapping("/student/{studentId}")
     public ResponseEntity<List<EnrolledCourseResponse>> getEnrolledCourses(@PathVariable Long studentId) {
         return ResponseEntity.ok(getStudentEnrolledCoursesUseCase.execute(studentId));
@@ -61,6 +60,4 @@ public class CourseEnrollmentController {
                 student.getPhoto()
         );
     }
-=======
->>>>>>> 7d09bfc59a58f618952713e0e4c204caa20fc60b
 }
