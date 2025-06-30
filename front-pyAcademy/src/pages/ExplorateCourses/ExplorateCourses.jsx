@@ -1,6 +1,7 @@
 import { useInfiniteCourses } from '@/shared/hooks/useInfiniteCourses';
 import CourseCardStudent from './components/CourseCardStudent';
 
+
 function StudentCourses() {
   const { courses, loading, error, hasMore } = useInfiniteCourses();
 

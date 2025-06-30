@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { GiArtificialIntelligence } from 'react-icons/gi';
 import { IoCodeSlash } from 'react-icons/io5';
 import { LuBookCopy } from 'react-icons/lu';
-import { PiCertificateBold } from 'react-icons/pi';
+import { PiCertificateBold, PiStandardDefinition } from 'react-icons/pi';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
@@ -23,6 +23,8 @@ export function Sidebar({ isSidebarOpen, isMenuOpen, toggleSidebar, toggleMenu }
     { title: "Ejercicios", to: "exercises", Icon: GiArtificialIntelligence },
     { title: "Certificados", to: "certificates", Icon: PiCertificateBold },
     { title: "Creacion de cursos", to: "create-course", Icon: PiCertificateBold },
+    //mas cursos
+    { title: "Inscribirse a un curso", to: "explorar-cursos", Icon: PiStandardDefinition },
 
   ];
 
