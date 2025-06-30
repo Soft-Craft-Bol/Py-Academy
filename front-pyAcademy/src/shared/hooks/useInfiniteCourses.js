@@ -13,7 +13,7 @@ export const useInfiniteCourses = () => {
 
     setLoading(true);
     try {
-      const response = await getAllCourses(page, 10);
+      const response = await getAllCourses(page, 50);
       const newCourses = response.data.cursosConProfesor;
 
       if (newCourses.length > 0) {

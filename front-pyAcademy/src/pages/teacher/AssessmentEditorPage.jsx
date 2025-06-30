@@ -9,12 +9,6 @@ import { Trash2, ImagePlus } from "lucide-react";
 import { FaCheckCircle, FaRegCircle } from 'react-icons/fa';
 import axios from "axios";
 
-import { getUser } from '@/shared/utils/authCookies';
-
-const user = getUser();
-const teacherId = user?.id;
-console.log('ID del docente:', teacherId);
-
 const QUESTION_TYPES = [
     { label: "Opción Múltiple", value: "multiple-choice" },
     { label: "Respuesta Corta", value: "short-answer" },
