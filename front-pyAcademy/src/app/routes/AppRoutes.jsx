@@ -68,18 +68,18 @@ export function AppRoutes() {
           </Route>
         </Route>
 
-        {/* <Route element={<PrivateRoute />}> */}
-        <Route path="/student" element={<StudentLayout />}>
-          <Route path="learning-units" element={<LearningUnitsManager />} />
-          <Route index element={<CoursesPage />} />
-          <Route path="editor" element={<PyEditor />} />
-          <Route path="chatIA" element={<ChatIA />} />
-          <Route path="exercises" element={<ExercisesPage />} />
-          <Route path="exercise" element={<ExercisePage />} />
-          <Route path="certificates" element={<Certificates />} />
-          <Route path="curso/:id" element={<CourseStudent />} />
+        <Route element={<PrivateRoute />}>
+          <Route path="/student" element={<StudentLayout />}>
+            <Route path="learning-units" element={<LearningUnitsManager />} />
+            <Route index element={<CoursesPage />} />
+            <Route path="editor" element={<PyEditor />} />
+            <Route path="chatIA" element={<ChatIA />} />
+            <Route path="exercises" element={<ExercisesPage />} />
+            <Route path="exercise" element={<ExercisePage />} />
+            <Route path="certificates" element={<Certificates />} />
+            <Route path="curso/:id" element={<CourseStudent />} />
+          </Route>
         </Route>
-        {/* </Route> */}
       </Routes>
     </Suspense>
   );

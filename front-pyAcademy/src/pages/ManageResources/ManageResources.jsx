@@ -1,15 +1,16 @@
 import { useRef, useState } from 'react';
 import { FaFilePdf, FaFilePowerpoint, FaTimesCircle, FaTrash, FaVideo } from 'react-icons/fa';
 import { FiUploadCloud } from 'react-icons/fi';
+import { useCreateMaterial } from '@/shared/hooks/useCreateMaterial';
 
     const MAX_FILE_SIZE_MB = 10;
     const ALLOWED_EXTENSIONS = [
-        ".pdf", ".docx", ".odt", ".txt",
-        ".ppt", ".pptx",
-        ".mp4", ".mov",
-        ".png", ".jpg", ".jpeg",
-        ".html", ".py",
-        ".zip", ".json"
+    ".pdf", ".docx", ".odt", ".txt",
+    ".ppt", ".pptx",
+    ".mp4", ".mov",
+    ".png", ".jpg", ".jpeg",
+    ".html", ".py",
+    ".zip", ".json"
     ];
 
     const ResourceManager = () => {
@@ -18,31 +19,40 @@ import { FiUploadCloud } from 'react-icons/fi';
     const fileInputRef = useRef(null);
     const [errorModal, setErrorModal] = useState({ visible: false, message: "" });
 
-  const validateFile = (file) => {
-    const extension = file.name.substring(file.name.lastIndexOf('.')).toLowerCase();
-    const isAllowed = ALLOWED_EXTENSIONS.includes(extension);
-    const isSizeOk = file.size <= MAX_FILE_SIZE_MB * 1024 * 1024;
+    const [form, setForm] = useState({
+        title: '',
+        description: '',
+        materialType: 'VIDEO',
+        durationMinutes: 10,
+        isMandatory: false,
+        sequenceNumber: 1,
+        unitId: 1
+    });
 
-        if (!isAllowed)
-        return `El archivo "${file.name}" tiene una extensión no permitida.`;
+    const { mutate: createMaterial } = useCreateMaterial();
 
-        if (!isSizeOk)
-        return `El archivo "${file.name}" excede los ${MAX_FILE_SIZE_MB}MB permitidos.`;
+    const validateFile = (file) => {
+        const extension = file.name.substring(file.name.lastIndexOf('.')).toLowerCase();
+        const isAllowed = ALLOWED_EXTENSIONS.includes(extension);
+        const isSizeOk = file.size <= MAX_FILE_SIZE_MB * 1024 * 1024;
 
-    return null;
-  };
+        if (!isAllowed) return `El archivo "${file.name}" tiene una extensión no permitida.`;
+        if (!isSizeOk) return `El archivo "${file.name}" excede los ${MAX_FILE_SIZE_MB}MB permitidos.`;
 
-  const handleFileSelect = (e) => {
-    const files = Array.from(e.target.files);
-    processFiles(files);
-  };
+        return null;
+    };
 
-  const handleDrop = (e) => {
-    e.preventDefault();
-    setIsDragging(false);
-    const files = Array.from(e.dataTransfer.files);
-    processFiles(files);
-  };
+    const handleFileSelect = (e) => {
+        const files = Array.from(e.target.files);
+        processFiles(files);
+    };
+
+    const handleDrop = (e) => {
+        e.preventDefault();
+        setIsDragging(false);
+        const files = Array.from(e.dataTransfer.files);
+        processFiles(files);
+    };
 
     const processFiles = (files) => {
         const valid = [];
@@ -74,16 +84,53 @@ import { FiUploadCloud } from 'react-icons/fi';
         return <FiUploadCloud className="text-gray-500 text-2xl" />;
     };
 
-  const handleDelete = (id) => {
-    const updated = resources.filter((res) => res.id !== id);
-    setResources(updated);
-    console.log('Recurso eliminado:', id);
-  };
+    const handleDelete = (id) => {
+        const updated = resources.filter((res) => res.id !== id);
+        setResources(updated);
+        console.log('Recurso eliminado:', id);
+    };
+
+    const handleUploadToBackend = () => {
+        resources.forEach((res) => {
+        const materialData = {
+            title: form.title || res.name,
+            description: form.description || '',
+            url: URL.createObjectURL(res.file), // ⚠️ Reemplazar por URL real en backend
+            materialType: form.materialType,
+            durationMinutes: form.durationMinutes,
+            isMandatory: form.isMandatory,
+            sequenceNumber: form.sequenceNumber,
+            unitId: form.unitId
+        };
+
+        createMaterial(materialData, {
+            onSuccess: () => console.log(`✅ Recurso creado: ${res.name}`),
+            onError: (error) => console.error(`❌ Error al subir ${res.name}:`, error)
+        });
+        });
+    };
 
     return (
         <section className="min-h-screen bg-gradient-to-br from-slate-900 to-gray-950 px-4 py-10 text-white">
         <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl font-bold mb-8">Gestión de Recursos</h2>
+
+            <div className="space-y-4 mb-6">
+            <input
+                type="text"
+                placeholder="Título del recurso"
+                className="w-full px-4 py-2 rounded-md text-black"
+                value={form.title}
+                onChange={e => setForm({ ...form, title: e.target.value })}
+            />
+            <textarea
+                placeholder="Descripción"
+                className="w-full px-4 py-2 rounded-md text-black"
+                rows={3}
+                value={form.description}
+                onChange={e => setForm({ ...form, description: e.target.value })}
+            />
+            </div>
 
             <div
             className={`border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-colors ${
@@ -103,7 +150,7 @@ import { FiUploadCloud } from 'react-icons/fi';
                 <span className="text-indigo-400 underline">haz clic para buscar</span>
             </p>
             <p className="text-xs text-gray-500 mt-2">
-                Tipos permitidos: PDF, DOCX, PPT, MP4, MOV, ZIP, ODT, TXT, PPT, JPG, JPEG, PNG, HTML, PY, JSON 
+                Tipos permitidos: PDF, DOCX, PPT, MP4, MOV, ZIP, ODT, TXT, JPG, JPEG, PNG, HTML, PY, JSON
             </p>
             <b>Máx: {MAX_FILE_SIZE_MB}MB</b>
             <input
@@ -143,6 +190,17 @@ import { FiUploadCloud } from 'react-icons/fi';
                 </ul>
             )}
             </div>
+
+            {resources.length > 0 && (
+            <div className="mt-6 text-right">
+                <button
+                onClick={handleUploadToBackend}
+                className="bg-green-600 px-6 py-2 rounded hover:bg-green-700"
+                >
+                Subir al backend
+                </button>
+            </div>
+            )}
         </div>
 
         {errorModal.visible && (
