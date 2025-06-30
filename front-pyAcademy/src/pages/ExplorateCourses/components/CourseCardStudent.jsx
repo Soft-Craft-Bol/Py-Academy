@@ -38,7 +38,13 @@ function CourseCardStudent({ course }) {
         </p>
 
         <button
-          onClick={() => navigate(`/curso/${courseDetails.id}`)} // Usamos courseDetails.id
+          onClick={() =>
+            navigate(`/curso/${courseDetails.id}`, {
+              state: {
+                courseDetails,
+              },
+            })
+          }
           className="mt-4 w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg text-sm font-medium transition-colors"
         >
           Ver más

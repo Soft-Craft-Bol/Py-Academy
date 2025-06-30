@@ -22,8 +22,6 @@ import {
 
 const tabs = [
   { key: 'contenido', label: 'Contenido', icon: BookOpen},
-  { key: 'noticias', label: 'Noticias', icon: FolderOpen},
-  { key: 'descargables', label: 'Descargar recursos', icon: Download},
 ];
 
 const SidebarCurso = () => {

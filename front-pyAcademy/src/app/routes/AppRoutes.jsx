@@ -49,7 +49,7 @@ export function AppRoutes() {
           <Route path="/ia-tutor" element={<Home />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/curso/:id" element={<PrivateCourseView />} />
+          <Route path="/curso/:id" element={<CourseStudent />} />
           <Route path="/certificado/:id" element={<PublicCertificateViewer />} />
           
         </Route>
@@ -63,7 +63,7 @@ export function AppRoutes() {
             <Route path="create-practice" element={<CreatePracticePage />} />
             <Route path="gestionar-cursos" element={<ManageCourses />} />
             <Route path="create-course" element={<CourseManangement />} />
-             <Route path="learning-units" element={<LearningUnitsManager />} />
+            <Route path="learning-units" element={<LearningUnitsManager />} />
             <Route path="gestionar-cursos/edit/:id" element={<EditCoursePage />} />
           </Route>
         </Route>
