@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { useSearchParams, useNavigate } from 'react-router-dom';
+import { fetchUnitsByCourse, registerUnits } from '@/shared/api/api';
 import { Plus, X, Eye, EyeOff, ArrowUp, ArrowDown, Image as ImageIcon, Type, Save, BookOpen, FileText, Layers } from 'lucide-react';
+import PropTypes from 'prop-types';
 
-const LearningUnitsManager = () => {
+const LearningUnitsManager = (initialCourseId ) => {
+  const navigate = useNavigate();
   const [previewMode, setPreviewMode] = useState(false);
   const [units, setUnits] = useState([{
-    id: Date.now(),
+    courseId: Date.now(),
     title: '',
     description: '',
     sequenceNumber: 1,
@@ -47,6 +51,35 @@ const LearningUnitsManager = () => {
     };
     setUnits([...units, newUnit]);
   };
+
+  const [searchParams] = useSearchParams();
+  // Obtener el 'courseId' desde los parámetros de la URL
+  const courseIdFromUrl = searchParams.get('courseId');
+
+  // Validar que 'courseId' sea un número entero
+  const courseId = courseIdFromUrl ? parseInt(courseIdFromUrl, 10) : null;
+
+  // Log para ver si 'courseId' se está extrayendo correctamente
+  console.log("lo que llega en initialId", initialCourseId);
+  
+  console.log('Course ID recibido en gestor de unidades:', courseId);
+  console.log('Id desde URL:', courseIdFromUrl);
+  
+
+   // Cargar unidades existentes para el curso si es necesario
+  // useEffect(() => {
+  //   if (courseId) {
+  //     console.log('Cargando unidades existentes para courseId=', courseId);
+  //     fetchUnitsByCourse(courseId) // Llamamos al endpoint correcto para obtener las unidades
+  //       .then((res) => {
+  //         console.log('Unidades cargadas:', res.data);
+  //         setUnits(res.data);  // Aquí almacenamos las unidades existentes
+  //       })
+  //       .catch((err) => {
+  //         console.error('Error al cargar unidades:', err);
+  //       });
+  //   }
+  // }, [courseId]);
 
   const removeUnit = (unitId) => {
     setUnits(units.filter(unit => unit.id !== unitId));
@@ -191,9 +224,48 @@ const LearningUnitsManager = () => {
     }
   };
 
-  const handleSave = () => {
-    console.log('Saving units:', units);
-    alert('Unidades guardadas correctamente');
+  // const handleAddUnit = () => {
+  //   setUnits([...units, newUnit]);  // Agregar la nueva unidad al array de unidades
+  //   setNewUnit({ title: '', description: '', sequenceNumber: 0, isActive: true });  // Limpiar el formulario
+  // };
+
+  // Guardar las unidades en el backend
+  const handleSave = async () => {
+    if (!courseId || courseId <= 0) {
+      console.error('Course ID no válido:', courseId);
+      return;
+    }
+
+    console.log('Enviando unidades para courseId=', courseId);
+
+    try {
+      const respuestas = await Promise.all(
+        units.map((unit) => {
+          const payload = {
+            title: unit.title,
+            description: unit.description,
+            isActive: unit.isActive,
+            sequenceNumber: unit.sequenceNumber,
+            courseId,
+          };
+
+          return registerUnits(payload).then((res) => {
+            console.log('← Respuesta unidad:', res.data);
+            return res.data; // Devuelve la respuesta con los datos de la unidad, como el unitId
+          });
+        })
+      );
+
+      // Después de guardar las unidades, redirige a ManageResources
+      const unitIds = respuestas.map((res) => res.unitId); // Aquí obtienes los ID de las unidades creadas
+      const unitTitles = respuestas.map((res) => res.title); // Títulos de las unidades
+
+      // Redirigir con los parámetros necesarios en la URL
+      navigate(`/teacher/manage-resources?courseId=${courseId}&unitIds=${unitIds.join(',')}&unitTitles=${unitTitles.join(',')}`);
+      
+    } catch (error) {
+      console.error('Error al guardar unidades:', error);
+    }
   };
 
   const PreviewContent = ({ unit }) => (
@@ -213,7 +285,7 @@ const LearningUnitsManager = () => {
       )}
 
       <div className="space-y-6">
-        {unit.titles.map((title, titleIndex) => (
+        {unit.titles.map((title) => (
           <div key={title.id} className="border-l-4 border-indigo-500 pl-6">
             <h3 className="text-lg font-semibold text-gray-900 mb-2">
               {title.title || 'Título del tema'}
@@ -249,7 +321,7 @@ const LearningUnitsManager = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-primary-pri4 transition-colors duration-300">
+    <div className="-m-8 min-h-screen bg-gray-50 dark:bg-primary-pri4 transition-colors duration-300">
       {/* Header */}
       <div className="bg-white dark:bg-primary-pri3 shadow-sm border-b border-gray-200 dark:border-primary-pri2 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-6 py-4">
@@ -398,7 +470,7 @@ const LearningUnitsManager = () => {
                         </button>
                       </div>
 
-                      {unit.titles.map((title, titleIndex) => (
+                      {unit.titles.map((title) => (
                         <div key={title.id} className="bg-gray-50 dark:bg-primary-pri4 rounded-lg p-4 border border-gray-200 dark:border-primary-pri2">
                           <div className="flex items-center justify-between mb-3">
                             <span className="text-sm font-medium text-gray-600 dark:text-primary-pri1">
@@ -523,6 +595,15 @@ const LearningUnitsManager = () => {
       </div>
     </div>
   );
+};
+
+LearningUnitsManager.propTypes = {
+  unit: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string,
+    sequenceNumber: PropTypes.number.isRequired,
+    titles: PropTypes.array.isRequired,
+  }).isRequired,
 };
 
 export default LearningUnitsManager;

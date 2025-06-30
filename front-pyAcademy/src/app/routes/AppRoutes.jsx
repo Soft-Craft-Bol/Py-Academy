@@ -50,7 +50,6 @@ export function AppRoutes() {
         <Route element={<PublicLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/explorar-cursos" element={<ExplorateCourses />} />
-          <Route path="/Recursos-OER" element={<ResourceManager />} />
           <Route path="/ia-tutor" element={<Home />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
@@ -69,6 +68,7 @@ export function AppRoutes() {
             <Route path="create-course" element={<CourseManangement />} />
             <Route path="learning-units" element={<LearningUnitsManager />} />
             <Route path="gestionar-cursos/edit/:id" element={<EditCoursePage />} />
+            <Route path="manage-resources" element={<ResourceManager />} />
             <Route path="studentList/:id/" element={<CourseStudentsPage />} />
             <Route path="profile/:userId" element={<UserProfilePage />} />
           </Route>
