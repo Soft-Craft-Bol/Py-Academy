@@ -8,10 +8,10 @@ import Select from "@/shared/ui/atoms/Select";
 import { Trash2, ImagePlus } from "lucide-react";
 import { FaCheckCircle, FaRegCircle } from 'react-icons/fa';
 import axios from "axios";
+import { getUser } from "@/features/auth/utils/authCookies";
 
-import { getUser } from '@/shared/utils/authCookies';
 
-const user = getUser();
+const user = getUser
 const teacherId = user?.id;
 console.log('ID del docente:', teacherId);
 
@@ -187,7 +187,7 @@ export default function AssessmentEditorPage() {
                             placeholder="Título de la evaluación"
                             className="bg-white text-black placeholder-gray-500 w-full"
                         />
-                        
+
                         <Textarea
                             value={description}
                             onChange={e => setDescription(e.target.value)}
