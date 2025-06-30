@@ -14,7 +14,7 @@ import { getUser } from "@/features/auth/utils/authCookies";
 const user = getUser
 const teacherId = user?.id;
 console.log('ID del docente:', teacherId);
-
+//soluction
 const QUESTION_TYPES = [
     { label: "Opción Múltiple", value: "multiple-choice" },
     { label: "Respuesta Corta", value: "short-answer" },
