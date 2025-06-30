@@ -64,14 +64,15 @@ export function AppRoutes() {
             <Route path="create-practice" element={<CreatePracticePage />} />
             <Route path="gestionar-cursos" element={<ManageCourses />} />
             <Route path="create-course" element={<CourseManangement />} />
+             <Route path="learning-units" element={<LearningUnitsManager />} />
             <Route path="gestionar-cursos/edit/:id" element={<EditCoursePage />} />
           </Route>
         </Route>
 
         <Route element={<PrivateRoute />}>
           <Route path="/student" element={<StudentLayout />}>
+
             <Route index element={<CoursesPage />} />
-            <Route path="learning-units" element={<LearningUnitsManager />} />
             <Route path="editor" element={<PyEditor />} />
             <Route path="chatIA" element={<ChatIA />} />
             <Route path="exercises" element={<ExercisesPage />} />
