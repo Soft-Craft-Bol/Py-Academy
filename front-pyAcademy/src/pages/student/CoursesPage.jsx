@@ -56,7 +56,7 @@ function CoursesPage() {
   };
 
   return (
-    <section className="px-4 md:px-10 py-10 min-h-screen bg-gray-50 dark:bg-gradient-1">
+    <section className="px-4 md:px-10 py-10 min-h-screen">
       <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-white">Mis Cursos</h2>
 
       <div className="grid gap-8 sm:grid-cols-2 xl:grid-cols-3">
