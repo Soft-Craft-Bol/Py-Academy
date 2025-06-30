@@ -68,3 +68,11 @@ export const getAllCourses = (page = 0, size = 10) => {
 
 export const registerUnits = (data) => api.post('/learning/units', data);
 export const getUnitsForCourse = (courseId) => api.get(`/learning/units/course/${courseId}`);
+
+export const fetchUnitsByCourse = (courseId) => {
+  // Verificar que courseId sea válido
+  if (!courseId || isNaN(courseId)) {
+    return Promise.reject('Invalid course ID');
+  }
+  return api.get(`/learning/units/course/${courseId}`);
+};

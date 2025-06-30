@@ -8,6 +8,7 @@ export const useCreateCourse = () => {
 
   return useMutation({
     mutationFn: ({ courseData, teacherId, imageFile }) => {
+      console.log('Enviando datos de curso:', { courseData, teacherId, imageFile });
       const formData = new FormData();
 
       // Agregar todos los campos del curso como JSON
@@ -25,11 +26,14 @@ export const useCreateCourse = () => {
 
       return createCourse(formData);
     },
-    onSuccess: () => {
+    onSuccess: (response) => {
+      console.log('Respuesta creación de curso:', response.data);
       toast.success('Curso creado exitosamente');
-      navigate('/teacher/learning-units');
+      const newCourseId = response.data.id; // Ajusta si tu API retorna otro campo
+      navigate(`/teacher/learning-units?courseId=${newCourseId}`);
     },
     onError: (error) => {
+      console.error('Error al crear curso:', error);
       toast.error(`Error al crear curso: ${error.message}`);
     }
   });
