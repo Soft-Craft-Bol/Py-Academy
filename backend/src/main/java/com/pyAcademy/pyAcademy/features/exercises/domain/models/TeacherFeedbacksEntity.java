@@ -2,11 +2,19 @@ package com.pyAcademy.pyAcademy.features.exercises.domain.models;
 
 import com.pyAcademy.pyAcademy.features.education.domain.models.TeacherEntity;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "teacher_feedbacks")
 public class TeacherFeedbacksEntity {
 
@@ -31,55 +39,5 @@ public class TeacherFeedbacksEntity {
     @JoinColumn(name = "submission_id", nullable = false)
     private ExerciseSubmissionsEntity submission;
 
-    // Constructor por defecto
-    public TeacherFeedbacksEntity() {}
 
-    // Getters y Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getComments() {
-        return comments;
-    }
-
-    public void setComments(String comments) {
-        this.comments = comments;
-    }
-
-    public BigDecimal getScoreAdjustment() {
-        return scoreAdjustment;
-    }
-
-    public void setScoreAdjustment(BigDecimal scoreAdjustment) {
-        this.scoreAdjustment = scoreAdjustment;
-    }
-
-    public Timestamp getGivenAt() {
-        return givenAt;
-    }
-
-    public void setGivenAt(Timestamp givenAt) {
-        this.givenAt = givenAt;
-    }
-
-    public TeacherEntity getTeacher() {
-        return teacher;
-    }
-
-    public void setTeacher(TeacherEntity teacher) {
-        this.teacher = teacher;
-    }
-
-    public ExerciseSubmissionsEntity getSubmission() {
-        return submission;
-    }
-
-    public void setSubmission(ExerciseSubmissionsEntity submission) {
-        this.submission = submission;
-    }
 }
