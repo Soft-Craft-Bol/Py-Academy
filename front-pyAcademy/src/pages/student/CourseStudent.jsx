@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import EncabezadoCurso from '@/shared/ui/molecules/EncabezadoCurso';
 import SidebarCurso from '@/shared/ui/organisms/SideBarCurso';
 import { VisorFile } from '@/shared/ui/organisms/VisorFile';
+import { ReproductorVideo } from '@/shared/ui/organisms/ReproductorVideo';
 
 const courseData = {
   title: 'Desarrollo Web Avanzado',
@@ -105,8 +106,9 @@ function CourseStudent() {
             <div className="w-1/2 overflow-y-auto pr-4">
               <VisorFile/>
             </div>
-            <div className="w-1/2 p-4 flex items-center justify-center">
-            Selecciona una sección del curso para comenzar</div>
+            <div className="w-1/2 p-1 flex items-center justify-center">
+              <ReproductorVideo/>
+            </div>
           </div>
         </main>
       </div>

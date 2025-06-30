@@ -9,11 +9,6 @@ export function VisorFile(){
             fileName: "ejemplo.pdf"
         },
         {
-            uri: "/HOJA DE VIDA2024.docx",
-            fileType: "docx",
-            fileName: "ejemplo.docx"
-        },
-        {
             uri: "/progradb.png",
             fileType: "png",
             fileName: "ejemplo.png"
