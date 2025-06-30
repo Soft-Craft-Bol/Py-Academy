@@ -41,6 +41,7 @@ const TeacherCoursesPage = lazy(() => import('@/pages/teacher/components/Teacher
 const EditCoursePage = lazy(() => import('../../shared/layouts/EditCoursePage'));
 const CourseStudentsPage = lazy(() => import('../../pages/teacher/CourseDetailsPage'));
 const UserProfilePage = lazy(() => import('../../pages/profile/UserProfilePage'));
+const MasCursos = lazy(() => import('../../pages/student/MasCursos'));
 
 export function AppRoutes() {
   return (
@@ -83,6 +84,7 @@ export function AppRoutes() {
             <Route path="certificates" element={<Certificates />} />
             <Route path="curso/:id" element={<CourseStudent />} />
             <Route path="profile/:userId" element={<UserProfilePage />} />
+            <Route path="explorar-cursos" element={<ExplorateCourses />} />
           </Route>
         </Route>
       </Routes>

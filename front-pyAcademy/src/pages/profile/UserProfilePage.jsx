@@ -5,10 +5,13 @@ import { getUserDetails } from '@/shared/api/api';
 function UserProfilePage() {
   const { userId } = useParams();
 
-  const { data: user, isLoading, isError, error } = useQuery({
+
+  const { data: response, isLoading, isError, error } = useQuery({
     queryKey: ['userDetails', userId],
     queryFn: () => getUserDetails(userId),
   });
+const user = response?.data || response || [];
+  console.log('User data:', user);
 
 
   return (
@@ -26,12 +29,12 @@ function UserProfilePage() {
             </h1>
             <p className="text-gray-600 dark:text-gray-300">{user.email}</p>
             <span className="inline-block mt-2 px-3 py-1 text-sm font-semibold rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
-              {user.userType === 'STUDENT' ? 'Estudiante' : 'Profesor'}
+              {user.userType === 'ESTUDIANTE' ? 'Estudiante' : 'Profesor'}
             </span>
           </div>
         </div>
 
-        {user.userType === 'STUDENT' && (
+        {user.userType === 'ESTUDIANTE' && (
           <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
             <DetailItem label="Matrícula" value={user.enrollmentNumber} />
             <DetailItem label="Programa académico" value={user.academicProgram} />
@@ -40,7 +43,7 @@ function UserProfilePage() {
           </div>
         )}
 
-        {user.userType === 'TEACHER' && (
+        {user.userType === 'MAESTRO' && (
           <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
             <DetailItem label="Departamento" value={user.department} />
             <DetailItem label="Especialización" value={user.specialization} />

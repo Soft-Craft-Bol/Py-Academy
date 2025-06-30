@@ -4,7 +4,7 @@ import EjemploFirma from '@/assets/img/EjemploFirma.png';
 import { useLocation, useNavigate } from 'react-router-dom';
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
-import { getDetallesUser, getCourseByStudent } from '@/shared/api/api';
+import { getUserDetails, getCourseByStudent } from '@/shared/api/api';
 import { getUser } from '@/features/auth/utils/authCookies';
 
 const Certificates = () => {
@@ -24,7 +24,7 @@ const Certificates = () => {
         setLoading(true);
 
         // Obtener datos del usuario
-        const userResponse = await getDetallesUser(user);
+        const userResponse = await getUserDetails(user);
         setUserData(userResponse.data);
 
         // Obtener cursos del estudiante
