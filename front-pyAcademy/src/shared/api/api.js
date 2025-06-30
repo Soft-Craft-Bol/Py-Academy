@@ -46,6 +46,7 @@ export const createExercises = (data) => api.post('/exercises', data);
 //course
 export const inscribirseCurso = (data) => api.post('/courses/enrollments', data);
 export const getCourseByStudent = (studentId) => api.get(`/courses/enrollments/student/${studentId}`);
+export const getCoursesByTeacher = (teacherId) => api.get(`/courses/enrollments/teacher/${teacherId}`);
 
 export const createCourse = (formData) => {return api.post('/courses', formData, {
     headers: {
