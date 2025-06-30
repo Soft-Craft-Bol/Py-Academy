@@ -36,7 +36,7 @@ const CourseStudent = lazy(() => import('@/pages/student/CourseStudent'));
 const AssessmentsListPage = lazy(() => import('@/pages/teacher/AssessmentsListPage'));
 const AssessmentEditorPage = lazy(() => import('@/pages/teacher/AssessmentEditorPage'));
 const CreatePracticePage = lazy(() => import('@/pages/teacher/CreatePracticePage'));
-const StudentListPage = lazy(() => import('@/pages/teacher/StudentListPage'));
+const CourseDetailsPage = lazy(() => import('@/pages/teacher/CourseDetailsPage'));
 const TeacherCoursesPage = lazy(() => import('@/pages/teacher/components/TeacherCoursesPage'));
 const EditCoursePage = lazy(() => import('../../shared/layouts/EditCoursePage'));
 
@@ -58,7 +58,7 @@ export function AppRoutes() {
           <Route path="/teacher" element={<TeacherLayout />}>
             <Route index element={<TeacherCoursesPage />} />
             <Route path="assessmentsList" element={<AssessmentsListPage />} />
-            <Route path="studentList/:id" element={<StudentListPage />} />
+            <Route path="course/:id" element={<CourseDetailsPage />} />
             <Route path="newAssessments" element={<AssessmentEditorPage />} />
             <Route path="create-practice" element={<CreatePracticePage />} />
             <Route path="gestionar-cursos" element={<ManageCourses />} />
@@ -71,7 +71,6 @@ export function AppRoutes() {
 
         <Route element={<PrivateRoute />}>
           <Route path="/student" element={<StudentLayout />}>
-
             <Route index element={<CoursesPage />} />
             <Route path="editor" element={<PyEditor />} />
             <Route path="chatIA" element={<ChatIA />} />

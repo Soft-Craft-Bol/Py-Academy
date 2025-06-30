@@ -8,7 +8,7 @@ const LearningUnitsManager = (initialCourseId ) => {
   const navigate = useNavigate();
   const [previewMode, setPreviewMode] = useState(false);
   const [units, setUnits] = useState([{
-    id: Date.now(),
+    courseId: Date.now(),
     title: '',
     description: '',
     sequenceNumber: 1,
@@ -321,7 +321,7 @@ const LearningUnitsManager = (initialCourseId ) => {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-primary-pri4 transition-colors duration-300">
+    <div className="-m-8 min-h-screen bg-gray-50 dark:bg-primary-pri4 transition-colors duration-300">
       {/* Header */}
       <div className="bg-white dark:bg-primary-pri3 shadow-sm border-b border-gray-200 dark:border-primary-pri2 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-6 py-4">
