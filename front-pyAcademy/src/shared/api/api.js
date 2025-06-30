@@ -50,7 +50,8 @@ export const createLearningMaterial = (data) => api.post('/learning/materials', 
 //course
 export const inscribirseCurso = (data) => api.post('/courses/enrollments', data);
 
-export const createCourse = (formData) => {return api.post('/courses', formData, {
+export const createCourse = (formData) => {
+  return api.post('/courses', formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
@@ -64,10 +65,12 @@ export const getAllCourses = (page = 0, size = 10) => {
       size: size,
     },
   });
-}
+};
 
 export const registerUnits = (data) => api.post('/learning/units', data);
 export const getUnitsForCourse = (courseId) => api.get(`/learning/units/course/${courseId}`);
+export const getTeacherCourses = (teacherId) => api.get(`/teachers/${teacherId}/courses`);
+export const getExercises = () => api.get(`/exercises`);
 
 export const fetchUnitsByCourse = (courseId) => {
   // Verificar que courseId sea válido
