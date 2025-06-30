@@ -9,7 +9,7 @@ import pyWeb from '@/assets/ManageCourses/pyWeb.jpeg';
 const courses = [
     {
         id: 1,
-        title: 'Curso de Python Básico',
+        title: 'Curso dxzzxzxxe Python Básico',
         teacher: 'Ana López',
         imageUrl: python_basico,
         startDate: '01/06/2025',

@@ -1,78 +1,58 @@
-//React
 import { BsBook } from 'react-icons/bs';
-import { GiBurningBook, GiEvilBook } from 'react-icons/gi';
+import { GiEvilBook } from 'react-icons/gi';
 import { IoIosArrowRoundBack } from 'react-icons/io';
 import { NavLink, useLocation } from 'react-router-dom';
 
-//Componentes
 import PythonEditor from './PyEditorPage';
 import { ExerciseAchievements } from './components/ExerciseAchievements';
-import Select from '../../shared/ui/atoms/Select';
-import { exercises } from './dataTest';
-import { ExcerciseCard } from './components/ExcerciseCard';
-import { FaCheckCircle, FaRegCircle } from 'react-icons/fa';
 
 function ExercisePage() {
   const location = useLocation();
   const data = location.state || {};
-
-  const onEvaluation = (expectedOutput) => {
-    if (expectedOutput === data.testCases.expectedOutput) {
-      window.alert("Correcto");
-    } else {
-      window.alert('Incorrecto');
-    }
-  };
-
   const exerciseAchievements = data.achievements || [];
 
-  const DescriptorElement = ({
-    title,
-    descripcion,
-    inputData,
-    expectedOutput,
-    icon,
-  }) => {
-    // Usar los testCases del ejercicio si existen
-    const testCases = data.testCases || [];
-    return (
-      <div>
-        <h3 className="flex gap-2 items-center">
-          {icon && icon}
-          {title}
-        </h3>
-        {descripcion && <p className="p-3 bg-primary-pri4 border rounded-md my-4">{descripcion}</p>}
-        {testCases.length > 0 && (
-          <>
-            {testCases[0] && (
-              <p className="p-3 bg-primary-pri4 border rounded-md my-4">
-                <span className="text-blue-400">Entrada: {testCases[0].inputData}</span>
-                <br />
-                <span className="text-green-500">Salida: </span>
-                {testCases[0].expectedOutput}
+  const DescriptorElement = ({ title, descripcion, icon, testCases }) => (
+    <section className="mb-8">
+      <h3 className="flex items-center gap-3 text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
+        {icon}
+        {title}
+      </h3>
+
+      {descripcion && (
+        <p className="p-5 rounded-lg bg-primary-pri4 border border-primary-pri3 text-gray-900 dark:text-gray-100 leading-relaxed">
+          {descripcion}
+        </p>
+      )}
+
+      {testCases && testCases.length > 0 && (
+        <div className="mt-5 space-y-5">
+          {testCases.slice(0, 2).map((tc, idx) => (
+            <div key={idx} className="p-4 rounded-lg bg-primary-pri4 border border-primary-pri3">
+              <p className="font-medium text-blue-600 dark:text-blue-400">
+                Entrada:{' '}
+                <code className="bg-gray-200 dark:bg-gray-700 rounded px-1 py-0.5">
+                  {tc.inputData}
+                </code>
               </p>
-            )}
-            {testCases[1] && (
-              <p className="p-3 bg-primary-pri4 border rounded-md my-4">
-                <span className="text-blue-400">Entrada: {testCases[1].inputData}</span>
-                <br />
-                <span className="text-green-500">Salida: </span>
-                {testCases[1].expectedOutput}
-              </p>
-            )}
-            {testCases.length > 2 && (
-              <p className="text-primary-pri1">
-                Y otros {testCases.length - 2} casos de prueba más...
-              </p>
-            )}
-          </>
-        )}
-      </div>
-    );
-  };
+              <p className="text-green-600 dark:text-green-400 font-medium mt-1">Salida:</p>
+              <pre className="whitespace-pre-wrap text-gray-900 dark:text-gray-100">
+                {tc.expectedOutput}
+              </pre>
+            </div>
+          ))}
+          {testCases.length > 2 && (
+            <p className="italic text-gray-800 dark:text-gray-300">
+              Y otros {testCases.length - 2} casos de prueba más...
+            </p>
+          )}
+        </div>
+      )}
+    </section>
+  );
 
   return (
-    <div className="-m-8">
+    <div className="-m-8 min-h-screen bg-gradient-to-tr from-primary-pri2 to-primary-pri4 text-gray-900 dark:text-gray-100">
+      {/* Header */}
       <header className="flex justify-between items-center dark:bg-primary-pri4 py-5 px-4 border-t">
         <div className="flex gap-7">
           <NavLink
@@ -82,30 +62,33 @@ function ExercisePage() {
             {<IoIosArrowRoundBack className="text-title-lg" />}Volver a Ejercicios
           </NavLink>
           <p>|</p>
-          <h1 className="text-title-sm font-semibold">{data.title}</h1>
+          <h1 className="text-title-md font-semibold">{data.title}</h1>
         </div>
         <p className="bg-green-500 p-1 rounded-md h-[90%]">{data.difficultyLevel}</p>
       </header>
-      <ExerciseAchievements achievements={exerciseAchievements} />
-      <div className="flex">
-        <section className="dark:bg-gradient-2 w-[40%] h-screen p-5 sticky top-0">
-          <DescriptorElement
-            title={'Descripción'}
-            descripcion={data.description}
-            icon={<BsBook />}
-          />
 
-          <DescriptorElement
-            title={"Casos de Prueba"}
-            inputData={data.testCases && data.testCases[0]?.inputData}
-            expectedOutput={data.testCases && data.testCases[0]?.expectedOutput}
-            icon={<GiEvilBook className="text-label-lg" />}
-          />
-        </section>
-        <section className="w-[60%]">
+      {/* Contenedor principal con ancho máximo y padding */}
+      <main className="max-w-6xl mx-auto px-6 py-10">
+        {/* Logros */}
+        <ExerciseAchievements achievements={exerciseAchievements} />
+
+        {/* Descripción y casos */}
+        <DescriptorElement
+          title="Descripción"
+          descripcion={data.description}
+          icon={<BsBook size={24} />}
+        />
+        <DescriptorElement
+          title="Casos de Prueba"
+          testCases={data.testCases}
+          icon={<GiEvilBook size={24} />}
+        />
+
+        {/* Editor abajo */}
+        <section className="mt-12 shadow-lg rounded-xl overflow-hidden border border-primary-pri3">
           <PythonEditor title={false} testCases={data.testCases} />
         </section>
-      </div>
+      </main>
     </div>
   );
 }
