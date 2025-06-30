@@ -1,8 +1,10 @@
 package com.pyAcademy.pyAcademy.features.education.infrastructure.rest;
 
 import com.pyAcademy.pyAcademy.features.education.application.usecase.EnrollStudentToCourseUseCase;
+import com.pyAcademy.pyAcademy.features.education.application.usecase.GetCoursesByTeacherUseCase;
 import com.pyAcademy.pyAcademy.features.education.application.usecase.GetStudentEnrolledCoursesUseCase;
 import com.pyAcademy.pyAcademy.features.education.infrastructure.dto.request.CourseEnrollmentRequest;
+import com.pyAcademy.pyAcademy.features.education.infrastructure.dto.response.CreatedCourseResponse;
 import com.pyAcademy.pyAcademy.features.education.infrastructure.dto.response.EnrolledCourseResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,7 @@ public class CourseEnrollmentController {
 
     private final EnrollStudentToCourseUseCase enrollStudentToCourseUseCase;
     private final GetStudentEnrolledCoursesUseCase getStudentEnrolledCoursesUseCase;
+    private final GetCoursesByTeacherUseCase getCoursesByTeacherUseCase;
 
     @PostMapping
     public ResponseEntity<String> enroll(@RequestBody CourseEnrollmentRequest request) {
@@ -27,5 +30,10 @@ public class CourseEnrollmentController {
     @GetMapping("/student/{studentId}")
     public ResponseEntity<List<EnrolledCourseResponse>> getEnrolledCourses(@PathVariable Long studentId) {
         return ResponseEntity.ok(getStudentEnrolledCoursesUseCase.execute(studentId));
+    }
+
+    @GetMapping("/teacher/{teacherId}")
+    public ResponseEntity<List<CreatedCourseResponse>> getCoursesByTeacher(@PathVariable Long teacherId) {
+        return ResponseEntity.ok(getCoursesByTeacherUseCase.execute(teacherId));
     }
 }
