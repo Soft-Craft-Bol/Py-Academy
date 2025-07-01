@@ -1,12 +1,14 @@
 import { useUnitMaterial } from '@/shared/hooks/useUnitMaterial';
-import VisorFile from "../components/VisorFile";
-import ReproductorVideo from "../components/ReproductorVideo";
+import { VisorFile } from '../organisms/VisorFile';
+import { ReproductorVideo } from '../organisms/ReproductorVideo';
 
 function UnitDisplay({ unit }) {
   const { material, loading, error } = useUnitMaterial(unit.materialId);
 
-  const esVideo = material?.materialType === "video";
-  const esArchivo = ["pdf", "ppt", "pptx", "doc", "docx", "xls", "xlsx"].includes(material?.extension || "");
+  const esVideo = material?.materialType === 'video';
+  const esArchivo = ['pdf', 'ppt', 'pptx', 'doc', 'docx', 'xls', 'xlsx'].includes(
+    material?.extension || ''
+  );
 
   return (
     <div className="bg-white dark:bg-gray-700 p-4 rounded shadow-md">
@@ -18,11 +20,7 @@ function UnitDisplay({ unit }) {
 
       {!loading && material && (
         <div className="mt-2">
-          {esVideo && (
-            <ReproductorVideo
-              url={material.url}
-            />
-          )}
+          {esVideo && <ReproductorVideo url={material.url} />}
 
           {esArchivo && (
             <VisorFile

@@ -9,7 +9,7 @@ function StudentCourses() {
   const { courses, loading, error, hasMore } = useInfiniteCourses();
 
   return (
-    <section className="px-4 md:px-10 py-12 min-h-screen bg-gray-50 dark:bg-gradient-1">
+    <section className="px-4 md:px-10 py-12 min-h-screen">
       <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-white">Cursos Disponibles</h2>
 
       {error && (

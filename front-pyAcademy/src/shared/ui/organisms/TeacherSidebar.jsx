@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 
 // Icons
 import { LuClipboardList, LuFilePlus, LuBookMarked } from 'react-icons/lu';
-import { FaBook } from "react-icons/fa";
-import { IoCreateSharp } from "react-icons/io5";
+import { FaBook } from 'react-icons/fa';
+import { IoCreateSharp } from 'react-icons/io5';
 
 // Componentes internos
 import { SidebarMenu } from '../molecules/sidebar/SidebarMenu';
@@ -15,50 +15,47 @@ import { MobileMenuButton } from '../atoms/MobileMenuButton';
 import { MobileSidebar } from '../molecules/sidebar/MobileSidebar';
 
 export function TeacherSidebar({ isSidebarOpen, isMenuOpen, toggleSidebar, toggleMenu }) {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const options = [
-        { title: 'Cursos', to: '/teacher', Icon: FaBook },
-        { title: 'Mis Evaluaciones', to: '/teacher/assessmentsList', Icon: LuClipboardList },
-        { title: 'Crear evaluación', to: '/teacher/newAssessments', Icon: LuFilePlus },
-        { title: 'Cursos creados', to: '/teacher/gestionar-cursos', Icon: LuBookMarked },
-        { title: 'Crear cursos', to: '/teacher/create-course', Icon: IoCreateSharp },
-        { title: 'Crear práctica de programación', to: '/teacher/create-practice', Icon: LuFilePlus }
-    ];
+  const options = [
+    { title: 'Cursos', to: '/teacher', Icon: FaBook },
+    { title: 'Mis Evaluaciones', to: '/teacher/assessmentsList', Icon: LuClipboardList },
+    { title: 'Crear evaluación', to: '/teacher/newAssessments', Icon: LuFilePlus },
+  ];
 
-    const handleLogout = () => {
-        navigate('/', { replace: true, state: { loggedOut: true } });
-    };
+  const handleLogout = () => {
+    navigate('/', { replace: true, state: { loggedOut: true } });
+  };
 
-    return (
-        <>
-        <motion.div
-            layout
-            className={`shadow-purple-500/30 shadow-xl hidden md:block fixed top-0 left-0 h-screen bg-white dark:bg-primary-pri4 text-white transition-all duration-300 ${
-            isSidebarOpen ? 'w-56' : 'w-16'
-            }`}
-        >
-            <SidebarMenu options={options} isSidebarOpen={isSidebarOpen} />
+  return (
+    <>
+      <motion.div
+        layout
+        className={`shadow-purple-500/30 shadow-xl hidden md:block fixed top-0 left-0 h-screen bg-white dark:bg-primary-pri4 text-white transition-all duration-300 ${
+          isSidebarOpen ? 'w-56' : 'w-16'
+        }`}
+      >
+        <SidebarMenu options={options} isSidebarOpen={isSidebarOpen} />
 
-            <SidebarFooter
-            isSidebarOpen={isSidebarOpen}
-            onToggleSidebar={toggleSidebar}
-            onLogout={handleLogout}
-            />
-        </motion.div>
-
-        <div className="flex md:hidden justify-end px-4 py-2">
-            <MobileMenuButton onToggleMenu={toggleMenu} />
-        </div>
-
-        <MobileSidebar
-            onLogout={handleLogout}
-            onToggleMenu={toggleMenu}
-            options={options}
-            isMenuOpen={isMenuOpen}
+        <SidebarFooter
+          isSidebarOpen={isSidebarOpen}
+          onToggleSidebar={toggleSidebar}
+          onLogout={handleLogout}
         />
-        </>
-    );
+      </motion.div>
+
+      <div className="flex md:hidden justify-end px-4 py-2">
+        <MobileMenuButton onToggleMenu={toggleMenu} />
+      </div>
+
+      <MobileSidebar
+        onLogout={handleLogout}
+        onToggleMenu={toggleMenu}
+        options={options}
+        isMenuOpen={isMenuOpen}
+      />
+    </>
+  );
 }
 
 // ✅ Validación de props

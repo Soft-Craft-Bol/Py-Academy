@@ -4,7 +4,6 @@ import { Route, Routes } from 'react-router-dom';
 import { PublicLayout } from '../../shared/layouts/PublicLayout';
 import { StudentLayout } from '../../shared/layouts/StudentLayout';
 import { TeacherLayout } from '../../shared/layouts/TeacherLayout';
-
 import CourseManangement from '../../shared/layouts/CourseManangement';
 import LearningUnitsManager from '../../shared/layouts/LearningUnitsManager';
 
@@ -16,7 +15,7 @@ const ManageCourses = lazy(() => import('../../pages/ManageCourses/ManageCourses
 const ExplorateCoursesPublic = lazy(
   () => import('../../pages/ExplorateCourses/ExplorateCoursesPublic')
 );
-const PrivateCourseView = lazy(() => import('../../pages/ExplorateCourses/CourseDashboard'));
+const CourseDashboard = lazy(() => import('../../pages/ExplorateCourses/CourseDashboard'));
 const LoginPage = lazy(() => import('../../pages/auth/login/LoginPage'));
 const RegisterPage = lazy(() => import('@/pages/auth/register/RegisterPage'));
 const ResourceManager = lazy(() => import('../../pages/ManageResources/ManageResources'));
@@ -84,8 +83,10 @@ export function AppRoutes() {
             <Route path="exercises" element={<ExercisesPage />} />
             <Route path="exercise" element={<ExercisePage />} />
             <Route path="certificates" element={<Certificates />} />
-            <Route path="curso/:id" element={<CourseStudent />} />
             <Route path="profile/:userId" element={<UserProfilePage />} />
+            <Route path="CourseDashboard/:id" element={<CourseDashboard />} />
+            <Route path="CourseDashboard/:id/resources" element={<CourseStudent />} />
+
             <Route path="explorar-cursos" element={<ExplorateCourses />} />
           </Route>
         </Route>
