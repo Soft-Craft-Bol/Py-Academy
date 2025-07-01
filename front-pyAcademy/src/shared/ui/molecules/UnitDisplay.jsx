@@ -1,11 +1,10 @@
 import { useUnitMaterial } from '@/shared/hooks/useUnitMaterial';
-import { VisorFile } from '../organisms/VisorFile';
+import { VisorFile } from "../organisms/VisorFile";
 import { ReproductorVideo } from '../organisms/ReproductorVideo';
+import PropTypes from 'prop-types';
 
 function UnitDisplay({ unit }) {
   const { material, loading, error } = useUnitMaterial(unit.materialId);
-
-  console.log('El material es', material);
 
   const esVideo = material?.materialType === 'video';
   const esArchivo = ['pdf', 'ppt', 'pptx', 'doc', 'docx', 'xls', 'xlsx'].includes(
@@ -44,5 +43,13 @@ function UnitDisplay({ unit }) {
     </div>
   );
 }
+
+UnitDisplay.propTypes = {
+  unit: PropTypes.shape({
+    materialId: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired, 
+    description: PropTypes.string.isRequired
+  }).isRequired,
+};
 
 export default UnitDisplay;

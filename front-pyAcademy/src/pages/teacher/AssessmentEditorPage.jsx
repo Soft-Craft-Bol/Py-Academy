@@ -7,13 +7,7 @@ import Input from '@/shared/ui/atoms/Input';
 import Select from '@/shared/ui/atoms/Select';
 import { Trash2, ImagePlus } from 'lucide-react';
 import { FaCheckCircle, FaRegCircle } from 'react-icons/fa';
-import axios from 'axios';
-
-import { getUser } from '@/features/auth/utils/authCookies';
-
-const user = getUser();
-const teacherId = user?.id;
-console.log('ID del docente:', teacherId);
+import axios from "axios";
 
 const QUESTION_TYPES = [
   { label: 'Opción Múltiple', value: 'multiple-choice' },

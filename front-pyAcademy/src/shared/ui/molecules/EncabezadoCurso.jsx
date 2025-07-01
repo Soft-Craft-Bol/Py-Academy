@@ -1,7 +1,9 @@
-import React from 'react';
 import { Bell, User } from 'lucide-react';
+import PropTypes from 'prop-types';
 
 const EncabezadoCurso = ({ courseData }) => {
+  console.log("props", courseData);
+  
   return (
     <header className="h-18 bg-gradient-to-r from-blue-700 via-indigo-700 to-purple-700 shadow-lg p-6 flex justify-between items-center">
       <div className="flex items-center space-x-4">
@@ -25,6 +27,13 @@ const EncabezadoCurso = ({ courseData }) => {
       </div>
     </header>
   );
+};
+
+EncabezadoCurso.propTypes = {
+  courseData: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    subtitle: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default EncabezadoCurso;

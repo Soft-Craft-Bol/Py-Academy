@@ -33,7 +33,7 @@ export const useCreateCourse = () => {
       console.log('Respuesta creación de curso:', response.data);
       toast.success('Curso creado exitosamente');
       const newCourseId = response.data.id; // Ajusta si tu API retorna otro campo
-      navigate(`/teacher`);
+      navigate(`/teacher/course/${newCourseId}/add-units`);
     },
     onError: (error) => {
       console.error('Error al crear curso:', error);

@@ -21,7 +21,7 @@ export function Sidebar({ isSidebarOpen, isMenuOpen, toggleSidebar, toggleMenu }
     { title: "Mis cursos", to: "/student", Icon: LuBookCopy },
     { title: "Editor de codigo", to: "editor", Icon: IoCodeSlash },
     { title: "Ejercicios", to: "exercises", Icon: GiArtificialIntelligence },
-    { title: "Certificados", to: "certificates", Icon: PiCertificateBold },    //mas cursos
+    { title: "Certificados", to: "certificates", Icon: PiCertificateBold },
     { title: "Inscribirse a un curso", to: "explorar-cursos", Icon: PiStandardDefinition },
 
   ];

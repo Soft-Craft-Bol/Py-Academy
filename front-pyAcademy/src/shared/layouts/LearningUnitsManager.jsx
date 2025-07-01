@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useLocation, useParams, useNavigate } from 'react-router-dom';
 import { IoIosArrowRoundBack } from 'react-icons/io';
+import { toast } from 'sonner'; 
 
 //Api
 import { createUnits } from '@/shared/api/api';
@@ -246,8 +247,10 @@ const LearningUnitsManager = () => {
     try {
       console.log('Las unidades a enviar son: ', units);
 
+      // Simulando el guardar las unidades en el backend
       const res = await createUnits(units);
 
+      // Suponiendo que el backend devuelve el ID del curso
       console.log(res);
 
       navigate(-1);
@@ -256,6 +259,9 @@ const LearningUnitsManager = () => {
       // );
     } catch (error) {
       console.error('Error al guardar unidades:', error);
+
+      // Mostrar mensaje de error
+      toast.error('Error al guardar las unidades');
     }
   };
 

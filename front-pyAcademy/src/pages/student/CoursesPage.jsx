@@ -21,15 +21,17 @@ function CoursesPage() {
   });
 
   const courses = response?.data || response || [];
+  console.log("courses++",courses );
+  
 
   const handleCardClick = (course, id) => {
     // navigate(`/student/curso/${id}`, { state: courses });
-    sessionStorage.setItem('Course', JSON.stringify(course));
+    sessionStorage.setItem('course', course);
     navigate(`/student/CourseDashboard/${id}`);
   };
 
   return (
-    <section className="px-4 md:px-10 py-10 min-h-screen">
+    <section className="px-4 md:px-10 py-10 min-h-screen bg-gray-50 dark:bg-gradient-1">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold text-gray-800 dark:text-white">Mis Cursos</h2>
         {courses?.length > 0 && (
@@ -53,7 +55,7 @@ function CoursesPage() {
         </div>
       ) : (
         <div className="grid gap-8 sm:grid-cols-2 xl:grid-cols-3">
-          {courses?.map((course, index) => {
+          {courses?.map((course) => {
             const startDate = new Date(course.startDate).toLocaleDateString();
             const endDate = new Date(course.endDate).toLocaleDateString();
 

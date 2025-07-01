@@ -25,7 +25,7 @@ const getGeneralAchievements = (exercises) => {
   ];
 };
 
-const ExercisesPage = ({ unitExercise }) => {
+const ExercisesPage = () => {
   const navigation = useNavigate();
   const [exercises, setExercises] = useState(exercisesExamples);
   const [resumenLogros, setResumenLogros] = useState();
@@ -33,6 +33,7 @@ const ExercisesPage = ({ unitExercise }) => {
   useEffect(() => {
     async function fetchExercises() {
       const res = await getExercises();
+      console.log('El res es', res);
       setExercises((prev) => {
         const ids = new Set(prev.map((e) => e.id));
         const nuevos = res.data.filter((e) => !ids.has(e.id));
@@ -41,8 +42,7 @@ const ExercisesPage = ({ unitExercise }) => {
       const generalAchievements = getGeneralAchievements(res.data);
       setResumenLogros(generalAchievements[0]?.label);
     }
-    if (!unitExercise) fetchExercises();
-    else setExercises(unitExercise);
+    fetchExercises();
   }, []);
 
   return (

@@ -8,7 +8,7 @@ import UnitDisplay from '@/shared/ui/molecules/UnitDisplay';
 function CourseStudent({ units }) {
   const { id } = useParams();
   const location = useLocation();
-  const courseDetails = JSON.parse(sessionStorage.getItem('Course'));
+  const courseDetails = sessionStorage.getItem('Course');
 
   // const { units, loading, error } = useCourseUnits(id);
 
@@ -19,7 +19,7 @@ function CourseStudent({ units }) {
     <div className="h-full bg-gray-50 dark:bg-gray-900 flex flex-col">
       <EncabezadoCurso courseData={courseDetails} />
       <div className="flex flex-1 overflow-hidden">
-        {/* <SidebarCurso /> */}
+        <SidebarCurso />
         <main className="flex-1 bg-gray-100 dark:bg-gray-800 p-4 text-gray-500 dark:text-gray-400 overflow-hidden">
           {/* {loading && (
             <div className="text-center w-full mt-10">
@@ -42,8 +42,8 @@ function CourseStudent({ units }) {
           {units.length > 0 && (
             <div className="flex w-full h-full gap-4">
               <div className="w-1/2 overflow-y-auto pr-4 space-y-6">
-                {units.map((unit) => (
-                  <UnitDisplay key={unit.id} unit={unit} />
+                {units.map((unit, index) => (
+                  <UnitDisplay key={unit.id || unit.unitId || index} unit={unit} />
                 ))}
               </div>
               <div className="w-1/2 p-1 flex items-center justify-center">
