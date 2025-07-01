@@ -26,12 +26,12 @@ function CoursesPage() {
 
   const handleCardClick = (course, id) => {
     // navigate(`/student/curso/${id}`, { state: courses });
-    sessionStorage.setItem('course', course);
+    sessionStorage.setItem('Course', JSON.stringify(course));
     navigate(`/student/CourseDashboard/${id}`);
   };
 
   return (
-    <section className="px-4 md:px-10 py-10 min-h-screen bg-gray-50 dark:bg-gradient-1">
+    <section className="px-4 md:px-10 py-10 min-h-screen">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold text-gray-800 dark:text-white">Mis Cursos</h2>
         {courses?.length > 0 && (
