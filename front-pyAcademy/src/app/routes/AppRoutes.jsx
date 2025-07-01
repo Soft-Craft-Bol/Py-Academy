@@ -63,13 +63,15 @@ export function AppRoutes() {
             <Route path="assessmentsList" element={<AssessmentsListPage />} />
             <Route path="course/:id" element={<CourseDetailsPage />} />
             <Route path="course/:id/add-units" element={<LearningUnitsManager />} />
+            <Route
+              path="course/:id/unit/:unitId/create-practice"
+              element={<CreatePracticePage />}
+            />
             <Route path="newAssessments" element={<AssessmentEditorPage />} />
-            <Route path="create-practice" element={<CreatePracticePage />} />
             <Route path="gestionar-cursos" element={<ManageCourses />} />
             <Route path="create-course" element={<CourseManangement />} />
             <Route path="gestionar-cursos/edit/:id" element={<EditCoursePage />} />
             <Route path="manage-resources" element={<ResourceManager />} />
-            {/* <Route path="studentList/:id/" element={<CourseStudentsPage />} /> */}
             <Route path="profile/:userId" element={<UserProfilePage />} />
           </Route>
         </Route>

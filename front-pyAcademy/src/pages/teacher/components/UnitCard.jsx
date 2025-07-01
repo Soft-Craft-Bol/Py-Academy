@@ -1,7 +1,18 @@
+//React
+import { useParams, useNavigate } from 'react-router-dom';
+
 //Components
 import Button from '@/shared/ui/atoms/Button';
 
 export const UnitCard = ({ unit }) => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+
+  const addExercise = () => {
+    console.log('El unit es', unit);
+    navigate(`/teacher/course/${id}/unit/${unit.unitId}/create-practice`);
+  };
+
   return (
     <div className="p-6 bg-white dark:bg-primary-pri4 rounded-lg mt-10 hover:scale-[1.02] transition-scale duration-300">
       <div className="flex justify-between">
@@ -15,7 +26,7 @@ export const UnitCard = ({ unit }) => {
           <span>⏱️ 8 horas</span>
           <span>📝 2 ejercicios</span>
         </div>
-        <Button>{'Agregar Ejercicios'}</Button>
+        <Button onClick={addExercise}>{'Agregar Ejercicios'}</Button>
       </div>
     </div>
   );

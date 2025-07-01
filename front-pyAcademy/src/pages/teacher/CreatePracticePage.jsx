@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import Input from '@/shared/ui/atoms/Input';
 import { Textarea } from '@/shared/ui/atoms/Textarea';
@@ -23,7 +24,7 @@ export default function CreatePracticePage() {
   const [difficulty, setDifficulty] = useState('Principiante');
   const [language, setLanguage] = useState('python');
   const [testCases, setTestCases] = useState([]);
-
+  const { id, unitId } = useParams();
   const { mutate: createExercise, isPending, isSuccess, isError } = useCreateExercise();
 
   const addTestCase = () => {
@@ -54,6 +55,7 @@ export default function CreatePracticePage() {
       difficultyLevel: difficulty,
       language,
       sequenceNumber: 1,
+      unitId,
       testCases: testCases.map((tc) => ({
         inputData: tc.inputData,
         expectedOutput: tc.expectedOutput,
