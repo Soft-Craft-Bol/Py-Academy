@@ -1,98 +1,93 @@
+//React
 import { useState } from 'react';
-import { useSearchParams, useNavigate } from 'react-router-dom';
-import { fetchUnitsByCourse, registerUnits } from '@/shared/api/api';
-import { Plus, X, Eye, EyeOff, ArrowUp, ArrowDown, Image as ImageIcon, Type, Save, BookOpen, FileText, Layers } from 'lucide-react';
+import { useLocation, useParams, useNavigate } from 'react-router-dom';
+import { IoIosArrowRoundBack } from 'react-icons/io';
+
+//Api
+import { createUnits } from '@/shared/api/api';
+import {
+  Plus,
+  X,
+  Eye,
+  EyeOff,
+  ArrowUp,
+  ArrowDown,
+  Image as ImageIcon,
+  Type,
+  Save,
+  BookOpen,
+  FileText,
+  Layers,
+} from 'lucide-react';
 import PropTypes from 'prop-types';
 
-const LearningUnitsManager = (initialCourseId ) => {
+const LearningUnitsManager = () => {
+  const location = useLocation();
   const navigate = useNavigate();
+  const { unitsTest } = location.state || [];
+  const { id: courseIdForApi } = useParams();
   const [previewMode, setPreviewMode] = useState(false);
-  const [units, setUnits] = useState([{
-    courseId: Date.now(),
-    title: '',
-    description: '',
-    sequenceNumber: 1,
-    isActive: true,
-    titles: [{
-      id: Date.now() + 1,
+  const [units, setUnits] = useState([
+    {
+      courseId: courseIdForApi,
       title: '',
       description: '',
       sequenceNumber: 1,
       isActive: true,
-      contents: [{
-        id: Date.now() + 2,
-        type: 'text',
-        content: '',
-        imageUrl: null
-      }]
-    }]
-  }]);
+      titles: [
+        {
+          title: '',
+          description: '',
+          sequenceNumber: 1,
+          isActive: true,
+          contents: [
+            {
+              type: 'text',
+              content: '',
+              imageUrl: null,
+            },
+          ],
+        },
+      ],
+    },
+  ]);
 
   const addUnit = () => {
     const newUnit = {
-      id: Date.now(),
+      courseId: courseIdForApi,
       title: '',
       description: '',
       sequenceNumber: units.length + 1,
       isActive: true,
-      titles: [{
-        id: Date.now() + 1,
-        title: '',
-        description: '',
-        sequenceNumber: 1,
-        isActive: true,
-        contents: [{
-          id: Date.now() + 2,
-          type: 'text',
-          content: '',
-          imageUrl: null
-        }]
-      }]
+      titles: [
+        {
+          title: '',
+          description: '',
+          sequenceNumber: 1,
+          isActive: true,
+          contents: [
+            {
+              type: 'text',
+              content: '',
+              imageUrl: null,
+            },
+          ],
+        },
+      ],
     };
     setUnits([...units, newUnit]);
   };
 
-  const [searchParams] = useSearchParams();
-  // Obtener el 'courseId' desde los parámetros de la URL
-  const courseIdFromUrl = searchParams.get('courseId');
-
-  // Validar que 'courseId' sea un número entero
-  const courseId = courseIdFromUrl ? parseInt(courseIdFromUrl, 10) : null;
-
-  // Log para ver si 'courseId' se está extrayendo correctamente
-  console.log("lo que llega en initialId", initialCourseId);
-  
-  console.log('Course ID recibido en gestor de unidades:', courseId);
-  console.log('Id desde URL:', courseIdFromUrl);
-  
-
-   // Cargar unidades existentes para el curso si es necesario
-  // useEffect(() => {
-  //   if (courseId) {
-  //     console.log('Cargando unidades existentes para courseId=', courseId);
-  //     fetchUnitsByCourse(courseId) // Llamamos al endpoint correcto para obtener las unidades
-  //       .then((res) => {
-  //         console.log('Unidades cargadas:', res.data);
-  //         setUnits(res.data);  // Aquí almacenamos las unidades existentes
-  //       })
-  //       .catch((err) => {
-  //         console.error('Error al cargar unidades:', err);
-  //       });
-  //   }
-  // }, [courseId]);
-
   const removeUnit = (unitId) => {
-    setUnits(units.filter(unit => unit.id !== unitId));
+    setUnits(units.filter((unit) => unit.id !== unitId));
   };
 
   const updateUnit = (unitId, field, value) => {
-    setUnits(units.map(unit => 
-      unit.id === unitId ? { ...unit, [field]: value } : unit
-    ));
+    setUnits(units.map((unit) => (unit.id === unitId ? { ...unit, [field]: value } : unit)));
   };
 
   const moveUnit = (unitId, direction) => {
-    const unitIndex = units.findIndex(unit => unit.id === unitId);
+    const unitIndex = units.findIndex((unit) => unit.id === unitId);
     if (
       (direction === 'up' && unitIndex > 0) ||
       (direction === 'down' && unitIndex < units.length - 1)
@@ -100,121 +95,137 @@ const LearningUnitsManager = (initialCourseId ) => {
       const newUnits = [...units];
       const targetIndex = direction === 'up' ? unitIndex - 1 : unitIndex + 1;
       [newUnits[unitIndex], newUnits[targetIndex]] = [newUnits[targetIndex], newUnits[unitIndex]];
-      
-      // Update sequence numbers
+
       newUnits.forEach((unit, index) => {
         unit.sequenceNumber = index + 1;
       });
-      
+
       setUnits(newUnits);
     }
   };
 
   const addTitle = (unitId) => {
-    setUnits(units.map(unit => {
-      if (unit.id === unitId) {
-        const newTitle = {
-          id: Date.now(),
-          title: '',
-          description: '',
-          sequenceNumber: unit.titles.length + 1,
-          isActive: true,
-          contents: [{
-            id: Date.now() + 1,
-            type: 'text',
-            content: '',
-            imageUrl: null
-          }]
-        };
-        return { ...unit, titles: [...unit.titles, newTitle] };
-      }
-      return unit;
-    }));
+    setUnits(
+      units.map((unit) => {
+        if (unit.id === unitId) {
+          const newTitle = {
+            id: Date.now(),
+            title: '',
+            description: '',
+            sequenceNumber: unit.titles.length + 1,
+            isActive: true,
+            contents: [
+              {
+                id: Date.now() + 1,
+                type: 'text',
+                content: '',
+                imageUrl: null,
+              },
+            ],
+          };
+          return { ...unit, titles: [...unit.titles, newTitle] };
+        }
+        return unit;
+      })
+    );
   };
 
   const removeTitle = (unitId, titleId) => {
-    setUnits(units.map(unit => {
-      if (unit.id === unitId) {
-        return { ...unit, titles: unit.titles.filter(title => title.id !== titleId) };
-      }
-      return unit;
-    }));
+    setUnits(
+      units.map((unit) => {
+        if (unit.id === unitId) {
+          return { ...unit, titles: unit.titles.filter((title) => title.id !== titleId) };
+        }
+        return unit;
+      })
+    );
   };
 
   const updateTitle = (unitId, titleId, field, value) => {
-    setUnits(units.map(unit => {
-      if (unit.id === unitId) {
-        return {
-          ...unit,
-          titles: unit.titles.map(title =>
-            title.id === titleId ? { ...title, [field]: value } : title
-          )
-        };
-      }
-      return unit;
-    }));
+    setUnits(
+      units.map((unit) => {
+        if (unit.id === unitId) {
+          return {
+            ...unit,
+            titles: unit.titles.map((title) =>
+              title.id === titleId ? { ...title, [field]: value } : title
+            ),
+          };
+        }
+        return unit;
+      })
+    );
   };
 
   const addContent = (unitId, titleId, type = 'text') => {
-    setUnits(units.map(unit => {
-      if (unit.id === unitId) {
-        return {
-          ...unit,
-          titles: unit.titles.map(title => {
-            if (title.id === titleId) {
-              const newContent = {
-                id: Date.now(),
-                type,
-                content: '',
-                imageUrl: null
-              };
-              return { ...title, contents: [...title.contents, newContent] };
-            }
-            return title;
-          })
-        };
-      }
-      return unit;
-    }));
+    setUnits(
+      units.map((unit) => {
+        if (unit.id === unitId) {
+          return {
+            ...unit,
+            titles: unit.titles.map((title) => {
+              if (title.id === titleId) {
+                const newContent = {
+                  id: Date.now(),
+                  type,
+                  content: '',
+                  imageUrl: null,
+                };
+                return { ...title, contents: [...title.contents, newContent] };
+              }
+              return title;
+            }),
+          };
+        }
+        return unit;
+      })
+    );
   };
 
   const removeContent = (unitId, titleId, contentId) => {
-    setUnits(units.map(unit => {
-      if (unit.id === unitId) {
-        return {
-          ...unit,
-          titles: unit.titles.map(title => {
-            if (title.id === titleId) {
-              return { ...title, contents: title.contents.filter(content => content.id !== contentId) };
-            }
-            return title;
-          })
-        };
-      }
-      return unit;
-    }));
+    setUnits(
+      units.map((unit) => {
+        if (unit.id === unitId) {
+          return {
+            ...unit,
+            titles: unit.titles.map((title) => {
+              if (title.id === titleId) {
+                return {
+                  ...title,
+                  contents: title.contents.filter((content) => content.id !== contentId),
+                };
+              }
+              return title;
+            }),
+          };
+        }
+        return unit;
+      })
+    );
   };
 
   const updateContent = (unitId, titleId, contentId, field, value) => {
-    setUnits(units.map(unit => {
-      if (unit.id === unitId) {
-        return {
-          ...unit,
-          titles: unit.titles.map(title => {
-            if (title.id === titleId) {
-              return {
-                ...title,
-                contents: title.contents.map(content =>
-                  content.id === contentId ? { ...content, [field]: value } : content
-                )
-              };
-            }
-            return title;
-          })
-        };
-      }
-      return unit;
-    }));
+    setUnits(
+      units.map((unit) => {
+        if (unit.id === unitId) {
+          return {
+            ...unit,
+            titles: unit.titles.map((title) => {
+              if (title.id === titleId) {
+                return {
+                  ...title,
+                  contents: title.contents.map((content) =>
+                    content.id === contentId ? { ...content, [field]: value } : content
+                  ),
+                };
+              }
+              return title;
+            }),
+          };
+        }
+        return unit;
+      })
+    );
   };
 
   const handleImageUpload = (unitId, titleId, contentId, file) => {
@@ -231,38 +242,16 @@ const LearningUnitsManager = (initialCourseId ) => {
 
   // Guardar las unidades en el backend
   const handleSave = async () => {
-    if (!courseId || courseId <= 0) {
-      console.error('Course ID no válido:', courseId);
-      return;
-    }
-
-    console.log('Enviando unidades para courseId=', courseId);
-
     try {
-      const respuestas = await Promise.all(
-        units.map((unit) => {
-          const payload = {
-            title: unit.title,
-            description: unit.description,
-            isActive: unit.isActive,
-            sequenceNumber: unit.sequenceNumber,
-            courseId,
-          };
+      console.log('Las unidades a enviar son: ', units);
 
-          return registerUnits(payload).then((res) => {
-            console.log('← Respuesta unidad:', res.data);
-            return res.data; // Devuelve la respuesta con los datos de la unidad, como el unitId
-          });
-        })
-      );
+      const res = await createUnits(units);
 
-      // Después de guardar las unidades, redirige a ManageResources
-      const unitIds = respuestas.map((res) => res.unitId); // Aquí obtienes los ID de las unidades creadas
-      const unitTitles = respuestas.map((res) => res.title); // Títulos de las unidades
+      console.log(res);
 
-      // Redirigir con los parámetros necesarios en la URL
-      navigate(`/teacher/manage-resources?courseId=${courseId}&unitIds=${unitIds.join(',')}&unitTitles=${unitTitles.join(',')}`);
-      
+      // navigate(
+      //   `/teacher/manage-resources?courseId=${courseId}&unitIds=${unitIds.join(',')}&unitTitles=${unitTitles.join(',')}`
+      // );
     } catch (error) {
       console.error('Error al guardar unidades:', error);
     }
@@ -279,10 +268,8 @@ const LearningUnitsManager = (initialCourseId ) => {
           <p className="text-gray-600 text-sm">Unidad {unit.sequenceNumber}</p>
         </div>
       </div>
-      
-      {unit.description && (
-        <p className="text-gray-700 mb-6 leading-relaxed">{unit.description}</p>
-      )}
+
+      {unit.description && <p className="text-gray-700 mb-6 leading-relaxed">{unit.description}</p>}
 
       <div className="space-y-6">
         {unit.titles.map((title) => (
@@ -290,10 +277,8 @@ const LearningUnitsManager = (initialCourseId ) => {
             <h3 className="text-lg font-semibold text-gray-900 mb-2">
               {title.title || 'Título del tema'}
             </h3>
-            {title.description && (
-              <p className="text-gray-600 mb-4">{title.description}</p>
-            )}
-            
+            {title.description && <p className="text-gray-600 mb-4">{title.description}</p>}
+
             <div className="space-y-4">
               {title.contents.map((content) => (
                 <div key={content.id} className="ml-4">
@@ -304,9 +289,9 @@ const LearningUnitsManager = (initialCourseId ) => {
                   )}
                   {content.type === 'image' && content.imageUrl && (
                     <div className="my-4">
-                      <img 
-                        src={content.imageUrl} 
-                        alt="Contenido visual" 
+                      <img
+                        src={content.imageUrl}
+                        alt="Contenido visual"
                         className="max-w-full h-auto rounded-lg shadow-sm border border-gray-200"
                       />
                     </div>
@@ -326,13 +311,28 @@ const LearningUnitsManager = (initialCourseId ) => {
       <div className="bg-white dark:bg-primary-pri3 shadow-sm border-b border-gray-200 dark:border-primary-pri2 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <div className="bg-indigo-100 dark:bg-primary-pri2 p-3 rounded-xl">
-                <Layers className="h-8 w-8 text-indigo-600 dark:text-primary-pri1" />
+            <div className="flex items-center gap-5">
+              <div className="flex gap-5">
+                <div
+                  onClick={() => navigate(-1)}
+                  className={'flex gap-3 items-center hover:text-blue-400'}
+                >
+                  {<IoIosArrowRoundBack className="text-title-lg" />}Volver a Unidades
+                </div>
+                <p>|</p>
               </div>
-              <div>
-                <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Gestor de Unidades de Aprendizaje</h1>
-                <p className="text-gray-600 dark:text-primary-pri1">Crea y organiza el contenido de tu curso</p>
+              <div className="flex items-center gap-4">
+                <div className="bg-indigo-100 dark:bg-primary-pri2 p-3 rounded-xl">
+                  <Layers className="h-8 w-8 text-indigo-600 dark:text-primary-pri1" />
+                </div>
+                <div>
+                  <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+                    Gestor de Unidades de Aprendizaje
+                  </h1>
+                  <p className="text-gray-600 dark:text-primary-pri1">
+                    Crea y organiza el contenido de tu curso
+                  </p>
+                </div>
               </div>
             </div>
             <div className="flex items-center gap-3">
@@ -362,8 +362,10 @@ const LearningUnitsManager = (initialCourseId ) => {
       <div className="max-w-7xl mx-auto px-6 py-8">
         {previewMode ? (
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-8 text-center">Vista Previa del Curso</h2>
-            {units.map(unit => (
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-8 text-center">
+              Vista Previa del Curso
+            </h2>
+            {units.map((unit) => (
               <PreviewContent key={unit.id} unit={unit} />
             ))}
           </div>
@@ -372,7 +374,9 @@ const LearningUnitsManager = (initialCourseId ) => {
             {/* Editor */}
             <div className="space-y-6">
               <div className="flex items-center justify-between">
-                <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Editor de Contenido</h2>
+                <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+                  Editor de Contenido
+                </h2>
                 <button
                   onClick={addUnit}
                   className="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-green-700 transition-colors"
@@ -383,7 +387,10 @@ const LearningUnitsManager = (initialCourseId ) => {
               </div>
 
               {units.map((unit, unitIndex) => (
-                <div key={unit.id} className="bg-white dark:bg-primary-pri3 rounded-xl shadow-sm border border-gray-200 dark:border-primary-pri2 overflow-hidden transition-colors duration-300">
+                <div
+                  key={unit.id}
+                  className="bg-white dark:bg-primary-pri3 rounded-xl shadow-sm border border-gray-200 dark:border-primary-pri2 overflow-hidden transition-colors duration-300"
+                >
                   {/* Unit Header */}
                   <div className="bg-gradient-to-r from-indigo-600 to-indigo-700 dark:from-primary-pri2 dark:to-primary-pri1 px-6 py-4">
                     <div className="flex items-center justify-between">
@@ -392,13 +399,15 @@ const LearningUnitsManager = (initialCourseId ) => {
                           <BookOpen className="h-5 w-5 text-white dark:text-primary-pri2" />
                         </div>
                         <div>
-                          <h3 className="text-white dark:text-primary-pri1 font-semibold">Unidad {unit.sequenceNumber}</h3>
+                          <h3 className="text-white dark:text-primary-pri1 font-semibold">
+                            Unidad {unit.sequenceNumber}
+                          </h3>
                           <p className="text-indigo-100 dark:text-primary-pri2 text-sm">
                             {unit.titles.length} {unit.titles.length === 1 ? 'tema' : 'temas'}
                           </p>
                         </div>
                       </div>
-                      
+
                       <div className="flex items-center gap-2">
                         <button
                           onClick={() => moveUnit(unit.id, 'up')}
@@ -439,7 +448,7 @@ const LearningUnitsManager = (initialCourseId ) => {
                           placeholder="Ej: Introducción a Python"
                         />
                       </div>
-                      
+
                       <div>
                         <label className="block text-sm font-medium text-gray-700 dark:text-primary-pri1 mb-2">
                           Descripción de la unidad
@@ -471,7 +480,10 @@ const LearningUnitsManager = (initialCourseId ) => {
                       </div>
 
                       {unit.titles.map((title) => (
-                        <div key={title.id} className="bg-gray-50 dark:bg-primary-pri4 rounded-lg p-4 border border-gray-200 dark:border-primary-pri2">
+                        <div
+                          key={title.id}
+                          className="bg-gray-50 dark:bg-primary-pri4 rounded-lg p-4 border border-gray-200 dark:border-primary-pri2"
+                        >
                           <div className="flex items-center justify-between mb-3">
                             <span className="text-sm font-medium text-gray-600 dark:text-primary-pri1">
                               Tema {title.sequenceNumber}
@@ -488,14 +500,18 @@ const LearningUnitsManager = (initialCourseId ) => {
                             <input
                               type="text"
                               value={title.title}
-                              onChange={(e) => updateTitle(unit.id, title.id, 'title', e.target.value)}
+                              onChange={(e) =>
+                                updateTitle(unit.id, title.id, 'title', e.target.value)
+                              }
                               className="w-full px-3 py-2 border border-gray-300 dark:border-primary-pri2 rounded-lg focus:ring-2 focus:ring-indigo-500 dark:focus:ring-primary-pri2 focus:border-transparent text-sm bg-white dark:bg-primary-pri4 text-gray-900 dark:text-white"
                               placeholder="Título del tema"
                             />
-                            
+
                             <textarea
                               value={title.description}
-                              onChange={(e) => updateTitle(unit.id, title.id, 'description', e.target.value)}
+                              onChange={(e) =>
+                                updateTitle(unit.id, title.id, 'description', e.target.value)
+                              }
                               rows={2}
                               className="w-full px-3 py-2 border border-gray-300 dark:border-primary-pri2 rounded-lg focus:ring-2 focus:ring-indigo-500 dark:focus:ring-primary-pri2 focus:border-transparent text-sm bg-white dark:bg-primary-pri4 text-gray-900 dark:text-white"
                               placeholder="Descripción del tema..."
@@ -526,7 +542,10 @@ const LearningUnitsManager = (initialCourseId ) => {
                               </div>
 
                               {title.contents.map((content) => (
-                                <div key={content.id} className="bg-white dark:bg-primary-pri3 rounded-lg p-3 border border-gray-200 dark:border-primary-pri2">
+                                <div
+                                  key={content.id}
+                                  className="bg-white dark:bg-primary-pri3 rounded-lg p-3 border border-gray-200 dark:border-primary-pri2"
+                                >
                                   <div className="flex items-center justify-between mb-2">
                                     <span className="text-xs text-gray-500 dark:text-primary-pri1 flex items-center gap-1">
                                       {content.type === 'text' ? (
@@ -547,7 +566,15 @@ const LearningUnitsManager = (initialCourseId ) => {
                                   {content.type === 'text' ? (
                                     <textarea
                                       value={content.content}
-                                      onChange={(e) => updateContent(unit.id, title.id, content.id, 'content', e.target.value)}
+                                      onChange={(e) =>
+                                        updateContent(
+                                          unit.id,
+                                          title.id,
+                                          content.id,
+                                          'content',
+                                          e.target.value
+                                        )
+                                      }
                                       rows={3}
                                       className="w-full px-3 py-2 border border-gray-300 dark:border-primary-pri2 rounded-lg focus:ring-2 focus:ring-indigo-500 dark:focus:ring-primary-pri2 focus:border-transparent text-sm bg-white dark:bg-primary-pri4 text-gray-900 dark:text-white"
                                       placeholder="Escribe el contenido del párrafo..."
@@ -557,7 +584,14 @@ const LearningUnitsManager = (initialCourseId ) => {
                                       <input
                                         type="file"
                                         accept="image/*"
-                                        onChange={(e) => handleImageUpload(unit.id, title.id, content.id, e.target.files[0])}
+                                        onChange={(e) =>
+                                          handleImageUpload(
+                                            unit.id,
+                                            title.id,
+                                            content.id,
+                                            e.target.files[0]
+                                          )
+                                        }
                                         className="w-full text-sm"
                                       />
                                       {content.imageUrl && (
@@ -583,9 +617,11 @@ const LearningUnitsManager = (initialCourseId ) => {
 
             {/* Live Preview */}
             <div className="space-y-6">
-              <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Vista Previa en Vivo</h2>
+              <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+                Vista Previa en Vivo
+              </h2>
               <div className="bg-white dark:bg-primary-pri3 rounded-xl shadow-sm border border-gray-200 dark:border-primary-pri2 p-6 max-h-screen overflow-y-auto">
-                {units.map(unit => (
+                {units.map((unit) => (
                   <PreviewContent key={unit.id} unit={unit} />
                 ))}
               </div>
