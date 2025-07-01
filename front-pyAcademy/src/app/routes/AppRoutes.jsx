@@ -13,12 +13,10 @@ import PrivateRoute from '@/app/providers/PrivateRoute';
 // Pages públicas
 const Home = lazy(() => import('../../pages/home/Home'));
 const ManageCourses = lazy(() => import('../../pages/ManageCourses/ManageCourses'));
-const ExplorateCourses = lazy(() => import('../../pages/ExplorateCourses/ExplorateCourses'));
 //const PrivateCourseView = lazy(() => import('../../pages/ExplorateCourses/PrivateCourseView'));
 const LoginPage = lazy(() => import('../../pages/auth/login/LoginPage'));
 const RegisterPage = lazy(() => import('@/pages/auth/register/RegisterPage'));
 const ResourceManager = lazy(() => import('../../pages/ManageResources/ManageResources'));
-
 
 // Estudiante
 const PyEditor = lazy(() => import('../../pages/student/PyEditorPage'));
@@ -29,6 +27,7 @@ const ExercisePage = lazy(() => import('../../pages/student/ExercisePage'));
 const Certificates = lazy(() => import('@/pages/student/Certificates'));
 const PublicCertificateViewer = lazy(() => import('@/pages/student/PublicCertificateViewer'));
 const CourseStudent = lazy(() => import('@/pages/student/CourseStudent'));
+const ExplorateCourses = lazy(() => import('../../pages/ExplorateCourses/ExplorateCourses'));
 
 // Maestro
 const AssessmentsListPage = lazy(() => import('@/pages/teacher/AssessmentsListPage'));
@@ -47,13 +46,12 @@ export function AppRoutes() {
       <Routes>
         <Route element={<PublicLayout />}>
           <Route path="/" element={<Home />} />
-          <Route path="/explorar-cursos" element={<ExplorateCourses />} />
+          <Route path="/explorar-cursos" element={<ExplorateCoursesPublic />} />
           <Route path="/ia-tutor" element={<Home />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/curso/:id" element={<CourseStudent />} />
           <Route path="/certificado/:id" element={<PublicCertificateViewer />} />
-          
         </Route>
 
         <Route element={<PrivateRoute />}>
@@ -61,14 +59,16 @@ export function AppRoutes() {
             <Route index element={<TeacherCoursesPage />} />
             <Route path="assessmentsList" element={<AssessmentsListPage />} />
             <Route path="course/:id" element={<CourseDetailsPage />} />
+            <Route path="course/:id/add-units" element={<LearningUnitsManager />} />
+            <Route
+              path="course/:id/unit/:unitId/create-practice"
+              element={<CreatePracticePage />}
+            />
             <Route path="newAssessments" element={<AssessmentEditorPage />} />
-            <Route path="create-practice" element={<CreatePracticePage />} />
             <Route path="gestionar-cursos" element={<ManageCourses />} />
             <Route path="create-course" element={<CourseManangement />} />
-            <Route path="learning-units" element={<LearningUnitsManager />} />
             <Route path="gestionar-cursos/edit/:id" element={<EditCoursePage />} />
             <Route path="manage-resources" element={<ResourceManager />} />
-            <Route path="studentList/:id/" element={<CourseStudentsPage />} />
             <Route path="profile/:userId" element={<UserProfilePage />} />
           </Route>
         </Route>

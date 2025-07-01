@@ -22,7 +22,6 @@ function UnitDisplay({ unit }) {
           {esVideo && (
             <ReproductorVideo
               url={material.url}
-              nombre={material.title}
             />
           )}
 
