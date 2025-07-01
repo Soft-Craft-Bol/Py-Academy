@@ -3,12 +3,12 @@ import EncabezadoCurso from '@/shared/ui/molecules/EncabezadoCurso';
 import SidebarCurso from '@/shared/ui/organisms/SideBarCurso';
 import { VisorFile } from '@/shared/ui/organisms/VisorFile';
 import { ReproductorVideo } from '@/shared/ui/organisms/ReproductorVideo';
-import { useCourseUnits } from '@/shared/hooks/useCourseUnits'; // ruta según tu estructura
+import { useCourseUnits } from '@/shared/hooks/useCourseUnits';
 
 function CourseStudent() {
   const { id } = useParams();
   const location = useLocation();
-  const { courseDetails } = location.state || {};
+  const courseDetails = location.state?.courseDetails;
 
   const { units, loading, error } = useCourseUnits(id);
 
