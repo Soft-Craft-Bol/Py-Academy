@@ -38,7 +38,6 @@ function CourseDashboard({ course, unitsArray }) {
     async function fetchUnits() {
       const res = await getCourseUnits(id);
       setUnits(res.data);
-      console.log('El res es', res);
     }
     if (!units) fetchUnits();
   }, [id]);

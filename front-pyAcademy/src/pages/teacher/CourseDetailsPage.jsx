@@ -41,7 +41,6 @@ function CourseStudentsPage() {
   const students = response?.data || response || [];
   const units = responseUnits?.data || response || [];
 
-  console.log(';as unidades son', units);
 
   return (
     <section className="md:px-10min-h-screen">
