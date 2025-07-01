@@ -41,13 +41,10 @@ function CourseStudent({ units }) {
 
           {units.length > 0 && (
             <div className="flex w-full h-full gap-4">
-              <div className="w-1/2 overflow-y-auto pr-4 space-y-6">
+              <div className="w-full overflow-y-auto pr-4 space-y-6">
                 {units.map((unit, index) => (
                   <UnitDisplay key={unit.id || unit.unitId || index} unit={unit} />
                 ))}
-              </div>
-              <div className="w-1/2 p-1 flex items-center justify-center">
-                <ReproductorVideo />
               </div>
             </div>
           )}
