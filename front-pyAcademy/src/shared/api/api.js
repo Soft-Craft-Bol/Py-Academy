@@ -79,7 +79,7 @@ export const getAllCourses = (page = 0, size = 10) => {
 export const createUnits = (data) => api.post('/learning/composite/create', data);
 export const getTeacherCourses = (teacherId) => api.get(`/teachers/${teacherId}/courses`);
 export const getExercises = () => api.get(`/exercises`);
-
+export const getUnitsForCourse = (courseId) => api.get(`/learning/units/course/${courseId}`);
 export const fetchUnitsByCourse = (courseId) => {
   // Verificar que courseId sea válido
   if (!courseId || isNaN(courseId)) {
@@ -88,6 +88,4 @@ export const fetchUnitsByCourse = (courseId) => {
   return api.get(`/learning/units/course/${courseId}`);
 };
 
-
-export const getMaterialsByUnit = (unitId) =>
-  api.get(`/learning/materials/unit/${unitId}`);
+export const getMaterialsByUnit = (unitId) => api.get(`/learning/materials/unit/${unitId}`);

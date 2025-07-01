@@ -5,21 +5,27 @@ import { FaUserGraduate } from 'react-icons/fa';
 import { getCourseByStudent } from '@/shared/api/api';
 import { getUser } from '@/features/auth/utils/authCookies';
 
-
 function CoursesPage() {
   const navigate = useNavigate();
   const currentUser = getUser();
   const studentId = currentUser?.id;
 
-  const { data: response, isLoading, isError, error } = useQuery({
+  const {
+    data: response,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
     queryKey: ['studentCourses', studentId],
     queryFn: () => getCourseByStudent(studentId),
   });
 
   const courses = response?.data || response || [];
 
-  const handleCardClick = (id) => {
-    navigate(`/student/curso/${id}`);
+  const handleCardClick = (course, id) => {
+    // navigate(`/student/curso/${id}`, { state: courses });
+    sessionStorage.setItem('course', course);
+    navigate(`/student/CourseDashboard/${id}`);
   };
 
   return (
@@ -56,7 +62,7 @@ function CoursesPage() {
             return (
               <div
                 key={course.id}
-                onClick={() => handleCardClick(course.id)}
+                onClick={() => handleCardClick(course, course.id)}
                 className="cursor-pointer bg-white dark:bg-zinc-800 rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden flex flex-col"
               >
                 <img
@@ -77,7 +83,9 @@ function CoursesPage() {
                   <div className="text-sm text-gray-600 dark:text-gray-400 flex flex-col gap-1 mt-2">
                     <div className="flex items-center gap-2">
                       <BsClockHistory />
-                      <span>{durationInWeeks} semanas ({course.durationInHours} horas)</span>
+                      <span>
+                        {durationInWeeks} semanas ({course.durationInHours} horas)
+                      </span>
                     </div>
                     <div className="flex items-center gap-2">
                       <FaUserGraduate />
