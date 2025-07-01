@@ -13,12 +13,13 @@ import PrivateRoute from '@/app/providers/PrivateRoute';
 // Pages públicas
 const Home = lazy(() => import('../../pages/home/Home'));
 const ManageCourses = lazy(() => import('../../pages/ManageCourses/ManageCourses'));
-const ExplorateCoursesPublic = lazy(() => import('../../pages/ExplorateCourses/ExplorateCoursesPublic'));
-const PrivateCourseView = lazy(() => import('../../pages/ExplorateCourses/PrivateCourseView'));
+const ExplorateCoursesPublic = lazy(
+  () => import('../../pages/ExplorateCourses/ExplorateCoursesPublic')
+);
+const PrivateCourseView = lazy(() => import('../../pages/ExplorateCourses/CourseDashboard'));
 const LoginPage = lazy(() => import('../../pages/auth/login/LoginPage'));
 const RegisterPage = lazy(() => import('@/pages/auth/register/RegisterPage'));
 const ResourceManager = lazy(() => import('../../pages/ManageResources/ManageResources'));
-
 
 // Estudiante
 const PyEditor = lazy(() => import('../../pages/student/PyEditorPage'));
@@ -54,7 +55,6 @@ export function AppRoutes() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/curso/:id" element={<CourseStudent />} />
           <Route path="/certificado/:id" element={<PublicCertificateViewer />} />
-          
         </Route>
 
         <Route element={<PrivateRoute />}>
