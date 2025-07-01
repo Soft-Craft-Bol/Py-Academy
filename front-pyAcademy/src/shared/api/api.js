@@ -87,3 +87,7 @@ export const fetchUnitsByCourse = (courseId) => {
   }
   return api.get(`/learning/units/course/${courseId}`);
 };
+
+
+export const getMaterialsByUnit = (unitId) =>
+  api.get(`/learning/materials/unit/${unitId}`);
