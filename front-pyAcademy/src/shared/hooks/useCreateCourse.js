@@ -12,9 +12,12 @@ export const useCreateCourse = () => {
       const formData = new FormData();
 
       // Agregar todos los campos del curso como JSON
-      formData.append('course', new Blob([JSON.stringify(courseData)], {
-        type: 'application/json'
-      }));
+      formData.append(
+        'course',
+        new Blob([JSON.stringify(courseData)], {
+          type: 'application/json',
+        })
+      );
 
       // Agregar teacherId como parámetro
       formData.append('teacherId', teacherId);
@@ -35,6 +38,6 @@ export const useCreateCourse = () => {
     onError: (error) => {
       console.error('Error al crear curso:', error);
       toast.error(`Error al crear curso: ${error.message}`);
-    }
+    },
   });
 };

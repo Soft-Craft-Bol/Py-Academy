@@ -14,6 +14,7 @@ import { useParams } from 'react-router-dom';
 //Components
 import SectionContent from './components/SectionContent';
 import CourseStudent from '../student/CourseStudent';
+import ExercisesPage from '../student/ExercisesPage';
 
 //Api
 import { getCourseUnits } from '@/shared/api/api';
@@ -30,6 +31,7 @@ function CourseDashboard({ course, unitsArray }) {
   const [selectedItem, setSelectedItem] = useState('1.1.1');
   const [selectedUnit, setSelectedUnit] = useState({});
   const [selectedTitle, setSelectedTitle] = useState({});
+  const [selectedExercise, setSelectedExercise] = useState([]);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const { id } = useParams();
   const [units, setUnits] = useState(unitsArray);
@@ -51,8 +53,13 @@ function CourseDashboard({ course, unitsArray }) {
   };
 
   const handleSelectTitle = (unit, title) => {
+    setSelectedExercise([]);
     setSelectedUnit(unit);
     setSelectedTitle(title);
+  };
+
+  const handleSelectExercise = (exercise) => {
+    setSelectedExercise(exercise);
   };
 
   const renderResourceContent = () => <CourseStudent units={units} />;
@@ -112,6 +119,16 @@ function CourseDashboard({ course, unitsArray }) {
                       </button>
                     </div>
                   ))}
+                  {unit.exercises.length !== 0 && (
+                    <button
+                      className="w-full p-3 text-left border-t border-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center space-x-3 transition-colors"
+                      onClick={() => handleSelectExercise(unit.exercises)}
+                    >
+                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                        {'🥇  Ejercicios propuestos'}
+                      </span>
+                    </button>
+                  )}
                 </div>
               )}
             </div>
@@ -175,8 +192,15 @@ function CourseDashboard({ course, unitsArray }) {
           </div>
         </div>
         <main className="flex-1 bg-gray-50 dark:bg-gray-900 overflow-y-auto">
-          {activeTab === 'outline' && <SectionContent title={selectedTitle} unit={selectedUnit} />}
-          {activeTab === 'recursos' && renderResourceContent()}   
+          {activeTab === 'outline' && selectedExercise.length == 0 && (
+            <SectionContent title={selectedTitle} unit={selectedUnit} />
+          )}
+          {selectedExercise.length !== 0 && (
+            <div className="m-8">
+              <ExercisesPage unitExercise={selectedExercise} />
+            </div>
+          )}
+          {activeTab === 'recursos' && renderResourceContent()}
         </main>
       </div>
     </div>

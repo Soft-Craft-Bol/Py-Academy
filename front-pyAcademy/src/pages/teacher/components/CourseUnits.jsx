@@ -24,7 +24,6 @@ export const CourseUnits = () => {
   });
 
   const units = response?.data || response || [];
-  console.log('Las unidades son', units);
 
   return (
     <>
