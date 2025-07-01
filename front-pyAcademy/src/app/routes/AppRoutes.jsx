@@ -19,8 +19,6 @@ const LoginPage = lazy(() => import('../../pages/auth/login/LoginPage'));
 const RegisterPage = lazy(() => import('@/pages/auth/register/RegisterPage'));
 const ResourceManager = lazy(() => import('../../pages/ManageResources/ManageResources'));
 
-//const CoursesPage = lazy(() => import('../../pages/student/CoursesPage'));
-//const CourseStudent = lazy(() => import('@/pages/student/CourseStudent'));
 
 // Estudiante
 const PyEditor = lazy(() => import('../../pages/student/PyEditorPage'));
@@ -53,8 +51,9 @@ export function AppRoutes() {
           <Route path="/ia-tutor" element={<Home />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/curso/:id" element={<PrivateCourseView />} />
+          <Route path="/curso/:id" element={<CourseStudent />} />
           <Route path="/certificado/:id" element={<PublicCertificateViewer />} />
+          
         </Route>
 
         <Route element={<PrivateRoute />}>
