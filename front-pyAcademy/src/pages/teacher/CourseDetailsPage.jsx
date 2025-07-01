@@ -13,6 +13,7 @@ import { CourseDetailsTab } from './components/CourseDetailsTab';
 import { CourseStudents } from './components/CourseStudents';
 import { CourseUnits } from './components/CourseUnits';
 import CourseDashboard from '../ExplorateCourses/CourseDashboard';
+import ManageResources from '../ManageResources/ManageResources';
 
 function CourseStudentsPage() {
   const [activeTab, setActiveTab] = useState('tab1');
@@ -59,6 +60,7 @@ function CourseStudentsPage() {
       {activeTab === 'tab1' && <CourseStudents students={students} />}
       {activeTab === 'tab2' && <CourseUnits />}
       {activeTab === 'tab3' && <CourseDashboard course={course} units={units} />}
+      {activeTab === 'tab4' && <ManageResources course={course} units={units}/>}
     </section>
   );
 }
