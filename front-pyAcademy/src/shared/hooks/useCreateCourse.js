@@ -12,9 +12,12 @@ export const useCreateCourse = () => {
       const formData = new FormData();
 
       // Agregar todos los campos del curso como JSON
-      formData.append('course', new Blob([JSON.stringify(courseData)], {
-        type: 'application/json'
-      }));
+      formData.append(
+        'course',
+        new Blob([JSON.stringify(courseData)], {
+          type: 'application/json',
+        })
+      );
 
       // Agregar teacherId como parámetro
       formData.append('teacherId', teacherId);
@@ -30,11 +33,11 @@ export const useCreateCourse = () => {
       console.log('Respuesta creación de curso:', response.data);
       toast.success('Curso creado exitosamente');
       const newCourseId = response.data.id; // Ajusta si tu API retorna otro campo
-      navigate(`/teacher/learning-units?courseId=${newCourseId}`);
+      navigate(`/teacher`);
     },
     onError: (error) => {
       console.error('Error al crear curso:', error);
       toast.error(`Error al crear curso: ${error.message}`);
-    }
+    },
   });
 };

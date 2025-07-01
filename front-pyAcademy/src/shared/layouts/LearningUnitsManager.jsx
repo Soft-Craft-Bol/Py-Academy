@@ -29,6 +29,7 @@ const LearningUnitsManager = () => {
   const [previewMode, setPreviewMode] = useState(false);
   const [units, setUnits] = useState([
     {
+      id: Date.now(), // ID único
       courseId: courseIdForApi,
       title: '',
       description: '',
@@ -36,12 +37,14 @@ const LearningUnitsManager = () => {
       isActive: true,
       titles: [
         {
+          id: Date.now() + 1, // ID único
           title: '',
           description: '',
           sequenceNumber: 1,
           isActive: true,
           contents: [
             {
+              id: Date.now() + 2, // ID único
               type: 'text',
               content: '',
               imageUrl: null,
@@ -53,7 +56,9 @@ const LearningUnitsManager = () => {
   ]);
 
   const addUnit = () => {
+    const timestamp = Date.now(); 
     const newUnit = {
+      id: timestamp,
       courseId: courseIdForApi,
       title: '',
       description: '',
@@ -61,12 +66,14 @@ const LearningUnitsManager = () => {
       isActive: true,
       titles: [
         {
+          id: timestamp + 1,
           title: '',
           description: '',
           sequenceNumber: 1,
           isActive: true,
           contents: [
             {
+              id: timestamp + 2,
               type: 'text',
               content: '',
               imageUrl: null,
@@ -235,12 +242,6 @@ const LearningUnitsManager = () => {
     }
   };
 
-  // const handleAddUnit = () => {
-  //   setUnits([...units, newUnit]);  // Agregar la nueva unidad al array de unidades
-  //   setNewUnit({ title: '', description: '', sequenceNumber: 0, isActive: true });  // Limpiar el formulario
-  // };
-
-  // Guardar las unidades en el backend
   const handleSave = async () => {
     try {
       console.log('Las unidades a enviar son: ', units);
@@ -249,6 +250,7 @@ const LearningUnitsManager = () => {
 
       console.log(res);
 
+      navigate(-1);
       // navigate(
       //   `/teacher/manage-resources?courseId=${courseId}&unitIds=${unitIds.join(',')}&unitTitles=${unitTitles.join(',')}`
       // );
