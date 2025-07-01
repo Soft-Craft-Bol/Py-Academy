@@ -23,7 +23,7 @@ export const CourseDetailsTab = ({ activeTab, setActiveTab }) => {
         className={`px-4 py-2 ${activeTab === 'tab4' ? 'border-b-2 border-blue-500 font-bold' : ''}`}
         onClick={() => setActiveTab('tab4')}
       >
-        Estadisticas
+        Recursos
       </button>
     </div>
   );
