@@ -8,113 +8,40 @@ import {
   FolderOpen,
   BookOpen,
 } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
+//Components
 import SectionContent from './components/SectionContent';
+import CourseStudent from '../student/CourseStudent';
+
+//Api
+import { getCourseUnits } from '@/shared/api/api';
 
 const tabs = [
   { key: 'outline', label: 'Contenido del Curso', icon: BookOpen },
   { key: 'practicas', label: 'Prácticas', icon: FolderOpen },
-  { key: 'materiales', label: 'Materiales', icon: Book },
   { key: 'recursos', label: 'Recursos', icon: Download },
 ];
 
-const courseData = {
-  title: 'Desarrollo Web Avanzado',
-  subtitle: 'Curso de Programación Frontend y Backend',
-  progress: 25,
-  modules: [
-    {
-      id: 'module1',
-      title: 'Módulo 1: Fundamentos de HTML y CSS',
-      progress: 75,
-      completed: false,
-      sections: [
-        {
-          id: '1.1',
-          title: '1.1 Introducción a HTML5',
-          completed: true,
-          subsections: [
-            { id: '1.1.1', title: 'Estructura básica de HTML', completed: true, type: 'reading' },
-            { id: '1.1.2', title: 'Etiquetas semánticas', completed: true, type: 'video' },
-            { id: '1.1.3', title: 'Formularios y validación', completed: true, type: 'reading' },
-          ],
-        },
-        {
-          id: '1.2',
-          title: '1.2 CSS Avanzado',
-          completed: false,
-          subsections: [
-            { id: '1.2.1', title: 'Flexbox y Grid', completed: false, type: 'reading' },
-            { id: '1.2.2', title: 'Animaciones CSS', completed: false, type: 'video' },
-          ],
-        },
-      ],
-    },
-    {
-      id: 'module2',
-      title: 'Módulo 2: JavaScript Moderno',
-      progress: 15,
-      completed: false,
-      sections: [
-        {
-          id: '2.1',
-          title: '2.1 ES6+ Características',
-          completed: false,
-          subsections: [
-            {
-              id: '2.1.1',
-              title: 'Arrow Functions y Destructuring',
-              completed: false,
-              type: 'reading',
-            },
-            { id: '2.1.2', title: 'Promises y Async/Await', completed: false, type: 'video' },
-            { id: '2.1.3', title: 'Módulos ES6', completed: false, type: 'reading' },
-          ],
-        },
-        {
-          id: '2.2',
-          title: '2.2 DOM Manipulation',
-          completed: false,
-          subsections: [
-            {
-              id: '2.2.1',
-              title: 'Selección y modificación de elementos',
-              completed: false,
-              type: 'reading',
-            },
-            { id: '2.2.2', title: 'Event Handling', completed: false, type: 'video' },
-          ],
-        },
-      ],
-    },
-    {
-      id: 'module3',
-      title: 'Módulo 3: React Fundamentals',
-      progress: 0,
-      completed: false,
-      sections: [
-        {
-          id: '3.1',
-          title: '3.1 Componentes y Props',
-          completed: false,
-          subsections: [
-            { id: '3.1.1', title: 'Componentes funcionales', completed: false, type: 'reading' },
-            { id: '3.1.2', title: 'Estado y Hooks', completed: false, type: 'video' },
-          ],
-        },
-      ],
-    },
-  ],
-};
-
-function CourseDashboard({ course, units }) {
+function CourseDashboard({ course, unitsArray }) {
   const [activeTab, setActiveTab] = useState(tabs[0].key);
   const [expandedModules, setExpandedModules] = useState({ module1: true });
   const [selectedItem, setSelectedItem] = useState('1.1.1');
   const [selectedUnit, setSelectedUnit] = useState({});
   const [selectedTitle, setSelectedTitle] = useState({});
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const { id } = useParams();
+  const [units, setUnits] = useState(unitsArray);
+
+  useEffect(() => {
+    async function fetchUnits() {
+      const res = await getCourseUnits(id);
+      setUnits(res.data);
+      console.log('El res es', res);
+    }
+    if (!units) fetchUnits();
+  }, [id]);
 
   const toggleModule = (moduleId) => {
     setExpandedModules((prev) => ({
@@ -128,64 +55,67 @@ function CourseDashboard({ course, units }) {
     setSelectedTitle(title);
   };
 
+  const renderResourceContent = () => <CourseStudent units={units} />;
+
   const renderOutlineContent = () => (
     <div className="flex flex-col">
       {/* Module Navigation */}
       <div className="flex-1">
-        {units.map((unit) => (
-          <div key={unit.id} className="border-b border-gray-200 dark:border-gray-700">
-            <button
-              onClick={() => toggleModule(unit.title)}
-              className="w-full p-4 text-left hover:bg-gray-50 dark:hover:bg-gray-800 flex items-center justify-between transition-colors"
-            >
-              <div className="flex items-center space-x-3">
-                {expandedModules[unit.title] ? (
-                  <ChevronDown className="w-5 h-5 text-gray-500" />
-                ) : (
-                  <ChevronRight className="w-5 h-5 text-gray-500" />
-                )}
-                <div className="flex-1">
-                  <h4 className="font-semibold text-gray-900 dark:text-white text-base">
-                    {unit.title}
-                  </h4>
-                  <div className="flex items-center space-x-3 mt-2">
-                    <div className="w-20 bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                      <div
-                        className="bg-gradient-to-r from-green-400 to-green-600 h-2 rounded-full transition-all duration-300"
-                        style={{ width: `${unit.progress}%` }}
-                      ></div>
+        {units &&
+          units.map((unit) => (
+            <div key={unit.id} className="border-b border-gray-200 dark:border-gray-700">
+              <button
+                onClick={() => toggleModule(unit.title)}
+                className="w-full p-4 text-left hover:bg-gray-50 dark:hover:bg-gray-800 flex items-center justify-between transition-colors"
+              >
+                <div className="flex items-center space-x-3">
+                  {expandedModules[unit.title] ? (
+                    <ChevronDown className="w-5 h-5 text-gray-500" />
+                  ) : (
+                    <ChevronRight className="w-5 h-5 text-gray-500" />
+                  )}
+                  <div className="flex-1">
+                    <h4 className="font-semibold text-gray-900 dark:text-white text-base">
+                      {unit.title}
+                    </h4>
+                    <div className="flex items-center space-x-3 mt-2">
+                      <div className="w-20 bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                        <div
+                          className="bg-gradient-to-r from-green-400 to-green-600 h-2 rounded-full transition-all duration-300"
+                          style={{ width: `${unit.progress}%` }}
+                        ></div>
+                      </div>
+                      <span className="text-sm font-medium text-gray-600 dark:text-gray-300">
+                        {unit.progress}%
+                      </span>
                     </div>
-                    <span className="text-sm font-medium text-gray-600 dark:text-gray-300">
-                      {unit.progress}%
-                    </span>
                   </div>
                 </div>
-              </div>
-            </button>
+              </button>
 
-            {expandedModules[unit.title] && (
-              <div className="pl-6 bg-gray-50 dark:bg-gray-800/50">
-                {unit.titles.map((title) => (
-                  <div key={title.id}>
-                    <button
-                      className="w-full p-3 text-left hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center space-x-3 transition-colors"
-                      onClick={() => handleSelectTitle(unit, title)}
-                    >
-                      {title.isActive ? (
-                        <CheckCircle className="w-5 h-5 text-green-500" />
-                      ) : (
-                        <Circle className="w-5 h-5 text-gray-400" />
-                      )}
-                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                        {title.title}
-                      </span>
-                    </button>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        ))}
+              {expandedModules[unit.title] && (
+                <div className="pl-6 bg-gray-50 dark:bg-gray-800/50">
+                  {unit.titles.map((title) => (
+                    <div key={title.id}>
+                      <button
+                        className="w-full p-3 text-left hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center space-x-3 transition-colors"
+                        onClick={() => handleSelectTitle(unit, title)}
+                      >
+                        {title.isActive ? (
+                          <CheckCircle className="w-5 h-5 text-green-500" />
+                        ) : (
+                          <Circle className="w-5 h-5 text-gray-400" />
+                        )}
+                        <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                          {title.title}
+                        </span>
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
       </div>
     </div>
   );
@@ -230,8 +160,8 @@ function CourseDashboard({ course, units }) {
               </div>
             </div>
 
-            {/* Sidebar Content */}
             {activeTab === 'outline' && renderOutlineContent()}
+
             {activeTab !== 'outline' && (
               <div className="p-6">
                 <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">
@@ -245,7 +175,8 @@ function CourseDashboard({ course, units }) {
           </div>
         </div>
         <main className="flex-1 bg-gray-50 dark:bg-gray-900 overflow-y-auto">
-          <SectionContent title={selectedTitle} unit={selectedUnit} />
+          {activeTab === 'outline' && <SectionContent title={selectedTitle} unit={selectedUnit} />}
+          {activeTab === 'recursos' && renderResourceContent()}   
         </main>
       </div>
     </div>

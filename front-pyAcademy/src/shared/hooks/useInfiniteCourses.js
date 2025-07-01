@@ -13,24 +13,24 @@ export const useInfiniteCourses = () => {
 
     setLoading(true);
     try {
-      const response = await getAllCourses(page, 50);
+      const response = await getAllCourses(page, 15);
       const newCourses = response.data.cursosConProfesor;
 
       if (newCourses.length > 0) {
-        setCourses(prev => {
-          const existingIds = new Set(prev.map(c => c.course.id));
-          const filteredNew = newCourses.filter(c => !existingIds.has(c.course.id));
+        setCourses((prev) => {
+          const existingIds = new Set(prev.map((c) => c.course.id));
+          const filteredNew = newCourses.filter((c) => !existingIds.has(c.course.id));
           return [...prev, ...filteredNew];
         });
       }
 
       setHasMore(response.data.hasNext);
       if (response.data.hasNext) {
-        setPage(prev => prev + 1);
+        setPage((prev) => prev + 1);
       }
     } catch (err) {
       setError(err);
-      console.error("Error fetching courses:", err);
+      console.error('Error fetching courses:', err);
     } finally {
       setLoading(false);
     }
@@ -43,7 +43,7 @@ export const useInfiniteCourses = () => {
   const handleScroll = useCallback(() => {
     if (
       window.innerHeight + document.documentElement.scrollTop <
-      document.documentElement.offsetHeight - 100 ||
+        document.documentElement.offsetHeight - 100 ||
       loading ||
       !hasMore
     ) {
