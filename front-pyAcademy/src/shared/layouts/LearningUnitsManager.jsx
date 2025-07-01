@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useLocation, useParams, useNavigate } from 'react-router-dom';
 import { IoIosArrowRoundBack } from 'react-icons/io';
+import { toast } from 'sonner'; 
 
 //Api
 import { createUnits } from '@/shared/api/api';
@@ -245,15 +246,23 @@ const LearningUnitsManager = () => {
     try {
       console.log('Las unidades a enviar son: ', units);
 
+      // Simulando el guardar las unidades en el backend
       const res = await createUnits(units);
 
+      // Suponiendo que el backend devuelve el ID del curso
       console.log(res);
 
-      // navigate(
-      //   `/teacher/manage-resources?courseId=${courseId}&unitIds=${unitIds.join(',')}&unitTitles=${unitTitles.join(',')}`
-      // );
+      // Mostrar mensaje de éxito
+      toast.success('Unidades guardadas correctamente');
+
+      // Redirigir a la página de recursos
+      navigate(`/teacher/manage-resources?courseId=${courseIdForApi}&unitIds=${units.map(unit => unit.id).join(',')}&unitTitles=${units.map(unit => unit.title).join(',')}`);
+
     } catch (error) {
       console.error('Error al guardar unidades:', error);
+
+      // Mostrar mensaje de error
+      toast.error('Error al guardar las unidades');
     }
   };
 

@@ -12,9 +12,6 @@ import PrivateRoute from '@/app/providers/PrivateRoute';
 // Pages públicas
 const Home = lazy(() => import('../../pages/home/Home'));
 const ManageCourses = lazy(() => import('../../pages/ManageCourses/ManageCourses'));
-const ExplorateCoursesPublic = lazy(
-  () => import('../../pages/ExplorateCourses/ExplorateCoursesPublic')
-);
 const CourseDashboard = lazy(() => import('../../pages/ExplorateCourses/CourseDashboard'));
 const LoginPage = lazy(() => import('../../pages/auth/login/LoginPage'));
 const RegisterPage = lazy(() => import('@/pages/auth/register/RegisterPage'));
