@@ -9,6 +9,7 @@ import java.time.LocalDate;
 @Setter
 public class CourseDetailsDTO {
     private String name;
+    private Long id;
     private String description;
     private Integer durationInHours;
     private String level;
@@ -19,8 +20,9 @@ public class CourseDetailsDTO {
     private boolean isActive;
     private String imageUrl;
 
-    public CourseDetailsDTO(String name, String description, Integer durationInHours, String level, Double price, LocalDate startDate, LocalDate endDate, Integer maxStudents, boolean isActive, String imageUrl) {
+    public CourseDetailsDTO(String name, String description, Integer durationInHours, String level, Double price, LocalDate startDate, LocalDate endDate, Integer maxStudents, boolean isActive, String imageUrl, Long id) {
         this.name = name;
+        this.id = id;
         this.description = description;
         this.durationInHours = durationInHours;
         this.level = level;

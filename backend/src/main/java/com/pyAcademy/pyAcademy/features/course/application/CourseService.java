@@ -109,7 +109,9 @@ public class CourseService {
                         course.getEndDate(),
                         course.getMaxStudents(),
                         course.isActive(),
-                        course.getImageUrl()
+                        course.getImageUrl(),
+                        course.getId()
+
                 );
 
                 TeacherDetailsDTO teacherDetails = courseTeacher.map(ct -> new TeacherDetailsDTO(
