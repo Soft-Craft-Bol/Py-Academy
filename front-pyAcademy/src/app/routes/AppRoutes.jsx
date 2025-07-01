@@ -17,6 +17,7 @@ const ManageCourses = lazy(() => import('../../pages/ManageCourses/ManageCourses
 const LoginPage = lazy(() => import('../../pages/auth/login/LoginPage'));
 const RegisterPage = lazy(() => import('@/pages/auth/register/RegisterPage'));
 const ResourceManager = lazy(() => import('../../pages/ManageResources/ManageResources'));
+const ExplorateCoursesPublic = lazy(() => import('@/pages/ExplorateCourses/ExplorateCoursesPublic'));
 
 // Estudiante
 const PyEditor = lazy(() => import('../../pages/student/PyEditorPage'));
@@ -36,7 +37,7 @@ const CreatePracticePage = lazy(() => import('@/pages/teacher/CreatePracticePage
 const CourseDetailsPage = lazy(() => import('@/pages/teacher/CourseDetailsPage'));
 const TeacherCoursesPage = lazy(() => import('@/pages/teacher/components/TeacherCoursesPage'));
 const EditCoursePage = lazy(() => import('../../shared/layouts/EditCoursePage'));
-const CourseStudentsPage = lazy(() => import('../../pages/teacher/CourseDetailsPage'));
+//const CourseStudentsPage = lazy(() => import('../../pages/teacher/CourseDetailsPage'));
 const UserProfilePage = lazy(() => import('../../pages/profile/UserProfilePage'));
 //const MasCursos = lazy(() => import('../../pages/student/MasCursos'));
 
@@ -60,10 +61,7 @@ export function AppRoutes() {
             <Route path="assessmentsList" element={<AssessmentsListPage />} />
             <Route path="course/:id" element={<CourseDetailsPage />} />
             <Route path="course/:id/add-units" element={<LearningUnitsManager />} />
-            <Route
-              path="course/:id/unit/:unitId/create-practice"
-              element={<CreatePracticePage />}
-            />
+            <Route path="course/:id/unit/:unitId/create-practice" element={<CreatePracticePage />} />
             <Route path="newAssessments" element={<AssessmentEditorPage />} />
             <Route path="gestionar-cursos" element={<ManageCourses />} />
             <Route path="create-course" element={<CourseManangement />} />

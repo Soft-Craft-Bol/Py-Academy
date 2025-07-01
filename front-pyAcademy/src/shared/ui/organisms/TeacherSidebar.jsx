@@ -23,7 +23,7 @@ export function TeacherSidebar({ isSidebarOpen, isMenuOpen, toggleSidebar, toggl
         { title: 'Crear evaluación', to: '/teacher/newAssessments', Icon: LuFilePlus },
         { title: 'Cursos creados', to: '/teacher/gestionar-cursos', Icon: LuBookMarked },
         { title: 'Crear cursos', to: '/teacher/create-course', Icon: IoCreateSharp },
-        { title: 'Crear práctica de programación', to: '/teacher/create-practice', Icon: LuFilePlus }
+        { title: 'Crear práctica de programación', to: 'course/:id/unit/:unitId/create-practice', Icon: LuFilePlus }
     ];
 
     const handleLogout = () => {

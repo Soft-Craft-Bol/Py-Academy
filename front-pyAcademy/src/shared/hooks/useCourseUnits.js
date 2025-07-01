@@ -1,6 +1,6 @@
 // hooks/useCourseUnits.js
 import { useState, useEffect } from 'react';
-import { getUnitsForCourse } from '../api/api';
+import { getCourseUnits } from '../api/api';
 
 export const useCourseUnits = (courseId) => {
   const [units, setUnits] = useState([]);
@@ -14,7 +14,7 @@ export const useCourseUnits = (courseId) => {
       setLoading(true);
       setError(null);
       try {
-        const response = await getUnitsForCourse(courseId);
+        const response = await getCourseUnits(courseId);
         setUnits(response.data);
       } catch (err) {
         setError(err);

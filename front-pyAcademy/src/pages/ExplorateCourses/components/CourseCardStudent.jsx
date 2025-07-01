@@ -2,6 +2,8 @@ import { getUser } from '@/features/auth/utils/authCookies';
 import { useInscribirseCurso } from '@/shared/hooks/useInscribirseCurso';
 
 function CourseCardStudent({ course}) {
+  console.log("lo que le llega al card",course);
+  
   const currentUser = getUser();
   const { mutate, isLoading } = useInscribirseCurso();
 
