@@ -9,6 +9,7 @@ public record CreateExerciseRequest(
     String language,
     String difficultyLevel,
     Integer sequenceNumber,
+    Long unitId,
     List<TestCaseRequest> testCases
 ) {
     
