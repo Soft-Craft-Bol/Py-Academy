@@ -1,6 +1,7 @@
 import { useUnitMaterial } from '@/shared/hooks/useUnitMaterial';
-import VisorFile from "../components/VisorFile";
-import ReproductorVideo from "../components/ReproductorVideo";
+import { VisorFile } from "../organisms/VisorFile";
+import { ReproductorVideo } from '../organisms/ReproductorVideo';
+import PropTypes from 'prop-types';
 
 function UnitDisplay({ unit }) {
   const { material, loading, error } = useUnitMaterial(unit.materialId);
@@ -45,5 +46,13 @@ function UnitDisplay({ unit }) {
     </div>
   );
 }
+
+UnitDisplay.propTypes = {
+  unit: PropTypes.shape({
+    materialId: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired, 
+    description: PropTypes.string.isRequired
+  }).isRequired,
+};
 
 export default UnitDisplay;

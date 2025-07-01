@@ -1,16 +1,21 @@
 import { useParams, useLocation } from 'react-router-dom';
 import EncabezadoCurso from '@/shared/ui/molecules/EncabezadoCurso';
 import SidebarCurso from '@/shared/ui/organisms/SideBarCurso';
-import { VisorFile } from '@/shared/ui/organisms/VisorFile';
+//import { VisorFile } from '@/shared//ui/organisms/VisorFile';
 import { ReproductorVideo } from '@/shared/ui/organisms/ReproductorVideo';
 import { useCourseUnits } from '@/shared/hooks/useCourseUnits'; // ruta según tu estructura
+import UnitDisplay from '@/shared/ui/molecules/UnitDisplay';
 
 function CourseStudent() {
   const { id } = useParams();
   const location = useLocation();
   const { courseDetails } = location.state || {};
+  console.log("flag", id);
+  
 
   const { units, loading, error } = useCourseUnits(id);
+  console.log("esto es unit", units);
+  
 
   return (
     <div className="h-full bg-gray-50 dark:bg-gray-900 flex flex-col">
@@ -39,8 +44,8 @@ function CourseStudent() {
           {!loading && !error && units.length > 0 && (
             <div className="flex w-full h-full gap-4">
               <div className="w-1/2 overflow-y-auto pr-4 space-y-6">
-                {units.map((unit) => (
-                  <UnitDisplay key={unit.id} unit={unit} />
+                {units.map((unit, index) => (
+                  <UnitDisplay key={unit.id || unit.unitId || index} unit={unit} />
                 ))}
               </div>
               <div className="w-1/2 p-1 flex items-center justify-center">

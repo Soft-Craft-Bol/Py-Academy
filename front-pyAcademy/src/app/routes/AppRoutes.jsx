@@ -14,7 +14,7 @@ import PrivateRoute from '@/app/providers/PrivateRoute';
 const Home = lazy(() => import('../../pages/home/Home'));
 const ManageCourses = lazy(() => import('../../pages/ManageCourses/ManageCourses'));
 const ExplorateCourses = lazy(() => import('../../pages/ExplorateCourses/ExplorateCourses'));
-const PrivateCourseView = lazy(() => import('../../pages/ExplorateCourses/PrivateCourseView'));
+//const PrivateCourseView = lazy(() => import('../../pages/ExplorateCourses/PrivateCourseView'));
 const LoginPage = lazy(() => import('../../pages/auth/login/LoginPage'));
 const RegisterPage = lazy(() => import('@/pages/auth/register/RegisterPage'));
 const ResourceManager = lazy(() => import('../../pages/ManageResources/ManageResources'));
@@ -39,7 +39,7 @@ const TeacherCoursesPage = lazy(() => import('@/pages/teacher/components/Teacher
 const EditCoursePage = lazy(() => import('../../shared/layouts/EditCoursePage'));
 const CourseStudentsPage = lazy(() => import('../../pages/teacher/CourseDetailsPage'));
 const UserProfilePage = lazy(() => import('../../pages/profile/UserProfilePage'));
-const MasCursos = lazy(() => import('../../pages/student/MasCursos'));
+//const MasCursos = lazy(() => import('../../pages/student/MasCursos'));
 
 export function AppRoutes() {
   return (
