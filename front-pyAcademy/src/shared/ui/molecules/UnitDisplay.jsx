@@ -5,6 +5,8 @@ import { ReproductorVideo } from '../organisms/ReproductorVideo';
 function UnitDisplay({ unit }) {
   const { material, loading, error } = useUnitMaterial(unit.materialId);
 
+  console.log('El material es', material);
+
   const esVideo = material?.materialType === 'video';
   const esArchivo = ['pdf', 'ppt', 'pptx', 'doc', 'docx', 'xls', 'xlsx'].includes(
     material?.extension || ''

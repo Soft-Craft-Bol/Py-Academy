@@ -1,13 +1,14 @@
 import { BsBook } from 'react-icons/bs';
 import { GiEvilBook } from 'react-icons/gi';
 import { IoIosArrowRoundBack } from 'react-icons/io';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 
 import PythonEditor from './PyEditorPage';
 import { ExerciseAchievements } from './components/ExerciseAchievements';
 
 function ExercisePage() {
   const location = useLocation();
+  const navigate = useNavigate();
   const data = location.state || {};
   const exerciseAchievements = data.achievements || [];
 
@@ -60,12 +61,12 @@ function ExercisePage() {
     <div className="-m-8 min-h-screen">
       <header className="bg-white flex justify-between items-center dark:bg-primary-pri4 py-5 px-4 border-y">
         <div className="flex gap-7">
-          <NavLink
-            to={'/student/exercises'}
+          <div
+            onClick={() => navigate(-1)}
             className={'flex gap-3 items-center hover:text-blue-400'}
           >
             {<IoIosArrowRoundBack className="text-title-lg" />}Volver a Ejercicios
-          </NavLink>
+          </div>
           <p>|</p>
           <h1 className="text-title-md font-semibold">{data.title}</h1>
         </div>
