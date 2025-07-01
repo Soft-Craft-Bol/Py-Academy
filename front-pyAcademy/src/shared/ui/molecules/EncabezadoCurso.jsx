@@ -1,17 +1,17 @@
 import React from 'react';
-import { Search, Bell, User } from 'lucide-react';
+import { Bell, User } from 'lucide-react';
 
 const EncabezadoCurso = ({ courseData }) => {
   return (
-    <header className="h-16 bg-gradient-to-r from-blue-700 via-indigo-700 to-purple-700 shadow-lg p-6 flex justify-between items-center">
+    <header className="h-18 bg-gradient-to-r from-blue-700 via-indigo-700 to-purple-700 shadow-lg p-6 flex justify-between items-center">
       <div className="flex items-center space-x-4">
         <div className="flex items-center space-x-3">
           <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
             <span className="text-white font-bold text-lg">C</span>
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-white">{courseData.title}</h1>
-            <p className="text-blue-100">{courseData.subtitle}</p>
+            <h1 className="text-3xl font-bold text-white">{courseData.name}</h1>
+            <p className="text-blue-100">{courseData.description}</p>
           </div>
         </div>
       </div>

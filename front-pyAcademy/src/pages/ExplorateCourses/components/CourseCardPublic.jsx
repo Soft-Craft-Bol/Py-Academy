@@ -1,27 +1,9 @@
-import { getUser } from '@/features/auth/utils/authCookies';
-import { useInscribirseCurso } from '@/shared/hooks/useInscribirseCurso';
+import { useNavigate } from 'react-router-dom';
 
-function CourseCardStudent({ course}) {
-  const currentUser = getUser();
-  const { mutate, isLoading } = useInscribirseCurso();
+function CourseCardPublic({ course, from }) {
+  const navigate = useNavigate();
 
   const { course: courseDetails, teacher } = course;
-
-  const handleEnroll = () => {
-    console.log('🧠 currentUser:', currentUser);
-    console.log('📘 courseDetails:', courseDetails);
-    if (!currentUser?.id || !courseDetails?.id) {
-      console.error('❌ No se puede inscribir: IDs inválidos', {
-        studentId: currentUser?.id,
-        courseId: courseDetails?.id,
-      });
-      return;
-    }
-    mutate({
-      studentId: currentUser.id,
-      courseId: courseDetails.id,
-    });
-  };
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-md overflow-hidden transition-transform duration-300 hover:scale-[1.02]">
@@ -56,15 +38,20 @@ function CourseCardStudent({ course}) {
         </p>
 
         <button
-        onClick={handleEnroll}
-        disabled={isLoading}
-        className="mt-4 w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-50"
-      >
-        {isLoading ? 'Inscribiéndose...' : 'Tomar curso'}
-      </button>
+          onClick={() =>
+            navigate(`/curso/${courseDetails.id}`, {
+              state: {
+                courseDetails,
+              },
+            })
+          }
+          className="mt-4 w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg text-sm font-medium transition-colors"
+        >
+          Ver más
+        </button>
       </div>
     </div>
   );
 }
 
-export default CourseCardStudent;
+export default CourseCardPublic;

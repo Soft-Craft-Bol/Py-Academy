@@ -4,16 +4,6 @@ import "@cyntler/react-doc-viewer/dist/index.css" ;
 export function VisorFile(){
     const archivos = [
         {
-            uri: "/aprendizaje.pdf",
-            fileType: "pdf",
-            fileName: "ejemplo.pdf"
-        },
-        {
-            uri: "/HOJA DE VIDA2024.docx",
-            fileType: "docx",
-            fileName: "ejemplo.docx"
-        },
-        {
             uri: "/progradb.png",
             fileType: "png",
             fileName: "ejemplo.png"

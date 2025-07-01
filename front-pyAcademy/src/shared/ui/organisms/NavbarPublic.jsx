@@ -22,8 +22,8 @@ export function NavbarPublic() {
   });
 
   const options = [
-    { title: 'Inicio', to: '/' },
-    { title: 'Explorar Cursos', to: '/explorar-cursos' },
+    { title: 'Inicio', to: '/'},
+    { title: 'Explorar Cursos', to: '/explorar-cursos'},
   ];
 
   useEffect(() => {

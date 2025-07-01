@@ -85,3 +85,5 @@ export const fetchUnitsByCourse = (courseId) => {
 };
 
 
+export const getMaterialsByUnit = (unitId) =>
+  api.get(`/learning/materials/unit/${unitId}`);
