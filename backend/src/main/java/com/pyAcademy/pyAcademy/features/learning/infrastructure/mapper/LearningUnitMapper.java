@@ -1,5 +1,9 @@
 package com.pyAcademy.pyAcademy.features.learning.infrastructure.mapper;
 
+import com.pyAcademy.pyAcademy.features.exercises.domain.models.CodingExercisesEntity;
+import com.pyAcademy.pyAcademy.features.exercises.domain.models.TestCasesEntity;
+import com.pyAcademy.pyAcademy.features.exercises.infrastructure.dto.response.ExerciseResponse;
+import com.pyAcademy.pyAcademy.features.exercises.infrastructure.dto.response.TestCaseResponse;
 import com.pyAcademy.pyAcademy.features.learning.domain.models.LearningContentEntity;
 import com.pyAcademy.pyAcademy.features.learning.domain.models.LearningTitleEntity;
 import com.pyAcademy.pyAcademy.features.learning.domain.models.LearningUnitsEntity;
@@ -8,6 +12,7 @@ import com.pyAcademy.pyAcademy.features.learning.infrastructure.dto.response.Tit
 import com.pyAcademy.pyAcademy.features.learning.infrastructure.dto.response.UnitResponse;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -30,8 +35,65 @@ public class LearningUnitMapper {
                 .sequenceNumber(unit.getSequenceNumber())
                 .courseId(unit.getCourseId())
                 .titles(toTitleResponseList(unit.getTitles()))
+                .exercises(toExerciseResponseList(unit.getExercises()))
                 .build();
     }
+
+    public List<ExerciseResponse> toExerciseResponseList(Set<CodingExercisesEntity> exercises) {
+    if (exercises == null || exercises.isEmpty()) {
+        return new ArrayList<>();
+    }
+    
+    return exercises.stream()
+            .sorted((e1, e2) -> e1.getSequenceNumber().compareTo(e2.getSequenceNumber()))
+            .map(this::toExerciseResponse)
+            .collect(Collectors.toList());
+}
+
+public ExerciseResponse toExerciseResponse(CodingExercisesEntity exercise) {
+    return ExerciseResponse.builder()
+            .id(exercise.getId())
+            .title(exercise.getTitle())
+            .description(exercise.getDescription())
+            .starterCode(exercise.getStarterCode())
+            .solutionCode(exercise.getSolutionCode())
+            .language(exercise.getLanguage())
+            .difficultyLevel(exercise.getDifficultyLevel())
+            .sequenceNumber(exercise.getSequenceNumber())
+            .isActive(exercise.getIsActive())
+            .createdAt(exercise.getCreatedAt())
+            .updatedAt(exercise.getUpdatedAt())
+            .testCases(toTestCaseResponseList(exercise.getTestCases()))
+            .build();
+}
+
+public List<TestCaseResponse> toTestCaseResponseList(Set<TestCasesEntity> testCases) {
+    if (testCases == null || testCases.isEmpty()) {
+        return new ArrayList<>();
+    }
+    
+    return testCases.stream()
+            .sorted((t1, t2) -> {
+                if (t1.getWeight() != null && t2.getWeight() != null) {
+                    return t1.getWeight().compareTo(t2.getWeight());
+                }
+                return t1.getId().compareTo(t2.getId());
+            })
+            .map(this::toTestCaseResponse)
+            .collect(Collectors.toList());
+}
+
+public TestCaseResponse toTestCaseResponse(TestCasesEntity testCase) {
+    return TestCaseResponse.builder()
+            .id(testCase.getId())
+            .input(testCase.getInputData())  // Cambio: input -> inputData
+            .expectedOutput(testCase.getExpectedOutput())
+            .description(null)  // No existe description en la nueva entidad
+            .isHidden(testCase.getIsHidden())
+            .sequenceNumber(testCase.getWeight())  // Cambio: sequenceNumber -> weight
+            .isActive(null)  // No existe isActive en la nueva entidad
+            .build();
+}
 
     private List<TitleResponse> toTitleResponseList(Set<LearningTitleEntity> titles) {
         return titles.stream()

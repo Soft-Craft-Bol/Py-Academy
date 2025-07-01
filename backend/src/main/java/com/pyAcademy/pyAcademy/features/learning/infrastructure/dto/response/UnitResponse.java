@@ -1,5 +1,7 @@
 package com.pyAcademy.pyAcademy.features.learning.infrastructure.dto.response;
 
+import com.pyAcademy.pyAcademy.features.exercises.infrastructure.dto.response.ExerciseResponse;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,4 +21,5 @@ public class UnitResponse {
     private Integer sequenceNumber;
     private Long courseId;
     private List<TitleResponse> titles;
+    private List<ExerciseResponse> exercises;
 }

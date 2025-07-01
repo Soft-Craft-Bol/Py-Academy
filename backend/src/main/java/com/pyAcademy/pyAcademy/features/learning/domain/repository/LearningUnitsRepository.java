@@ -15,6 +15,8 @@ public interface LearningUnitsRepository extends JpaRepository<LearningUnitsEnti
            "LEFT JOIN FETCH u.course " +
            "LEFT JOIN FETCH u.titles t " +
            "LEFT JOIN FETCH t.contents " +
+           "LEFT JOIN FETCH u.exercises e " +
+           "LEFT JOIN FETCH e.testCases " +
            "ORDER BY u.sequenceNumber ASC")
     List<LearningUnitsEntity> findAllWithCompleteData();
 
@@ -22,6 +24,8 @@ public interface LearningUnitsRepository extends JpaRepository<LearningUnitsEnti
            "LEFT JOIN FETCH u.course " +
            "LEFT JOIN FETCH u.titles t " +
            "LEFT JOIN FETCH t.contents " +
+           "LEFT JOIN FETCH u.exercises e " +
+           "LEFT JOIN FETCH e.testCases " +
            "WHERE u.isActive = true " +
            "ORDER BY u.sequenceNumber ASC")
     List<LearningUnitsEntity> findAllActiveWithCompleteData();
@@ -30,6 +34,8 @@ public interface LearningUnitsRepository extends JpaRepository<LearningUnitsEnti
            "LEFT JOIN FETCH u.course " +
            "LEFT JOIN FETCH u.titles t " +
            "LEFT JOIN FETCH t.contents " +
+           "LEFT JOIN FETCH u.exercises e " +
+           "LEFT JOIN FETCH e.testCases " +
            "WHERE u.course.id = :courseId " +
            "ORDER BY u.sequenceNumber ASC")
     List<LearningUnitsEntity> findByCourseIdWithCompleteData(Long courseId);
