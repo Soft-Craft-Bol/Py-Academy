@@ -1,4 +1,4 @@
-package com.pyAcademy.pyAcademy.features.education.infrastructure.adapter.jpa;
+package com.pyAcademy.pyAcademy.features.education.infrastructure.adapters;
 
 import com.pyAcademy.pyAcademy.features.education.application.ports.StudentRepositoryPort;
 import com.pyAcademy.pyAcademy.features.education.domain.models.StudentEntity;
