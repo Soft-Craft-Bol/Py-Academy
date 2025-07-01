@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
 
 @RestController
 @RequestMapping("/learning/composite")
@@ -27,31 +25,39 @@ public class LearningCompositeController {
     private final LearningCompositeService compositeService;
 
     @PostMapping("/create")
-    public ResponseEntity<LearningUnitsEntity> createUnitWithTitlesAndContents(@RequestBody UnitRequest request) {
-        LearningUnitsEntity unit = new LearningUnitsEntity();
-        unit.setTitle(request.getTitle());
-        unit.setDescription(request.getDescription());
-        unit.setIsActive(request.getIsActive());
-        unit.setSequenceNumber(request.getSequenceNumber());
+    public ResponseEntity<List<LearningUnitsEntity>> createUnitsWithTitlesAndContents(@RequestBody List<UnitRequest> requests) {
+        List<LearningUnitsEntity> savedUnits = new ArrayList<>();
+        
+        for (UnitRequest request : requests) {
+            LearningUnitsEntity unit = new LearningUnitsEntity();
+            unit.setTitle(request.getTitle());
+            unit.setDescription(request.getDescription());
+            unit.setIsActive(request.getIsActive());
+            unit.setSequenceNumber(request.getSequenceNumber());
 
-        List<LearningTitleEntity> titles = request.getTitles().stream().map(titleRequest -> {
-            LearningTitleEntity title = new LearningTitleEntity();
-            title.setTitle(titleRequest.getTitle());
-            title.setDescription(titleRequest.getDescription());
-            title.setIsActive(titleRequest.getIsActive());
-            title.setSequenceNumber(titleRequest.getSequenceNumber());
+            List<LearningTitleEntity> titles = request.getTitles().stream().map(titleRequest -> {
+                LearningTitleEntity title = new LearningTitleEntity();
+                title.setTitle(titleRequest.getTitle());
+                title.setDescription(titleRequest.getDescription());
+                title.setIsActive(titleRequest.getIsActive());
+                title.setSequenceNumber(titleRequest.getSequenceNumber());
 
-            Set<LearningContentEntity> contents = new HashSet<>(titleRequest.getContents().stream().map(contentRequest -> {
-                LearningContentEntity content = new LearningContentEntity();
-                content.setContent(contentRequest.getContent());
-                return content;
-            }).toList());
+                // NO establecer los contenidos aquí, los pasaremos por separado
+                List<LearningContentEntity> contents = titleRequest.getContents().stream().map(contentRequest -> {
+                    LearningContentEntity content = new LearningContentEntity();
+                    content.setContent(contentRequest.getContent());
+                    return content;
+                }).toList();
 
-            title.setContents(contents);
-            return title;
-        }).toList();
+                // Guardar los contenidos como una lista temporal en lugar de un Set
+                title.setContents(new HashSet<>(contents));
+                return title;
+            }).toList();
 
-        LearningUnitsEntity savedUnit = compositeService.createUnitWithTitlesAndContents(unit, new ArrayList<>(titles));
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedUnit);
+            LearningUnitsEntity savedUnit = compositeService.createUnitWithTitlesAndContents(unit, new ArrayList<>(titles), request.getCourseId());
+            savedUnits.add(savedUnit);
+        }
+        
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedUnits);
     }
 }

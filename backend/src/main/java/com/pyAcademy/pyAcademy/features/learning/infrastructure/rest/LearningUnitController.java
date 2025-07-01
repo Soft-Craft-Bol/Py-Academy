@@ -2,6 +2,8 @@ package com.pyAcademy.pyAcademy.features.learning.infrastructure.rest;
 
 import com.pyAcademy.pyAcademy.features.course.domain.models.CourseEntity;
 import com.pyAcademy.pyAcademy.features.learning.domain.models.LearningUnitsEntity;
+import com.pyAcademy.pyAcademy.features.learning.application.service.LearningUnitRetrievalService;
+import com.pyAcademy.pyAcademy.features.learning.infrastructure.dto.response.UnitResponse;
 import com.pyAcademy.pyAcademy.features.learning.infrastructure.dto.request.CreateUnitRequest;
 import com.pyAcademy.pyAcademy.features.learning.infrastructure.dto.response.LearningUnitResponse;
 import com.pyAcademy.pyAcademy.features.learning.application.ports.input.LearningUnitInputPort;
@@ -19,6 +21,7 @@ import java.util.stream.Collectors;
 public class LearningUnitController {
 
     private final LearningUnitInputPort learningUnitInputPort;
+    private final LearningUnitRetrievalService unitRetrievalService;
 
     @PostMapping
     public ResponseEntity<LearningUnitResponse> createUnit(@RequestBody CreateUnitRequest request) {
@@ -41,12 +44,9 @@ public class LearningUnitController {
     }
 
     @GetMapping("/course/{courseId}")
-    public ResponseEntity<List<LearningUnitResponse>> getUnitsByCourse(@PathVariable Long courseId) {
-        List<LearningUnitsEntity> units = learningUnitInputPort.getUnitsByCourseId(courseId);
-        List<LearningUnitResponse> responses = units.stream()
-                .map(this::mapToResponse)
-                .collect(Collectors.toList());
-        return ResponseEntity.ok(responses);
+    public ResponseEntity<List<UnitResponse>> getUnitsByCourse(@PathVariable Long courseId) {
+        List<UnitResponse> units = unitRetrievalService.getUnitsByCourse(courseId);
+        return ResponseEntity.ok(units);
     }
 
     @DeleteMapping("/{unitId}")
