@@ -22,11 +22,6 @@ import {
 
 const tabs = [
   { key: 'contenido', label: 'Contenido', icon: BookOpen},
-<<<<<<< HEAD
-  { key: 'noticias', label: 'Noticias', icon: FolderOpen},
-  { key: 'descargables', label: 'Descargar recursos', icon: Download},
-=======
->>>>>>> AleFront
 ];
 
 const SidebarCurso = () => {
