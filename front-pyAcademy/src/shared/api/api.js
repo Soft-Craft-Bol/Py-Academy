@@ -49,6 +49,10 @@ export const createLearningMaterial = (data) => api.post('/learning/materials', 
 
 //course
 export const inscribirseCurso = (data) => api.post('/courses/enrollments', data);
+export const getCourseByStudent = (studentId) => api.get(`/courses/enrollments/student/${studentId}`);
+export const getCoursesByTeacher = (teacherId) => api.get(`/courses/enrollments/teacher/${teacherId}`);
+export const getStudentByCourse = (courseId) => api.get(`/courses/enrollments/${courseId}/students`);
+export const getUserDetails = (userId) => api.get(`/users/${userId}`);
 
 export const createCourse = (formData) => {
   return api.post('/courses', formData, {
@@ -79,3 +83,7 @@ export const fetchUnitsByCourse = (courseId) => {
   }
   return api.get(`/learning/units/course/${courseId}`);
 };
+
+
+export const getMaterialsByUnit = (unitId) =>
+  api.get(`/learning/materials/unit/${unitId}`);
