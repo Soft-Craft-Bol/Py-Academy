@@ -8,7 +8,7 @@ import UnitDisplay from '@/shared/ui/molecules/UnitDisplay';
 function CourseStudent({ units }) {
   const { id } = useParams();
   const location = useLocation();
-  const courseDetails = sessionStorage.getItem('Course');
+  const courseDetails = JSON.parse(sessionStorage.getItem('Course'));
 
   // const { units, loading, error } = useCourseUnits(id);
 
@@ -33,18 +33,19 @@ function CourseStudent({ units }) {
             </div>
           )} */}
 
-          {units.length === 0 && (
+          {units && units.length === 0 && (
             <div className="text-center w-full mt-10">
               No hay unidades disponibles para este curso.
             </div>
           )}
 
-          {units.length > 0 && (
+          {units && units.length > 0 && (
             <div className="flex w-full h-full gap-4">
               <div className="w-full overflow-y-auto pr-4 space-y-6">
-                {units.map((unit, index) => (
-                  <UnitDisplay key={unit.id || unit.unitId || index} unit={unit} />
-                ))}
+                {units &&
+                  units.map((unit, index) => (
+                    <UnitDisplay key={unit.id || unit.unitId || index} unit={unit} />
+                  ))}
               </div>
             </div>
           )}

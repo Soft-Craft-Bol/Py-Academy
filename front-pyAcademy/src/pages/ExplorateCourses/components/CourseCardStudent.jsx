@@ -1,5 +1,6 @@
 import { getUser } from '@/features/auth/utils/authCookies';
 import { useInscribirseCurso } from '@/shared/hooks/useInscribirseCurso';
+import { toast, Toaster} from 'sonner';
 
 function CourseCardStudent({ course}) {
   console.log("lo que le llega al card",course);
@@ -19,6 +20,7 @@ function CourseCardStudent({ course}) {
         studentId: currentUser?.id,
         courseId: courseDetails?.id,
       });
+      toast.access("Inscrito correctamente")
       return;
     }
     mutate({
@@ -29,6 +31,7 @@ function CourseCardStudent({ course}) {
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-md overflow-hidden transition-transform duration-300 hover:scale-[1.02]">
+      <Toaster/>
       <img
         src={courseDetails.imageUrl}
         alt={courseDetails.name}
