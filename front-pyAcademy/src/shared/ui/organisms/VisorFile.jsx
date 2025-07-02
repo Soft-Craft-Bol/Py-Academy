@@ -1,34 +1,27 @@
+import PropTypes from 'prop-types';
 import DocViewer, { DocViewerRenderers } from "@cyntler/react-doc-viewer";
-import "@cyntler/react-doc-viewer/dist/index.css" ;
+import "@cyntler/react-doc-viewer/dist/index.css";
 
-export function VisorFile(){
-    const archivos = [
-        {
-            uri: "/aprendizaje.pdf",
-            fileType: "pdf",
-            fileName: "ejemplo.pdf"
-        },
-        {
-            uri: "/HOJA DE VIDA2024.docx",
-            fileType: "docx",
-            fileName: "ejemplo.docx"
-        },
-        {
-            uri: "/progradb.png",
-            fileType: "png",
-            fileName: "ejemplo.png"
-        },
-        
-    ]
-    return (
-        <div className="h-full flex flex-col">
-            <div className="flex-1 overflow-y-auto">
-                <DocViewer
-                    documents={archivos}
-                    pluginRenderers={DocViewerRenderers}
-                    className="h-full"
-                />
-            </div>
-        </div>
-    );
+export function VisorFile({ documentos }) {
+  return (
+    <div className="h-full flex flex-col">
+      <div className="flex-1 overflow-y-auto">
+        <DocViewer
+          documents={documentos}
+          pluginRenderers={DocViewerRenderers}
+          className="h-full"
+        />
+      </div>
+    </div>
+  );
 }
+
+VisorFile.propTypes = {
+  documentos: PropTypes.arrayOf(
+    PropTypes.shape({
+      uri: PropTypes.string.isRequired,
+      fileType: PropTypes.string,
+      fileName: PropTypes.string,
+    })
+  ).isRequired,
+};

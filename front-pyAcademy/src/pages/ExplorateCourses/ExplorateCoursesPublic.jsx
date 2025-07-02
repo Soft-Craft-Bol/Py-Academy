@@ -1,15 +1,12 @@
 import { useInfiniteCourses } from '@/shared/hooks/useInfiniteCourses';
-import CourseCardStudent from './components/CourseCardStudent';
-import { useLocation } from 'react-router-dom';
+import CourseCardPublic from './components/CourseCardPublic';
 
 
-function StudentCourses() {
-  const location = useLocation();
-  const from = location.state?.from || 'privada';
+function PublicCourses() {
   const { courses, loading, error, hasMore } = useInfiniteCourses();
 
   return (
-    <section className="px-4 md:px-10 py-12 min-h-screen">
+    <section className="px-4 md:px-10 py-12 min-h-screen bg-gray-50 dark:bg-gradient-1">
       <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-white">Cursos Disponibles</h2>
 
       {error && (
@@ -20,7 +17,7 @@ function StudentCourses() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {courses.map((courseData) => (
-          <CourseCardStudent
+          <CourseCardPublic
             key={`${courseData.course.id}-${courseData.course.name}`}
             course={courseData}
           />
@@ -48,4 +45,4 @@ function StudentCourses() {
   );
 }
 
-export default StudentCourses;
+export default PublicCourses;

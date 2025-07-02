@@ -8,6 +8,7 @@ export const useExecuteCode = (code, input, setOutput, setInfoOutput) => {
         inputs: input,
       });
       setInfoOutput(res.data);
+      console.log('Los resultados de la ejecucion son:', res.data);
       setOutput(res.data.success ? res.data.output : res.data.error);
     } catch (error) {
       setOutput(`Error: ${error.message}`);

@@ -25,6 +25,7 @@ api.interceptors.request.use(
 
 export default api;
 
+//Autentificacion y Registro
 export const loginUser = (data) => api.post('/auth/log-in', data);
 export const addUser = (formData) => {
   return api.post('/auth/sign-up', formData, {
@@ -38,20 +39,24 @@ export const saludo = (nombre = 'Usuario') =>
     params: { nombre },
   });
 
+//Simulador de codigo
 export const executeCode = (data) => api.post('/execute', data);
 
+//Ejercicios
 export const createExercises = (data) => api.post('/exercises', data);
 
 // Subir recursos para cursos
 export const createLearningMaterial = (data) => api.post('/learning/materials', data);
 
-
-
 //course
 export const inscribirseCurso = (data) => api.post('/courses/enrollments', data);
-export const getCourseByStudent = (studentId) => api.get(`/courses/enrollments/student/${studentId}`);
-export const getCoursesByTeacher = (teacherId) => api.get(`/courses/enrollments/teacher/${teacherId}`);
-export const getStudentByCourse = (courseId) => api.get(`/courses/enrollments/${courseId}/students`);
+export const getCourseByStudent = (studentId) =>
+  api.get(`/courses/enrollments/student/${studentId}`);
+export const getCoursesByTeacher = (teacherId) =>
+  api.get(`/courses/enrollments/teacher/${teacherId}`);
+export const getCourseUnits = (courseId) => api.get(`/learning/units/course/${courseId}`);
+export const getStudentByCourse = (courseId) =>
+  api.get(`/courses/enrollments/${courseId}/students`);
 export const getUserDetails = (userId) => api.get(`/users/${userId}`);
 
 export const createCourse = (formData) => {
@@ -71,11 +76,10 @@ export const getAllCourses = (page = 0, size = 10) => {
   });
 };
 
-export const registerUnits = (data) => api.post('/learning/units', data);
-export const getUnitsForCourse = (courseId) => api.get(`/learning/units/course/${courseId}`);
+export const createUnits = (data) => api.post('/learning/composite/create', data);
 export const getTeacherCourses = (teacherId) => api.get(`/teachers/${teacherId}/courses`);
 export const getExercises = () => api.get(`/exercises`);
-
+export const getUnitsForCourse = (courseId) => api.get(`/learning/units/course/${courseId}`);
 export const fetchUnitsByCourse = (courseId) => {
   // Verificar que courseId sea válido
   if (!courseId || isNaN(courseId)) {
@@ -84,4 +88,4 @@ export const fetchUnitsByCourse = (courseId) => {
   return api.get(`/learning/units/course/${courseId}`);
 };
 
-
+export const getMaterialsByUnit = (unitId) => api.get(`/learning/materials/unit/${unitId}`);

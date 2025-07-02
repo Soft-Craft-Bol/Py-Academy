@@ -34,7 +34,7 @@ function ExercisePage() {
               <p className="font-medium text-blue-600 dark:text-blue-400">
                 Entrada:{' '}
                 <code className="bg-gray-200 dark:bg-gray-700 rounded px-1 py-0.5">
-                  {tc.inputData}
+                  {tc.inputData || tc.input}
                 </code>
               </p>
 
