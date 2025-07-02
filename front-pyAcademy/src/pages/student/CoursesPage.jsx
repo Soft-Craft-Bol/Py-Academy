@@ -21,12 +21,11 @@ function CoursesPage() {
   });
 
   const courses = response?.data || response || [];
-  console.log("courses++",courses );
-  
+  console.log('courses++', courses);
 
   const handleCardClick = (course, id) => {
     // navigate(`/student/curso/${id}`, { state: courses });
-    sessionStorage.setItem('course', course);
+    sessionStorage.setItem('Course', JSON.stringify(course));
     navigate(`/student/CourseDashboard/${id}`);
   };
 

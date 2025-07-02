@@ -1,7 +1,7 @@
-import { VisorFile } from "../organisms/VisorFile";
+import { VisorFile } from '../organisms/VisorFile';
 import { ReproductorVideo } from '../organisms/ReproductorVideo';
 import PropTypes from 'prop-types';
-import { getMaterialsByUnit  } from '@/shared/api/api';
+import { getMaterialsByUnit } from '@/shared/api/api';
 import { useEffect, useState } from 'react';
 
 function UnitDisplay({ unit }) {
@@ -12,8 +12,9 @@ function UnitDisplay({ unit }) {
   useEffect(() => {
     async function fetchMaterial() {
       try {
-        const res = await getMaterialsByUnit(unit.id);
-        const firstMaterial = res.data[0]; 
+        const res = await getMaterialsByUnit(unit.unitId);
+        console.log('res', res);
+        const firstMaterial = res.data[0];
         setMaterial(firstMaterial);
       } catch (err) {
         console.error('❌ Error al obtener material:', err);
@@ -26,10 +27,8 @@ function UnitDisplay({ unit }) {
     fetchMaterial();
   }, [unit.id]);
 
-  const esVideo = material?.materialType === '  VIDEO';
-  const esArchivo = ['PDF', 'IMAGEN'].includes(
-    material?.materialType || ''
-  );
+  const esVideo = material?.materialType === 'VIDEO';
+  const esArchivo = ['PDF', 'IMAGEN'].includes(material?.materialType || '');
 
   return (
     <div className="bg-white dark:bg-gray-700 p-4 rounded shadow-md">
@@ -37,7 +36,7 @@ function UnitDisplay({ unit }) {
         <h3 className="text-xl font-semibold text-gray-800 dark:text-white">{unit.title}</h3>
         <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">{unit.description}</p>
       </div>
-      <div className="w-1/2 overflow-y-auto pr-4">
+      <div className="w-full overflow-y-auto pr-4">
         {/*loading && <p className="text-blue-500">Cargando material...</p>*/}
         {/*error && <p className="text-red-500">Error al cargar material.</p>*/}
         {!loading && material && (
@@ -62,7 +61,6 @@ function UnitDisplay({ unit }) {
           </div>
         )}
       </div>
-      
     </div>
   );
 }
@@ -70,8 +68,8 @@ function UnitDisplay({ unit }) {
 UnitDisplay.propTypes = {
   unit: PropTypes.shape({
     materialId: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired, 
-    description: PropTypes.string.isRequired
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
   }).isRequired,
 };
 
