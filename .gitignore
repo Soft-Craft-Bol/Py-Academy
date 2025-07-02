@@ -1,0 +1,66 @@
+# Logs
+front-pyAcademy/logs
+front-pyAcademy/*.log
+front-pyAcademy/npm-debug.log*
+front-pyAcademy/yarn-debug.log*
+front-pyAcademy/yarn-error.log*
+front-pyAcademy/pnpm-debug.log*
+front-pyAcademy/lerna-debug.log*
+
+front-pyAcademy/node_modules
+front-pyAcademy/dist
+front-pyAcademy/dist-ssr
+front-pyAcademy/*.local
+
+# Editor directories and files
+front-pyAcademy/.vscode/*
+front-pyAcademy/!.vscode/extensions.json
+front-pyAcademy/.idea
+front-pyAcademy/.DS_Store
+front-pyAcademy/*.suo
+front-pyAcademy/*.ntvs*
+front-pyAcademy/*.njsproj
+front-pyAcademy/*.sln
+front-pyAcademy/*.sw?
+
+
+front-pyAcademy/.gitignore
+
+
+
+### === BACKEND (Spring Boot) === ###
+/backend/target/
+/backend/.mvn/
+/backend/.idea/
+/backend/.vscode/
+backend/application.properties
+/backend/.env
+/backend/uploads/
+.idea
+docker
+
+
+### Maven wrapper jar (necesario mantener)
+/backend/.mvn/wrapper/maven-wrapper.jar
+
+### IntelliJ/STS/NetBeans/VSCode
+*.iml
+*.ipr
+*.iws
+.classpath
+.project
+.factorypath
+.settings
+.apt_generated
+.sts4-cache
+
+### NetBeans specific
+/backend/nbproject/private/
+/backend/nbbuild/
+/backend/dist/
+/backend/nbdist/
+/backend/.nb-gradle/
+/backend/build/
+
+### VSCode
+.vscode/
