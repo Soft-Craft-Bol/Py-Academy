@@ -100,6 +100,7 @@ public class CourseService {
                         .findFirst();
 
                 CourseDetailsDTO courseDetails = new CourseDetailsDTO(
+                        course.getId(),
                         course.getName(),
                         course.getDescription(),
                         course.getDurationInHours(),

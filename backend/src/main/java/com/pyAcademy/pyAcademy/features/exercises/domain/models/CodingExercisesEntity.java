@@ -1,5 +1,7 @@
 package com.pyAcademy.pyAcademy.features.exercises.domain.models;
 
+import com.pyAcademy.pyAcademy.features.learning.domain.models.LearningUnitsEntity;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -60,4 +62,9 @@ public class CodingExercisesEntity {
 
     @OneToMany(mappedBy = "exercise", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<TestCasesEntity> testCases = new HashSet<>();
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "unit_id", nullable = true)
+    private LearningUnitsEntity unit;
+
 }

@@ -10,8 +10,6 @@ import lombok.Setter;
 import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.List;
-import java.util.ArrayList;
 
 @Entity
 @Getter
@@ -33,12 +31,12 @@ public class ExerciseSubmissionsEntity {
     private Timestamp submissionTime;
 
     @Column(name = "execution_time_ms")
-    private Long executionTimeMs; // Cambiado de Integer a Long
+    private Long executionTimeMs;
 
     @Column(name = "memory_usage_kb")
-    private Long memoryUsageKb; // Cambiado de Integer a Long
+    private Long memoryUsageKb;
 
-    private String status; // 'pending', 'success', 'failed'
+    private String status;
 
     @ManyToOne
     @JoinColumn(name = "exercise_id", nullable = false)

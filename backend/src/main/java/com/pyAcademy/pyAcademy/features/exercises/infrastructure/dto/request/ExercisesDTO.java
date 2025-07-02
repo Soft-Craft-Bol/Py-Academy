@@ -266,4 +266,3 @@ public class ExercisesDTO {
         public void setSubmissionId(Long submissionId) { this.submissionId = submissionId; }
     }
 }
-

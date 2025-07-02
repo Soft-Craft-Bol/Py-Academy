@@ -1,6 +1,8 @@
 package com.pyAcademy.pyAcademy.features.learning.domain.models;
 
 import com.pyAcademy.pyAcademy.features.course.domain.models.CourseEntity;
+import com.pyAcademy.pyAcademy.features.exercises.domain.models.CodingExercisesEntity;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -42,9 +44,14 @@ public class LearningUnitsEntity {
     @JoinColumn(name = "course_id", nullable = false)
     private CourseEntity course;
 
-    @OneToMany(mappedBy = "unit", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "unit", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @Builder.Default
     private Set<LearningMaterialsEntity> materials = new HashSet<>();
+
+    // Relación directa con títulos para facilitar el acceso
+    @OneToMany(mappedBy = "unit", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @Builder.Default
+    private Set<LearningTitleEntity> titles = new HashSet<>();
 
     @ManyToMany
     @JoinTable(
@@ -62,5 +69,9 @@ public class LearningUnitsEntity {
     public Long getCourseId() {
         return course != null ? course.getId() : null;
     }
+
+    @OneToMany(mappedBy = "unit", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @Builder.Default
+    private Set<CodingExercisesEntity> exercises = new HashSet<>();
 
 }
